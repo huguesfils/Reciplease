@@ -12,6 +12,7 @@
 		BBB8D39229E6030F008C8442 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBB8D39129E6030F008C8442 /* Assets.xcassets */; };
 		BBB8D39529E6030F008C8442 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBB8D39429E6030F008C8442 /* Preview Assets.xcassets */; };
 		BBB8D39C29E60451008C8442 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39B29E60451008C8442 /* Favorites.swift */; };
+		BBB8D39E29E605AD008C8442 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39D29E605AD008C8442 /* Search.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		BBB8D39129E6030F008C8442 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBB8D39429E6030F008C8442 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BBB8D39B29E60451008C8442 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		BBB8D39D29E605AD008C8442 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */,
 				BBB8D38F29E6030E008C8442 /* ContentView.swift */,
+				BBB8D39D29E605AD008C8442 /* Search.swift */,
 				BBB8D39B29E60451008C8442 /* Favorites.swift */,
 				BBB8D39129E6030F008C8442 /* Assets.xcassets */,
 				BBB8D39329E6030F008C8442 /* Preview Content */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBB8D39C29E60451008C8442 /* Favorites.swift in Sources */,
+				BBB8D39E29E605AD008C8442 /* Search.swift in Sources */,
 				BBB8D39029E6030E008C8442 /* ContentView.swift in Sources */,
 				BBB8D38E29E6030E008C8442 /* RecipleaseApp.swift in Sources */,
 			);
