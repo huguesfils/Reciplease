@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BBA326AE29E6EB6D00E34018 /* RecipiesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA326AD29E6EB6D00E34018 /* RecipiesList.swift */; };
 		BBB8D38E29E6030E008C8442 /* RecipleaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */; };
 		BBB8D39029E6030E008C8442 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D38F29E6030E008C8442 /* ContentView.swift */; };
 		BBB8D39229E6030F008C8442 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBB8D39129E6030F008C8442 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BBA326AD29E6EB6D00E34018 /* RecipiesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipiesList.swift; sourceTree = "<group>"; };
 		BBB8D38A29E6030E008C8442 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseApp.swift; sourceTree = "<group>"; };
 		BBB8D38F29E6030E008C8442 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BBA326AF29E6EBFF00E34018 /* Search views */ = {
+			isa = PBXGroup;
+			children = (
+				BBB8D39D29E605AD008C8442 /* Search.swift */,
+				BBA326AD29E6EB6D00E34018 /* RecipiesList.swift */,
+			);
+			path = "Search views";
+			sourceTree = "<group>";
+		};
+		BBA326B029E6EC1C00E34018 /* Favorites views */ = {
+			isa = PBXGroup;
+			children = (
+				BBB8D39B29E60451008C8442 /* Favorites.swift */,
+			);
+			path = "Favorites views";
+			sourceTree = "<group>";
+		};
 		BBB8D38129E6030E008C8442 = {
 			isa = PBXGroup;
 			children = (
@@ -57,8 +76,8 @@
 			children = (
 				BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */,
 				BBB8D38F29E6030E008C8442 /* ContentView.swift */,
-				BBB8D39D29E605AD008C8442 /* Search.swift */,
-				BBB8D39B29E60451008C8442 /* Favorites.swift */,
+				BBA326AF29E6EBFF00E34018 /* Search views */,
+				BBA326B029E6EC1C00E34018 /* Favorites views */,
 				BBB8D39129E6030F008C8442 /* Assets.xcassets */,
 				BBB8D39329E6030F008C8442 /* Preview Content */,
 			);
@@ -143,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA326AE29E6EB6D00E34018 /* RecipiesList.swift in Sources */,
 				BBB8D39C29E60451008C8442 /* Favorites.swift in Sources */,
 				BBB8D39E29E605AD008C8442 /* Search.swift in Sources */,
 				BBB8D39029E6030E008C8442 /* ContentView.swift in Sources */,

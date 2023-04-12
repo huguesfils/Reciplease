@@ -7,22 +7,17 @@
 
 import SwiftUI
 
-struct SearchResultList: View {
-    var body: some View {
-        Text("Result list")
-    }
-    
-}
-
 struct Search: View {
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView {
-            NavigationLink(destination: SearchResultList()) {
+            NavigationLink(destination: RecipiesList()) {
                 Text("Search for recepies")
             }
-          
-            .navigationBarTitle("Search")
-        }
+            .searchable(text: $searchText, prompt: "What's in your fridge?")
+            .navigationTitle("Search")
+                    }
     }
 }
 

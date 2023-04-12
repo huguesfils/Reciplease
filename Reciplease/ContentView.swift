@@ -12,10 +12,12 @@ struct ContentView: View {
         TabView {
             Search()
                 .tabItem {
+                    Image(systemName: "magnifyingglass.circle")
                     Text("Search")
                 }
             Favorites()
                 .tabItem{
+                    Image(systemName: "heart.circle")
                     Text("Favorites")
                 }
         }
