@@ -9,15 +9,26 @@ import SwiftUI
 
 struct Search: View {
     @State private var searchText = ""
+    @State private var isNavigate = false
     
     var body: some View {
         NavigationView {
-            NavigationLink(destination: RecipiesList()) {
-                Text("Search for recepies")
+            VStack(){
+                Text("Ingredient list")
+                Spacer()
+                NavigationLink(destination: RecipiesList(), isActive: $isNavigate) {
+               
+                Button("Search for recipies") {
+                    self.isNavigate = true
+                }
+                    .buttonStyle(.borderedProminent)
+                }
+                .searchable(text: $searchText, prompt: "What's in your fridge?")
+                .navigationTitle("Search")
+                .padding(20)
             }
-            .searchable(text: $searchText, prompt: "What's in your fridge?")
-            .navigationTitle("Search")
-                    }
+            .background(.regularMaterial)
+        }
     }
 }
 
