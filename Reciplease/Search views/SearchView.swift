@@ -1,5 +1,5 @@
 //
-//  Search.swift
+//  SearchView.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 11/04/2023.
@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct Search: View {
-    @State private var ingredients = [String]()
-    @State private var searchInput = ""
-    @State private var isNavigate = false
+struct SearchView: View {
+    @StateObject private var viewModel = ViewModel()
+   
     
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
-                TextField("Lemon, cheese, Sausages...", text: $searchInput)
+                TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
                     .textFieldStyle(.roundedBorder)
                     .textInputAutocapitalization(.never)
                     .onAppear {
@@ -23,17 +22,17 @@ struct Search: View {
                     }
                 
                 List {
-                    ForEach(ingredients, id: \.self) { ingredient in
+                    ForEach(viewModel.ingredients, id: \.self) { ingredient in
                         Text(ingredient)
                     }.onDelete { indexSet in
-                        ingredients.remove(atOffsets: indexSet)
+                        viewModel.ingredients.remove(atOffsets: indexSet)
                     }
                 }
                 Spacer()
-                NavigationLink(destination: RecipiesList(), isActive: $isNavigate) {
+                NavigationLink(destination: RecipiesListView(), isActive: $viewModel.isNavigate) {
                         
                         Button("Search for recipies") {
-                            self.isNavigate = true
+                            self.viewModel.isNavigate = true
                         }
                         .buttonStyle(.borderedProminent)
                         
@@ -46,19 +45,17 @@ struct Search: View {
             .navigationTitle("Search")
             .onSubmit(addIngredient)
         }
-        
     }
-    
     func addIngredient() {
-        let newIngredient = searchInput.lowercased()
         withAnimation {
-            ingredients.insert(newIngredient, at: 0)
+            viewModel.addIngredient()
         }
     }
+   
 }
 
-struct Search_Previews: PreviewProvider {
+struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        Search()
+        SearchView()
     }
 }
