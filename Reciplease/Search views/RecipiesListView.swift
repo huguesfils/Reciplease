@@ -10,6 +10,8 @@ import SwiftUI
 struct RecipiesListView: View {
     var body: some View {
         Text("List")
+            .navigationTitle("Reciplease")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

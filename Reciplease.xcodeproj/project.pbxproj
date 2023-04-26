@@ -80,7 +80,7 @@
 			children = (
 				BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */,
 				BBB8D38F29E6030E008C8442 /* ContentView.swift */,
-				BBF96B8229F0454200FCB40B /* Search model */,
+				BBF96B8229F0454200FCB40B /* Search ViewModel */,
 				BBA326AF29E6EBFF00E34018 /* Search views */,
 				BBA326B029E6EC1C00E34018 /* Favorites views */,
 				BBB8D39129E6030F008C8442 /* Assets.xcassets */,
@@ -97,13 +97,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BBF96B8229F0454200FCB40B /* Search model */ = {
+		BBF96B8229F0454200FCB40B /* Search ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */,
 				BBF96B8329F0481700FCB40B /* RecipiesListView-ViewModel.swift */,
 			);
-			path = "Search model";
+			path = "Search ViewModel";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

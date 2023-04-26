@@ -9,49 +9,89 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel = ViewModel()
-   
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .center) {
-                TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-                    .textFieldStyle(.roundedBorder)
-                    .textInputAutocapitalization(.never)
-                    .onAppear {
-                        UITextField.appearance().clearButtonMode = .whileEditing
-                    }
+            
+            List {
+                Section{
+                    TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
+                        .onAppear {
+                            UITextField.appearance().clearButtonMode = .whileEditing
+                        }
+                }
+                .onSubmit(addIngredient)
                 
-                List {
+                Section {
                     ForEach(viewModel.ingredients, id: \.self) { ingredient in
-                        Text(ingredient)
+                        HStack{
+                            Image(systemName: "checkmark.circle").foregroundColor(.green)
+                            Text("\(ingredient)")
+                        }
+                        
                     }.onDelete { indexSet in
                         viewModel.ingredients.remove(atOffsets: indexSet)
                     }
                 }
-                Spacer()
-                NavigationLink(destination: RecipiesListView(), isActive: $viewModel.isNavigate) {
-                        
-                        Button("Search for recipies") {
-                            self.viewModel.isNavigate = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                        
+                
+                Section {
+                    NavigationLink {
+                        RecipiesListView()
+                    } label: {
+                        Text("Search for recipies")
+                    }.task {
+                        viewModel.loadData()
+                    }
+                    
                 }
+                .disabled(viewModel.ingredients.isEmpty)
             }
-            .padding(20)
             .toolbar {
                 EditButton()
             }
             .navigationTitle("Search")
-            .onSubmit(addIngredient)
         }
+        
+        //            VStack(alignment: .center) {
+        //                TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
+        //                    .textFieldStyle(.roundedBorder)
+        //                    .textInputAutocapitalization(.never)
+        //                    .onAppear {
+        //                        UITextField.appearance().clearButtonMode = .whileEditing
+        //                    }
+        //
+        //                List {
+        //                    ForEach(viewModel.ingredients, id: \.self) { ingredient in
+        //                        Text(ingredient)
+        //                    }.onDelete { indexSet in
+        //                        viewModel.ingredients.remove(atOffsets: indexSet)
+        //                    }
+        //                }
+        //                Spacer()
+        //                NavigationLink(destination: RecipiesListView(), isActive: $viewModel.isNavigate) {
+        //
+        //                        Button("Search for recipies") {
+        //                            self.viewModel.isNavigate = true
+        //                        }
+        //                        .buttonStyle(.borderedProminent)
+        //
+        //                }
+        //            }
+        //            .padding(20)
+        //            .toolbar {
+        //                EditButton()
+        //            }
+        
+        //            .onSubmit(addIngredient)
+        
     }
+    
     func addIngredient() {
         withAnimation {
             viewModel.addIngredient()
         }
     }
-   
+    
 }
 
 struct SearchView_Previews: PreviewProvider {
