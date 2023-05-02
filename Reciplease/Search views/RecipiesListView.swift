@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct RecipiesListView: View {
+    @ObservedObject private var viewModel: ViewModel
+    
+    init(_ vm: ViewModel) {
+        self.viewModel = vm
+    }
     var body: some View {
         Text("List")
             .navigationTitle("Reciplease")
@@ -17,6 +22,6 @@ struct RecipiesListView: View {
 
 struct RecipiesListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipiesListView()
+        RecipiesListView(RecipiesListView.ViewModel(ingredients: ["toto"]))
     }
 }

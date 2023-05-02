@@ -12,43 +12,52 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-            
-            List {
-                Section{
-                    TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-                        .onAppear {
-                            UITextField.appearance().clearButtonMode = .whileEditing
-                        }
+            List(viewModel.results, id: \.label) { item in
+                VStack(alignment: .leading) {
+                    Text(item.label)
+                        .font(.headline)
                 }
-                .onSubmit(addIngredient)
-                
-                Section {
-                    ForEach(viewModel.ingredients, id: \.self) { ingredient in
-                        HStack{
-                            Image(systemName: "checkmark.circle").foregroundColor(.green)
-                            Text("\(ingredient)")
-                        }
-                        
-                    }.onDelete { indexSet in
-                        viewModel.ingredients.remove(atOffsets: indexSet)
-                    }
-                }
-                
-                Section {
-                    NavigationLink {
-                        RecipiesListView()
-                    } label: {
-                        Text("Search for recipies")
-                    }.task {
-                        viewModel.loadData()
-                    }
-                    
-                }
-                .disabled(viewModel.ingredients.isEmpty)
             }
-            .toolbar {
-                EditButton()
+            .task {
+                await viewModel.loadData()
             }
+//            List {
+//                Section{
+//                    TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
+//                        .onAppear {
+//                            UITextField.appearance().clearButtonMode = .whileEditing
+//                        }
+//                }
+//                .onSubmit(addIngredient)
+//
+//                Section {
+//                    ForEach(viewModel.ingredients, id: \.self) { ingredient in
+//                        HStack{
+//                            Image(systemName: "checkmark.circle").foregroundColor(.green)
+//                            Text("\(ingredient)")
+//                        }
+//
+//                    }.onDelete { indexSet in
+//                        viewModel.ingredients.remove(atOffsets: indexSet)
+//                    }
+//                }
+//
+//                Section {
+//                    NavigationLink {
+////                        RecipiesListView(viewModel.recipiesListViewModel())
+//                        //RecipiesListView()
+//                    } label: {
+//                        Text("Search for recipies")
+//                    }/*.task {
+//                        viewModel.loadData()
+//                    }*/
+//
+//                }
+//                .disabled(viewModel.ingredients.isEmpty)
+//            }
+//            .toolbar {
+//                EditButton()
+//            }
             .navigationTitle("Search")
         }
         

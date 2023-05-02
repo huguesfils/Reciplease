@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+extension RecipiesListView {
+    @MainActor class ViewModel: ObservableObject {
+        @Published var ingredients = [String]()
+        @Published var message = ""
+        
+        init(ingredients: [String]) {
+            self.ingredients = ingredients
+        }
+        
+    }
+}
