@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel = ViewModel()
+    @State private var navPath = NavigationPath()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navPath) {
             List {
                 Section{
                     TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
@@ -34,16 +35,25 @@ struct SearchView: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: RecipiesListView(), isActive: $viewModel.isNavigate) {
-                    
-                        Text("Search for recipies")
-                    }.task {
-                        await viewModel.loadData()
+                    if viewModel.isLoading {
+                        ProgressView().frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        Button {
+                            Task {
+                                await self.viewModel.loadData()
+                                await MainActor.run {
+                                    navPath.append(1)
+                                }
+                            }
+                        } label: {
+                            Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
+                        }.disabled(viewModel.ingredients.isEmpty)
                     }
-                    
                 }
-                .disabled(viewModel.ingredients.isEmpty)
             }
+            .navigationDestination(for: Int.self, destination: { i in
+                RecipiesListView(viewModel: self.viewModel)
+            })
             .toolbar {
                 EditButton()
             }
