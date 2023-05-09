@@ -11,6 +11,8 @@ struct SearchView: View {
     @StateObject private var viewModel = ViewModel()
     @State private var navPath = NavigationPath()
     
+    let service = RecipeService()
+    
     var body: some View {
         NavigationStack(path: $navPath) {
             List {
@@ -40,7 +42,7 @@ struct SearchView: View {
                     } else {
                         Button {
                             Task {
-                                await self.viewModel.loadData()
+                                await viewModel.search()
                                 await MainActor.run {
                                     navPath.append(1)
                                 }

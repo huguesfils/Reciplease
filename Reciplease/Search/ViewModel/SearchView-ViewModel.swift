@@ -10,13 +10,17 @@ import SwiftUI
 
 extension SearchView {
     @MainActor class ViewModel: ObservableObject {
+        let service: RecipeService
+        
+        init(service: RecipeService = RecipeService()) {
+            self.service = service
+        }
+        
         @Published var ingredients = [String]()
         @Published var searchInput = ""
-        @Published var results = [Recipe]()
-        @Published var isLoading = false
         
-        let api_id = "c39bf8a9"
-        let api_key = "eeacf7dbdf9f33c8887e9db29c640a16"
+        @Published var isLoading = false
+        @Published var results = [Recipe]()
         
         func addIngredient() {
             let newIngredient = searchInput.lowercased()
@@ -24,48 +28,16 @@ extension SearchView {
             print(ingredients)
         }
         
-        func loadData() async {
-            
-            print("1")
-            guard let url = URL(string: "https://api.edamam.com/search?q=\(ingredients.joined(separator: ","))&app_id=\(api_id)&app_key=\(api_key)") else {
-                print("Invalid URL")
-                //revenir en arriere
-                return
-            }
-            
-            isLoading = true
-
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                print("2")
-                if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
-                    print("3")
-                    await MainActor.run {
-                        print("4")
-                        results = (decodedResponse.hits ?? []).map { hit in
-                            hit.recipe
-                        }
-                        isLoading = false
-                    }
-                }
-            } catch {
-                //revenir en arriere
-                print("Invalid data")
+        func search() async {
+            defer {
                 isLoading = false
             }
-       }
-    }
-    
-    struct Response: Codable {
-        var hits: [Hit]?
-    }
-    
-    struct Hit: Codable {
-        var recipe: Recipe
-    }
-    
-    struct Recipe: Codable {
-        var label: String
-        var image: String
+            do {
+                isLoading = true
+                results = try await service.loadData(ingredients: ingredients)
+            } catch {
+                print("Error loading data")
+            }
+        }
     }
 }
