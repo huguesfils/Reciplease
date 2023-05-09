@@ -36,8 +36,6 @@ struct RecipeCard: View {
                 .shadow(color: .black, radius: 3, x:0, y: 0)
                 .frame(maxWidth: 136)
                 .padding()
-            
-            
         }
         
         .frame(width: 160, height: 127, alignment: .top)
