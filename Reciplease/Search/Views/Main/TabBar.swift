@@ -14,7 +14,7 @@ struct TabBar: View {
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
-            Favorites()
+            FavoritesView()
                 .tabItem{
                     Label("Favorites", systemImage: "heart")
                 }
