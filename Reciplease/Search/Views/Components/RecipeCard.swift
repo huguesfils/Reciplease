@@ -21,6 +21,14 @@ struct RecipeCard: View {
                     .resizable()
                     .scaledToFit()
                     .aspectRatio(contentMode: .fill)
+                    .overlay(alignment: .bottom) {
+                        Text(recipe.label)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .shadow(color: .black, radius: 3, x:0, y: 0)
+                            .frame(maxWidth: 136)
+                            .padding()
+                    }
             } placeholder: {
                 Image(systemName: "photo")
                     .resizable()
@@ -30,24 +38,23 @@ struct RecipeCard: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             
-            Text(recipe.label)
-                .font(.headline)
-                .foregroundColor(.white)
-                .shadow(color: .black, radius: 3, x:0, y: 0)
-                .frame(maxWidth: 136)
-                .padding()
+//            Text(recipe.label)
+//                .font(.headline)
+//                .foregroundColor(.white)
+//                .shadow(color: .black, radius: 3, x:0, y: 0)
+//                .frame(maxWidth: 136)
+//                .padding(.bottom)
         }
         
-        .frame(width: 160, height: 127, alignment: .top)
+        .frame(width: 160, height: 217, alignment: .top)
         .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.3), radius: 15, x: 0, y:10)
     }
 }
 
 
 struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCard(recipe: Recipe(label: "Test", image: "photo"))
+        RecipeCard(recipe: Recipe(label: "Test", image: "photo", ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"], url: "https://www.apple.com"))
     }
 }

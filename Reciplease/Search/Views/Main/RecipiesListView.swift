@@ -15,6 +15,7 @@ struct RecipiesListView: View {
             RecipeList(results: viewModel.results)
         }
         .navigationTitle("Recipes")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

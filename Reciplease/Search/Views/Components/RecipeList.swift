@@ -23,12 +23,14 @@ struct RecipeList: View {
                     .opacity(0.7)
                 Spacer()
             }
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 15)], spacing: 15) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 15, alignment: .leading)], spacing: 15) {
                 ForEach(results, id: \.label) { item in
-                    RecipeCard(recipe: item)
+                    NavigationLink(destination: RecipeView(recipe: item)) {
+                        RecipeCard(recipe: item)
+                    }
                 }
             }
-            
+            .padding(.top)
         }
         .padding(.horizontal)
     }
@@ -37,7 +39,7 @@ struct RecipeList: View {
 struct RecipeList_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
-            RecipeList(results: [Recipe(label: "Test", image: "photo")])
+            RecipeList(results: [Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing","Dash cayenne pepper"],url: "https://www.apple.com")])
         }
         
     }

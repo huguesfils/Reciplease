@@ -21,6 +21,8 @@ struct Hit: Codable {
 struct Recipe: Codable {
     var label: String
     var image: String
+    var ingredientLines: [String]
+    var url: String
 }
 
 struct RecipeService {
