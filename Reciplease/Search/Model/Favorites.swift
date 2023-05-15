@@ -8,32 +8,21 @@
 import Foundation
 
 class Favorites: ObservableObject {
-    private var favoriteRecipes: Set<String>
+    private var favoriteRecipes = [Recipe]()
     private let saveKey = "Favorites"
     
-    init() {
-        favoriteRecipes = []
-    }
-    
-    func contains(_ recipe: Recipe) -> Bool {
-        favoriteRecipes.contains(recipe.label)
-    }
-    
-    func add(_ recipe: Recipe) {
-        objectWillChange.send()
-        favoriteRecipes.insert(recipe.label)
+
+    func add(recipe: Recipe) {
+        favoriteRecipes.append(recipe)
         print(favoriteRecipes)
-        save()
+       
     }
     
-    func remove(_ recipe: Recipe) {
-        objectWillChange.send()
-        favoriteRecipes.remove(recipe.label)
-        print(favoriteRecipes)
-        save()
-    }
+//    func remove(recipe: Recipe) {
+//       let index = recipe
+//        favoriteRecipes.remove(at: recipe)
+//        print(favoriteRecipes)
+//    }
     
-    func save() {
-        //data
-    }
+  
 }

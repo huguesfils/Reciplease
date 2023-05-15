@@ -24,8 +24,16 @@ extension SearchView {
         
         func addIngredient() {
             let newIngredient = searchInput.lowercased()
-            ingredients.insert(newIngredient, at: 0)
-            print(ingredients)
+            if (searchInput != "" && !ingredients.contains(newIngredient)) {
+                ingredients.insert(newIngredient, at: 0)
+                print(ingredients)
+            }
+        }
+        
+        func clearIngredients() {
+            if !ingredients.isEmpty {
+                ingredients.removeAll()
+            }
         }
         
         func search() async {

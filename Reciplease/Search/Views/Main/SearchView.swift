@@ -16,56 +16,97 @@ struct SearchView: View {
     var body: some View {
         NavigationStack(path: $navPath) {
             List {
-                Section{
-                    TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-                        .onAppear {
-                            UITextField.appearance().clearButtonMode = .whileEditing
+                VStack(alignment: .leading) {
+                    Text("What's in your fridge ?")
+                        .font(.title)
+                        .bold()
+                    
+                    HStack {
+                        TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
+                        
+                            .onAppear {
+                                UITextField.appearance().clearButtonMode = .whileEditing
+                            }
+                            .onSubmit(addIngredient)
+                        Button(action: addIngredient){
+                            Text("Add")
+                                .frame(width: 40)
                         }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.green)
+                    }
+                    
                 }
-                .onSubmit(addIngredient)
                 
                 Section {
-                    ForEach(viewModel.ingredients, id: \.self) { ingredient in
-                        HStack{
-                            Image(systemName: "checkmark.circle").foregroundColor(.green)
-                            Text("\(ingredient)")
+                    HStack {
+                        Text("Your ingredients:")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        if !viewModel.ingredients.isEmpty {
+                            Button(action: clearIngredient){
+                                Text("Clear")
+                                    .frame(width: 40)
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(.gray)
                         }
                         
-                    }.onDelete { indexSet in
-                        viewModel.ingredients.remove(atOffsets: indexSet)
+                        
                     }
+                  
+                    
+                    if !viewModel.ingredients.isEmpty {
+                        VStack(alignment: .leading, spacing: 10){
+                            ForEach(viewModel.ingredients, id: \.self) { ingredient in
+                                HStack{
+                                    Image(systemName: "checkmark").foregroundColor(.green)
+                                    Text("\(ingredient)")
+                                }
+                                
+                            }
+                        }
+                    }
+                    
                 }
                 
-                Section {
-                    if viewModel.isLoading {
-                        ProgressView().frame(maxWidth: .infinity, alignment: .center)
-                    } else {
-                        Button {
-                            Task {
-                                await viewModel.search()
-                                await MainActor.run {
-                                    navPath.append(1)
+                    Section {
+                        if viewModel.isLoading {
+                            ProgressView().frame(maxWidth: .infinity, alignment: .center)
+                        } else {
+                            Button {
+                                Task {
+                                    await viewModel.search()
+                                    await MainActor.run {
+                                        navPath.append(1)
+                                    }
                                 }
+                            } label: {
+                                Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
                             }
-                        } label: {
-                            Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
-                        }.disabled(viewModel.ingredients.isEmpty)
+                            .disabled(viewModel.ingredients.isEmpty)
+                            .tint(.green)
+                        }
                     }
-                }
             }
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Int.self, destination: { i in
                 RecipiesListView(viewModel: self.viewModel)
             })
-            .toolbar {
-                EditButton()
-            }
-            .navigationTitle("Search")
         }
     }
     
     func addIngredient() {
         withAnimation {
             viewModel.addIngredient()
+        }
+    }
+    
+    func clearIngredient() {
+        withAnimation {
+            viewModel.clearIngredients()
         }
     }
 }

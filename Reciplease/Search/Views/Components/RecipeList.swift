@@ -23,7 +23,7 @@ struct RecipeList: View {
                     .opacity(0.7)
                 Spacer()
             }
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 15, alignment: .leading)], spacing: 15) {
+            VStack(spacing: 15) {
                 ForEach(results, id: \.label) { item in
                     NavigationLink(destination: RecipeView(recipe: item)) {
                         RecipeCard(recipe: item)
