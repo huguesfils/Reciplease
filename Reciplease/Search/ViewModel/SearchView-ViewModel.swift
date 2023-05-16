@@ -31,9 +31,7 @@ extension SearchView {
         }
         
         func clearIngredients() {
-            if !ingredients.isEmpty {
-                ingredients.removeAll()
-            }
+            ingredients.removeAll()
         }
         
         func search() async {

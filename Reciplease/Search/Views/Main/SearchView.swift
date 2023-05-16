@@ -52,8 +52,6 @@ struct SearchView: View {
                             .buttonStyle(.bordered)
                             .tint(.gray)
                         }
-                        
-                        
                     }
                   
                     
