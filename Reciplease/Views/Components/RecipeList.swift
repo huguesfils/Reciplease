@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RecipeList: View {
-    let results: [Recipe]
+    let results: [RecipeProtocol]
     
-    init(results: [Recipe]) {
+    init(results: [RecipeProtocol]) {
         self.results = results
     }
     
@@ -24,7 +24,7 @@ struct RecipeList: View {
                 Spacer()
             }
             VStack(spacing: 15) {
-                ForEach(results, id: \.label) { item in
+                ForEach(results, id: \.labelValue) { item in
                     NavigationLink(destination: RecipeView(recipe: item)) {
                         RecipeCard(recipe: item)
                     }
@@ -44,7 +44,7 @@ struct RecipeList_Previews: PreviewProvider {
                 image: "photo",
                 ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing","Dash cayenne pepper"],
                 url: "https://www.apple.com",
-//                ingredients: Food(food: "salad"),
+                ingredients: [Food(food: "Salad")],
                 totalTime: 40)])
         }
         

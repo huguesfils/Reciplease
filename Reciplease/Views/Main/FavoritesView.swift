@@ -14,10 +14,8 @@ struct FavoritesView: View {
     ]) var favorites: FetchedResults<FavRecipe>
     
     var body: some View {
-        List {
-            ForEach(favorites) { favorite in
-                Text(favorite.label ?? "ça marche pas")
-            }
+        ScrollView{
+            RecipeList(results: favorites.map { $0 })
         }
         .navigationTitle("Favorites")
         .navigationBarTitleDisplayMode(.inline)

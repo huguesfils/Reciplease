@@ -53,7 +53,7 @@ struct SearchView: View {
                             .tint(.gray)
                         }
                     }
-                  
+                    
                     
                     if !viewModel.ingredients.isEmpty {
                         VStack(alignment: .leading, spacing: 10){
@@ -69,24 +69,24 @@ struct SearchView: View {
                     
                 }
                 
-                    Section {
-                        if viewModel.isLoading {
-                            ProgressView().frame(maxWidth: .infinity, alignment: .center)
-                        } else {
-                            Button {
-                                Task {
-                                    await viewModel.search()
-                                    await MainActor.run {
-                                        navPath.append(1)
-                                    }
+                Section {
+                    if viewModel.isLoading {
+                        ProgressView().frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        Button {
+                            Task {
+                                await viewModel.search()
+                                await MainActor.run {
+                                    navPath.append(1)
                                 }
-                            } label: {
-                                Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
                             }
-                            .disabled(viewModel.ingredients.isEmpty)
-                            .tint(.green)
+                        } label: {
+                            Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
                         }
+                        .disabled(viewModel.ingredients.isEmpty)
+                        .tint(.green)
                     }
+                }
             }
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)

@@ -10,6 +10,14 @@ import Foundation
 let api_id = "c39bf8a9"
 let api_key = "eeacf7dbdf9f33c8887e9db29c640a16"
 
+protocol RecipeProtocol {
+    var labelValue: String { get }
+    var urlValue: String { get }
+    var imageValue: String { get }
+    var totalTimeValue: Int { get }
+    var ingredientLinesValue: [String] { get }
+}
+
 struct Response: Codable {
     var hits: [Hit]?
 }
@@ -19,18 +27,17 @@ struct Hit: Codable {
 }
 
 struct Recipe: Codable {
-//    var uri: String
     var label: String
     var image: String
     var ingredientLines: [String]
     var url: String
-//    var ingredients: Food
+    var ingredients: [Food]
     var totalTime: Int
 }
 
-//struct Food: Codable {
-//    var food: String
-//}
+struct Food: Codable {
+    var food: String
+}
 
 struct RecipeService {
     func loadData(ingredients: [String]) async throws  -> [Recipe] {
@@ -44,7 +51,6 @@ struct RecipeService {
             if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
                 return (decodedResponse.hits ?? []).map { hit in
                     hit.recipe
-                    
                 }
             } else {
                 return []
@@ -56,3 +62,41 @@ struct RecipeService {
     }
     
 }
+
+
+extension FavRecipe: RecipeProtocol {
+    var imageValue: String {
+        image ?? ""
+    }
+    var totalTimeValue: Int {
+        0
+    }
+    var ingredientLinesValue: [String] {
+        (ingredientLines ?? "").split(separator: "||").map { String($0) }
+    }
+    var labelValue: String {
+        label ?? ""
+    }
+    var urlValue: String {
+        url ?? ""
+    }
+}
+
+extension Recipe: RecipeProtocol {
+    var imageValue: String {
+        image
+    }
+    var totalTimeValue: Int {
+        totalTime
+    }
+    var ingredientLinesValue: [String] {
+        ingredientLines
+    }
+    var labelValue: String {
+        label
+    }
+    var urlValue: String {
+        url
+    }
+}
+
