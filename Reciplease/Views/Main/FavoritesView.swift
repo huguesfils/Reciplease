@@ -16,9 +16,7 @@ struct FavoritesView: View {
     var body: some View {
         List {
             ForEach(favorites) { favorite in
-                
                 Text(favorite.label ?? "ça marche pas")
-                
             }
         }
         .navigationTitle("Favorites")

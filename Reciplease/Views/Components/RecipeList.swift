@@ -39,7 +39,13 @@ struct RecipeList: View {
 struct RecipeList_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
-            RecipeList(results: [Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing","Dash cayenne pepper"],url: "https://www.apple.com")])
+            RecipeList(results: [Recipe(
+                label: "Test",
+                image: "photo",
+                ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing","Dash cayenne pepper"],
+                url: "https://www.apple.com",
+//                ingredients: Food(food: "salad"),
+                totalTime: 40)])
         }
         
     }

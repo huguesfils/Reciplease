@@ -24,7 +24,13 @@ struct Recipe: Codable {
     var image: String
     var ingredientLines: [String]
     var url: String
+//    var ingredients: Food
+    var totalTime: Int
 }
+
+//struct Food: Codable {
+//    var food: String
+//}
 
 struct RecipeService {
     func loadData(ingredients: [String]) async throws  -> [Recipe] {
@@ -38,6 +44,7 @@ struct RecipeService {
             if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
                 return (decodedResponse.hits ?? []).map { hit in
                     hit.recipe
+                    
                 }
             } else {
                 return []
