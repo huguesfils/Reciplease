@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct RecipeList: View {
+    @FetchRequest(sortDescriptors: [
+    ]) var favorites: FetchedResults<FavRecipe>
+    
     let results: [RecipeProtocol]
     
     init(results: [RecipeProtocol]) {
@@ -26,8 +29,13 @@ struct RecipeList: View {
             VStack(spacing: 15) {
                 ForEach(results, id: \.labelValue) { item in
                     NavigationLink(destination: RecipeView(recipe: item)) {
-                        RecipeCard(recipe: item)
-                    }
+                                           RecipeCard(recipe: item)
+                                       }
+//                    NavigationLink(destination: Text(item.labelValue)) {
+//                            //RecipeCard(recipe: item)
+//                        Text(item.labelValue)
+//                        }
+                    
                 }
             }
             .padding(.top)
@@ -43,8 +51,9 @@ struct RecipeList_Previews: PreviewProvider {
                 label: "Test",
                 image: "photo",
                 ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing","Dash cayenne pepper"],
+//                ingredients: [],
                 url: "https://www.apple.com",
-                ingredients: [Food(food: "Salad")],
+//                foods: [Food(food: "Salad")],
                 totalTime: 40)])
         }
         

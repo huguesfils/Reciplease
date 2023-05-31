@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FavoritesView: View {
     @ObservedObject var viewModel: SearchView.ViewModel
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [
     ]) var favorites: FetchedResults<FavRecipe>
     

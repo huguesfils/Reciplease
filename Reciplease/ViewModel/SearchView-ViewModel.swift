@@ -26,7 +26,6 @@ extension SearchView {
             let newIngredient = searchInput.lowercased()
             if (searchInput != "" && !ingredients.contains(newIngredient)) {
                 ingredients.insert(newIngredient, at: 0)
-                print(ingredients)
             }
         }
         

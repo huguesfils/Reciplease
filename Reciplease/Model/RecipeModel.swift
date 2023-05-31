@@ -16,6 +16,7 @@ protocol RecipeProtocol {
     var imageValue: String { get }
     var totalTimeValue: Int { get }
     var ingredientLinesValue: [String] { get }
+//    var foodsValue: [Food] { get }
 }
 
 struct Response: Codable {
@@ -30,14 +31,19 @@ struct Recipe: Codable {
     var label: String
     var image: String
     var ingredientLines: [String]
+//    var ingredients: [Ingredient]
     var url: String
-    var ingredients: [Food]
+//    var foods: [Food]
     var totalTime: Int
 }
 
-struct Food: Codable {
-    var food: String
-}
+//struct Ingredient: Codable {
+//    var food: String
+//}
+//
+//struct Food: Codable {
+//    var food: String
+//}
 
 struct RecipeService {
     func loadData(ingredients: [String]) async throws  -> [Recipe] {
@@ -60,9 +66,7 @@ struct RecipeService {
             return []
         }
     }
-    
 }
-
 
 extension FavRecipe: RecipeProtocol {
     var imageValue: String {
@@ -74,8 +78,11 @@ extension FavRecipe: RecipeProtocol {
     var ingredientLinesValue: [String] {
         (ingredientLines ?? "").split(separator: "||").map { String($0) }
     }
+//    var foodsValue: [Food] {
+//        (foods ?? Food(food: "")).food.split(separator: "||").map {Food(food: String)($0)}
+//    }
     var labelValue: String {
-        label ?? ""
+        label!
     }
     var urlValue: String {
         url ?? ""
@@ -92,6 +99,9 @@ extension Recipe: RecipeProtocol {
     var ingredientLinesValue: [String] {
         ingredientLines
     }
+//    var foodsValue: [Food] {
+//        foods
+//    }
     var labelValue: String {
         label
     }

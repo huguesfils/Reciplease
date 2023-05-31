@@ -20,10 +20,8 @@ struct SearchView: View {
                     Text("What's in your fridge ?")
                         .font(.title)
                         .bold()
-                    
                     HStack {
                         TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-                        
                             .onAppear {
                                 UITextField.appearance().clearButtonMode = .whileEditing
                             }
@@ -53,8 +51,6 @@ struct SearchView: View {
                             .tint(.gray)
                         }
                     }
-                    
-                    
                     if !viewModel.ingredients.isEmpty {
                         VStack(alignment: .leading, spacing: 10){
                             ForEach(viewModel.ingredients, id: \.self) { ingredient in
@@ -66,7 +62,6 @@ struct SearchView: View {
                             }
                         }
                     }
-                    
                 }
                 
                 Section {

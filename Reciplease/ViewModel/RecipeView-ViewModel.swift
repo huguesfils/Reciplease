@@ -6,9 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension RecipeView {
-    
-    
-
+    @MainActor class ViewModel: ObservableObject {
+        @Published var recipe: RecipeProtocol
+        
+        init(recipe: RecipeProtocol) {
+            self.recipe = recipe
+        }
+        
+    }
 }

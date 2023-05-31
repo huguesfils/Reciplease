@@ -12,14 +12,15 @@ struct RecipeView: View {
     @FetchRequest(sortDescriptors: [
     ]) var favorites: FetchedResults<FavRecipe>
     
-    let recipe: RecipeProtocol
+    @State private var isFavrorite = false
     
+    let recipe: RecipeProtocol
+
     init(recipe: RecipeProtocol) {
         self.recipe = recipe
     }
-    
+
     var body: some View {
-        
         ScrollView{
             VStack{
                 AsyncImage(url: URL(string: recipe.imageValue)) { image in
@@ -45,8 +46,16 @@ struct RecipeView: View {
                         .multilineTextAlignment(.center)
                     
                     VStack(alignment: .leading, spacing: 10){
-                        Text("Ingredients")
-                            .font(.headline)
+                        
+                        HStack {
+                            Text("Ingredients: ")
+                                .font(.headline)
+                            Spacer()
+                            HStack {
+                                Image(systemName: "clock.badge.checkmark")
+                                Text("\(recipe.totalTimeValue) min")
+                            }
+                        }
                         
                         ForEach(recipe.ingredientLinesValue, id: \.self) {
                             item in
@@ -55,18 +64,26 @@ struct RecipeView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Button("Add to Favorite") {
+                    Button(isFavrorite ? "Remove from favorite" :  "Add to Favorite") {
                         if let favorite = favorites.first(where: { $0.url == recipe.urlValue }) {
                             moc.delete(favorite)
+                            isFavrorite = false
                             try? moc.save()
-                        } else {
+                            
+                        } else if let webRecipe = recipe as? Recipe {
                             let fav = FavRecipe(context: moc)
-                            //fav.id = UUID()
-                            fav.image = recipe.imageValue
-                            fav.ingredientLines = recipe.ingredientLinesValue.joined(separator: "||")
-                            fav.label = recipe.labelValue
-                            fav.url = recipe.urlValue
-                            try? moc.save()
+                            fav.image = webRecipe.image
+                            fav.ingredientLines = webRecipe.ingredientLines.joined(separator: " || ")
+                            fav.label = webRecipe.label
+                            fav.url = webRecipe.url
+//                            fav.foods = webRecipe.ingredients.map({ $0.food }).joined(separator: " || ")
+                            do {
+                                isFavrorite = true
+                                try moc.save()
+                               
+                            } catch {
+                                print(error)
+                            }
                         }
                     }
                     
@@ -98,8 +115,9 @@ struct RecipeView_Previews: PreviewProvider {
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
+//            ingredients: [],
             url: "https://www.apple.com",
-            ingredients: [Food(food: "Salad")],
+//            foods: [Food(food: "Salad")],
             totalTime: 40))
     }
 }
