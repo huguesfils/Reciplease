@@ -15,6 +15,6 @@ extension RecipeView {
         init(recipe: RecipeProtocol) {
             self.recipe = recipe
         }
-        
+        //coucou
     }
 }
