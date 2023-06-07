@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RecipeCard: View {
-    let recipe: RecipeProtocol
+    let recipe: any RecipeProtocol
     
-    init(recipe: RecipeProtocol) {
+    init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
     var body: some View {

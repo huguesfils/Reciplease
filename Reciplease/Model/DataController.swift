@@ -18,4 +18,29 @@ class DataController: ObservableObject {
             }
         }
     }
+    
+    func save(context: NSManagedObjectContext) {
+        do {
+            try context.save()
+            print("Data saved!")
+        } catch {
+            print("Data not saved")
+        }
+    }
+    
+    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, context: NSManagedObjectContext) {
+        let favRecipe = FavRecipe(context: context)
+        favRecipe.label = label
+        favRecipe.image = image
+        favRecipe.ingredientLines = ingredientLines
+        favRecipe.url = url
+        favRecipe.totalTime = Int64(totalTime)
+        
+        save(context: context)
+    }
+   
+    func removeFavorite(recipe: FavRecipe, context: NSManagedObjectContext) {
+        context.delete(recipe)
+        save(context: context)
+    }
 }

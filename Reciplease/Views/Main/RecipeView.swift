@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct RecipeView: View {
+    @StateObject private var viewModel = ViewModel()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc
+    
     @FetchRequest(sortDescriptors: [
     ]) var favorites: FetchedResults<FavRecipe>
     
-    @State private var isFavrorite = false
-    
-    let recipe: RecipeProtocol
+    let recipe: any RecipeProtocol
 
-    init(recipe: RecipeProtocol) {
+    init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
 
@@ -64,27 +65,14 @@ struct RecipeView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Button(isFavrorite ? "Remove from favorite" :  "Add to Favorite") {
-                        if let favorite = favorites.first(where: { $0.url == recipe.urlValue }) {
-                            moc.delete(favorite)
-                            isFavrorite = false
-                            try? moc.save()
-                            
-                        } else if let webRecipe = recipe as? Recipe {
-                            let fav = FavRecipe(context: moc)
-                            fav.image = webRecipe.image
-                            fav.ingredientLines = webRecipe.ingredientLines.joined(separator: " || ")
-                            fav.label = webRecipe.label
-                            fav.url = webRecipe.url
-//                            fav.foods = webRecipe.ingredients.map({ $0.food }).joined(separator: " || ")
-                            do {
-                                isFavrorite = true
-                                try moc.save()
-                               
-                            } catch {
-                                print(error)
-                            }
+                    Button(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "Remove from favorites" : "Add to favorites") {
+                        if favorites.contains(where: {$0.urlValue == recipe.urlValue}){
+                            DataController().removeFavorite(recipe: recipe as! FavRecipe, context: moc)
+                            self.presentationMode.wrappedValue.dismiss()
+                        } else {
+                            DataController().addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
                         }
+                        
                     }
                     
                     Button {
@@ -104,6 +92,11 @@ struct RecipeView: View {
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    private func removeFavorite(offsets: IndexSet) {
+        offsets.map { favorites[$0]}.forEach(moc.delete)
+        DataController().save(context: moc)
     }
     
 }

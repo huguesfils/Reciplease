@@ -2,8 +2,9 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavRecipe" representedClassName="FavRecipe" syncable="YES" codeGenerationType="class">
         <attribute name="image" attributeType="String"/>
-        <attribute name="ingredientLines" attributeType="String"/>
+        <attribute name="ingredientLines" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[String]"/>
         <attribute name="label" attributeType="String"/>
+        <attribute name="totalTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="url" attributeType="String"/>
     </entity>
 </model>

@@ -13,8 +13,20 @@ struct FavoritesView: View {
     ]) var favorites: FetchedResults<FavRecipe>
     
     var body: some View {
-        ScrollView{
-            RecipeList(results: favorites.map { $0 })
+        NavigationStack {
+                if favorites.isEmpty {
+                    Text("You don't have any favorite recipe for the moment")
+                        .font(.headline)
+                        .fontWeight(.medium)
+                        .opacity(0.7)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } else {
+                    ScrollView{
+                        RecipeList(results: favorites.map { $0 })
+                    }
+                }
+            
         }
         .navigationTitle("Favorites")
         .navigationBarTitleDisplayMode(.inline)

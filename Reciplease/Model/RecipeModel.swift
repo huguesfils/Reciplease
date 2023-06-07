@@ -10,7 +10,9 @@ import Foundation
 let api_id = "c39bf8a9"
 let api_key = "eeacf7dbdf9f33c8887e9db29c640a16"
 
-protocol RecipeProtocol {
+protocol RecipeProtocol: Identifiable {
+    associatedtype Id
+    var id: Id { get }
     var labelValue: String { get }
     var urlValue: String { get }
     var imageValue: String { get }
@@ -69,6 +71,10 @@ struct RecipeService {
 }
 
 extension FavRecipe: RecipeProtocol {
+    public var id: String {
+        return urlValue
+    }
+    
     var imageValue: String {
         image ?? ""
     }
@@ -76,13 +82,13 @@ extension FavRecipe: RecipeProtocol {
         0
     }
     var ingredientLinesValue: [String] {
-        (ingredientLines ?? "").split(separator: "||").map { String($0) }
+        ingredientLines ?? []
     }
 //    var foodsValue: [Food] {
 //        (foods ?? Food(food: "")).food.split(separator: "||").map {Food(food: String)($0)}
 //    }
     var labelValue: String {
-        label!
+        label ?? ""
     }
     var urlValue: String {
         url ?? ""
@@ -90,6 +96,9 @@ extension FavRecipe: RecipeProtocol {
 }
 
 extension Recipe: RecipeProtocol {
+    var id: String {
+        return urlValue
+    }
     var imageValue: String {
         image
     }

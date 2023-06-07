@@ -18,7 +18,6 @@ extension SearchView {
         
         @Published var ingredients = [String]()
         @Published var searchInput = ""
-        
         @Published var isLoading = false
         @Published var results = [Recipe]()
         
