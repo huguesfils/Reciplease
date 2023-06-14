@@ -15,7 +15,7 @@ struct FavoritesView: View {
     var body: some View {
         NavigationStack {
                 if favorites.isEmpty {
-                    Text("You don't have any favorite recipe for the moment")
+                    Text("You don't have favorite recipe for the moment")
                         .font(.headline)
                         .fontWeight(.medium)
                         .opacity(0.7)
