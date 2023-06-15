@@ -7,8 +7,7 @@
 
 import Foundation
 
-let api_id = "c39bf8a9"
-let api_key = "eeacf7dbdf9f33c8887e9db29c640a16"
+let api = ApiData()
 
 protocol RecipeProtocol: Identifiable {
     associatedtype Id
@@ -49,7 +48,7 @@ struct Recipe: Codable {
 
 struct RecipeService {
     func loadData(ingredients: [String]) async throws  -> [Recipe] {
-        guard let url = URL(string: "https://api.edamam.com/search?q=\(ingredients.joined(separator: ","))&app_id=\(api_id)&app_key=\(api_key)") else {
+        guard let url = URL(string: "https://api.edamam.com/search?q=\(ingredients.joined(separator: ","))&app_id=\(api.api_id)&app_key=\(api.api_key)") else {
             print("Invalid URL")
             return []
         }

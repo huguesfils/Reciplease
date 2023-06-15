@@ -10,6 +10,7 @@
 		BB341FA22A0A819A0032D048 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA12A0A819A0032D048 /* TabBar.swift */; };
 		BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
 		BB341FA72A0A8ED10032D048 /* RecipeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA62A0A8ED10032D048 /* RecipeList.swift */; };
+		BB4533DA2A3B3137007C9422 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4533D92A3B3137007C9422 /* APIKey.swift */; };
 		BB6AFAA62A09B5C20025742D /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6AFAA52A09B5C20025742D /* RecipeCard.swift */; };
 		BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */; };
 		BB8B2A1F2A15356E00B2A096 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1E2A15356E00B2A096 /* DataController.swift */; };
@@ -26,13 +27,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB09C9752A39DC810090A29C /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Reciplease.app; path = "/Users/huguesfils/Desktop/OC/iOS/Reciplease/build/Debug-iphoneos/Reciplease.app"; sourceTree = "<absolute>"; };
 		BB341FA12A0A819A0032D048 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		BB341FA42A0A82FB0032D048 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		BB341FA62A0A8ED10032D048 /* RecipeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeList.swift; sourceTree = "<group>"; };
+		BB4533D92A3B3137007C9422 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		BB6AFAA52A09B5C20025742D /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		BB8B2A1C2A152FF900B2A096 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		BB8B2A1E2A15356E00B2A096 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		BB921C2E2A39FA4A00857F94 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA326AD29E6EB6D00E34018 /* RecipiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipiesListView.swift; sourceTree = "<group>"; };
 		BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseApp.swift; sourceTree = "<group>"; };
 		BBB8D38F29E6030E008C8442 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				BBB8D38C29E6030E008C8442 /* Reciplease */,
+				BB921C2E2A39FA4A00857F94 /* Reciplease.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +141,7 @@
 			children = (
 				BB341FA42A0A82FB0032D048 /* RecipeModel.swift */,
 				BB8B2A1E2A15356E00B2A096 /* DataController.swift */,
+				BB4533D92A3B3137007C9422 /* APIKey.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -159,7 +163,7 @@
 			);
 			name = Reciplease;
 			productName = Reciplease;
-			productReference = BB09C9752A39DC810090A29C /* Reciplease.app */;
+			productReference = BB921C2E2A39FA4A00857F94 /* Reciplease.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -216,6 +220,7 @@
 				BBC3F2D72A0D3B00004FAD67 /* RecipeView-ViewModel.swift in Sources */,
 				BBB8D39C29E60451008C8442 /* FavoritesView.swift in Sources */,
 				BBB8D39E29E605AD008C8442 /* SearchView.swift in Sources */,
+				BB4533DA2A3B3137007C9422 /* APIKey.swift in Sources */,
 				BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */,
 				BB341FA22A0A819A0032D048 /* TabBar.swift in Sources */,
 				BBC3F2D52A0D0CB6004FAD67 /* RecipeView.swift in Sources */,
