@@ -73,7 +73,6 @@ extension FavRecipe: RecipeProtocol {
     public var id: String {
         return urlValue
     }
-    
     var imageValue: String {
         image ?? ""
     }

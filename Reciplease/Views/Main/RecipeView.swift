@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RecipeView: View {
-    @StateObject private var viewModel = ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var moc
     
@@ -16,11 +15,11 @@ struct RecipeView: View {
     ]) var favorites: FetchedResults<FavRecipe>
     
     let recipe: any RecipeProtocol
-
+    
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
-
+    
     var body: some View {
         ScrollView{
             VStack{
@@ -47,7 +46,6 @@ struct RecipeView: View {
                         .multilineTextAlignment(.center)
                     
                     VStack(alignment: .leading, spacing: 10){
-                        
                         HStack {
                             Text("Ingredients: ")
                                 .font(.headline)
@@ -64,17 +62,7 @@ struct RecipeView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Button(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "Remove from favorites" : "Add to favorites") {
-                        if favorites.contains(where: {$0.urlValue == recipe.urlValue}){
-                            DataController().removeFavorite(recipe: recipe as! FavRecipe, context: moc)
-                            self.presentationMode.wrappedValue.dismiss()
-                        } else {
-                            DataController().addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
-                        }
-                        
-                    }
-                    
+
                     Button {
                         Task {
                             if let url = URL(string: recipe.urlValue) {
@@ -91,14 +79,23 @@ struct RecipeView: View {
             }
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .automatic){
+                    Button(action: {
+                        if favorites.contains(where: {$0.urlValue == recipe.urlValue}){
+                            DataController().removeFavorite(recipe: recipe as! FavRecipe, context: moc)
+                            self.presentationMode.wrappedValue.dismiss()
+                        } else {
+                            DataController().addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
+                        }
+                    }, label: {
+                        Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
+                    })
+                    .accessibilityLabel("add to favorite")
+                }
+            }
         }
     }
-    
-    private func removeFavorite(offsets: IndexSet) {
-        offsets.map { favorites[$0]}.forEach(moc.delete)
-        DataController().save(context: moc)
-    }
-    
 }
 
 
@@ -108,9 +105,9 @@ struct RecipeView_Previews: PreviewProvider {
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
-//            ingredients: [],
+            //            ingredients: [],
             url: "https://www.apple.com",
-//            foods: [Food(food: "Salad")],
+            //            foods: [Food(food: "Salad")],
             totalTime: 40))
     }
 }
