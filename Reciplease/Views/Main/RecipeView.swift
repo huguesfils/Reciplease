@@ -84,7 +84,7 @@ struct RecipeView: View {
                     Button(action: {
                         if favorites.contains(where: {$0.urlValue == recipe.urlValue}){
                             DataController().removeFavorite(recipe: recipe as! FavRecipe, context: moc)
-                            self.presentationMode.wrappedValue.dismiss()
+                           self.presentationMode.wrappedValue.dismiss()
                         } else {
                             DataController().addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
                         }
