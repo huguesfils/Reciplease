@@ -82,9 +82,12 @@ struct RecipeView: View {
             .toolbar {
                 ToolbarItem(placement: .automatic){
                     Button(action: {
-                        if favorites.contains(where: {$0.urlValue == recipe.urlValue}){
-                            DataController().removeFavorite(recipe: recipe as! FavRecipe, context: moc)
-                           self.presentationMode.wrappedValue.dismiss()
+                        
+                        if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                            DataController().removeFavorite(recipe: favRecipe, context: moc)
+                            if recipe is FavRecipe {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
                         } else {
                             DataController().addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
                         }

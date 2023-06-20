@@ -12,11 +12,12 @@ struct RecipeCard: View {
     
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
+        print(recipe.imageValue)
     }
     var body: some View {
         ZStack {
             AsyncImage(url: URL(string: recipe.imageValue)) { image in
-                image
+                return image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipped()
