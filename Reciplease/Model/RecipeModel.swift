@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 let api = ApiData()
 
@@ -17,7 +18,6 @@ protocol RecipeProtocol: Identifiable {
     var imageValue: String { get }
     var totalTimeValue: Int { get }
     var ingredientLinesValue: [String] { get }
-//    var foodsValue: [Food] { get }
 }
 
 struct Response: Codable {
@@ -32,19 +32,9 @@ struct Recipe: Codable {
     var label: String
     var image: String
     var ingredientLines: [String]
-//    var ingredients: [Ingredient]
     var url: String
-//    var foods: [Food]
     var totalTime: Int
 }
-
-//struct Ingredient: Codable {
-//    var food: String
-//}
-//
-//struct Food: Codable {
-//    var food: String
-//}
 
 struct RecipeService {
     func loadData(ingredients: [String]) async throws  -> [Recipe] {
@@ -82,9 +72,6 @@ extension FavRecipe: RecipeProtocol {
     var ingredientLinesValue: [String] {
         ingredientLines ?? []
     }
-//    var foodsValue: [Food] {
-//        (foods ?? Food(food: "")).food.split(separator: "||").map {Food(food: String)($0)}
-//    }
     var labelValue: String {
         label ?? ""
     }
@@ -106,9 +93,6 @@ extension Recipe: RecipeProtocol {
     var ingredientLinesValue: [String] {
         ingredientLines
     }
-//    var foodsValue: [Food] {
-//        foods
-//    }
     var labelValue: String {
         label
     }

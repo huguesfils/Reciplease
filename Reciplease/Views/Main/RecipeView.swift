@@ -22,7 +22,9 @@ struct RecipeView: View {
     
     var body: some View {
         ScrollView{
-            VStack{
+            VStack{if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
+            } else {
                 AsyncImage(url: URL(string: recipe.imageValue)) { image in
                     image.resizable()
                         .aspectRatio(contentMode: .fill)
@@ -38,6 +40,7 @@ struct RecipeView: View {
                 }
                 .frame(height: 233)
                 .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
+            }
                 
                 VStack(spacing: 30) {
                     Text(recipe.labelValue)
@@ -108,9 +111,7 @@ struct RecipeView_Previews: PreviewProvider {
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
-            //            ingredients: [],
             url: "https://www.apple.com",
-            //            foods: [Food(food: "Salad")],
             totalTime: 40))
     }
 }

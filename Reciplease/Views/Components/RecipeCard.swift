@@ -12,7 +12,6 @@ struct RecipeCard: View {
     
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
-        print(recipe.imageValue)
     }
     var body: some View {
         ZStack {
@@ -32,7 +31,6 @@ struct RecipeCard: View {
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     .multilineTextAlignment(.leading)
-//                                    Text(recipe.ingredients.food.joined(separator: ","))
                                     
                                 }
                                 
