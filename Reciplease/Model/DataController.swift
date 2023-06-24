@@ -30,21 +30,21 @@ class DataController: ObservableObject {
     }
     
     func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, context: NSManagedObjectContext) {
-        let favRecipe = FavRecipe(context: context)
-        let imageUrl = URL(string: image)!
         DispatchQueue.global().async {
+            let imageUrl = URL(string: image)!
             if let data = try? Data(contentsOf: imageUrl) {
                 DispatchQueue.main.async {
+                    let favRecipe = FavRecipe(context: context)
                     favRecipe.storedImage = UIImage(data: data)?.pngData()
+                    favRecipe.label = label
+                    favRecipe.image = image
+                    favRecipe.ingredientLines = ingredientLines
+                    favRecipe.url = url
+                    favRecipe.totalTime = Int64(totalTime)
+                    self.save(context: context)
                 }
             }
         }
-        favRecipe.label = label
-        favRecipe.image = image
-        favRecipe.ingredientLines = ingredientLines
-        favRecipe.url = url
-        favRecipe.totalTime = Int64(totalTime)
-        save(context: context)
     }
     
     func removeFavorite(recipe: FavRecipe, context: NSManagedObjectContext) {

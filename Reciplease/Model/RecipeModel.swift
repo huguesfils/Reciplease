@@ -18,6 +18,7 @@ protocol RecipeProtocol: Identifiable {
     var imageValue: String { get }
     var totalTimeValue: Int { get }
     var ingredientLinesValue: [String] { get }
+    var storedImageValue: Data { get }
 }
 
 struct Response: Codable {
@@ -78,6 +79,9 @@ extension FavRecipe: RecipeProtocol {
     var urlValue: String {
         url ?? ""
     }
+    var storedImageValue: Data {
+        storedImage ?? Data()
+    }
 }
 
 extension Recipe: RecipeProtocol {
@@ -98,6 +102,9 @@ extension Recipe: RecipeProtocol {
     }
     var urlValue: String {
         url
+    }
+    var storedImageValue: Data {
+       Data()
     }
 }
 

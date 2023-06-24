@@ -22,25 +22,30 @@ struct RecipeView: View {
     
     var body: some View {
         ScrollView{
-            VStack{if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
-                Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
-            } else {
-                AsyncImage(url: URL(string: recipe.imageValue)) { image in
-                    image.resizable()
+            VStack{
+                if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                    Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
+                        .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 233)
                         .clipped()
-                } placeholder: {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100, alignment: .center)
-                        .foregroundColor(.white.opacity(0.7))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    AsyncImage(url: URL(string: recipe.imageValue)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 233)
+                            .clipped()
+                    } placeholder: {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .foregroundColor(.white.opacity(0.7))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    .frame(height: 233)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
                 }
-                .frame(height: 233)
-                .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
-            }
                 
                 VStack(spacing: 30) {
                     Text(recipe.labelValue)
@@ -65,7 +70,7 @@ struct RecipeView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-
+                    
                     Button {
                         Task {
                             if let url = URL(string: recipe.urlValue) {
