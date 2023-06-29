@@ -13,7 +13,7 @@ struct RecipleaseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environment(\.managedObjectContext, dataController.container.viewContext)
+            ContentView().environment(\.managedObjectContext, DataController.container.viewContext)
         }
     }
 }

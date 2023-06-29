@@ -10,38 +10,53 @@ import Foundation
 import SwiftUI
 
 class DataController: ObservableObject {
-    let container = NSPersistentContainer(name: "Reciplease")
-    
-    init() {
+    static var container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Reciplease")
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data falied to load: \(error.localizedDescription)")
             }
         }
-    }
-    
+        return container
+    }()
+
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
-            print("Data saved!")
         } catch {
-            print("Data not saved")
+            print("Data not saved, error: \(error)")
         }
     }
     
     func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, context: NSManagedObjectContext) {
+        downloadImage(imageUrl: image) { data in
+            let favRecipe = FavRecipe(context: context)
+            favRecipe.storedImage = data?.image?.pngData()
+            favRecipe.label = label
+            favRecipe.image = image
+            favRecipe.ingredientLines = ingredientLines
+            favRecipe.url = url
+            favRecipe.totalTime = Int16(totalTime)
+            self.save(context: context)
+        }
+    }
+    
+    func downloadImage(imageUrl: String, completionHandler: @escaping (Data?) -> ()) {
         DispatchQueue.global().async {
-            let imageUrl = URL(string: image)!
-            if let data = try? Data(contentsOf: imageUrl) {
+            guard let imageUrl = URL(string: imageUrl) else {
+                return DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
+            do {
+                let data = try Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
-                    let favRecipe = FavRecipe(context: context)
-                    favRecipe.storedImage = UIImage(data: data)?.pngData()
-                    favRecipe.label = label
-                    favRecipe.image = image
-                    favRecipe.ingredientLines = ingredientLines
-                    favRecipe.url = url
-                    favRecipe.totalTime = Int64(totalTime)
-                    self.save(context: context)
+                    completionHandler(data)
+                }
+            } catch {
+                print("Error in download of image \(error)")
+                DispatchQueue.main.async {
+                    completionHandler(nil)
                 }
             }
         }
@@ -51,8 +66,10 @@ class DataController: ObservableObject {
         context.delete(recipe)
         save(context: context)
     }
-    
-    func convertToImage(url: String) {
-       
+}
+
+extension Data {
+    var image: UIImage? {
+        return UIImage(data: self)
     }
 }

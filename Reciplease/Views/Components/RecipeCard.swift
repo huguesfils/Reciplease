@@ -31,7 +31,7 @@ struct RecipeCard: View {
                         VStack {
                             HStack {
                                 VStack {
-                                    Text(recipe.labelValue)
+                                    Text(favRecipe.labelValue)
                                         .font(.subheadline.weight(.heavy))
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -39,8 +39,8 @@ struct RecipeCard: View {
                                     
                                 }
                                 
-                                if recipe.totalTimeValue != 0 {
-                                    Text("\(recipe.totalTimeValue) min")
+                                if favRecipe.totalTimeValue != 0 {
+                                    Text("\(favRecipe.totalTimeValue) min")
                                         .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
                             }

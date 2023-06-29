@@ -6,7 +6,7 @@
         <attribute name="ingredients" optional="YES" attributeType="String"/>
         <attribute name="label" attributeType="String"/>
         <attribute name="storedImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <attribute name="totalTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="url" attributeType="String"/>
     </entity>
 </model>

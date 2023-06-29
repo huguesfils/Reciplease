@@ -33,7 +33,6 @@ struct SearchView: View {
                         .buttonStyle(.borderedProminent)
                         .tint(.green)
                     }
-                    
                 }
                 
                 Section {
@@ -84,20 +83,19 @@ struct SearchView: View {
                 }
             }
             .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Int.self, destination: { i in
                 RecipiesListView(viewModel: self.viewModel)
             })
-        }
+        }.navigationBarTitleDisplayMode(.inline)
     }
     
-    func addIngredient() {
+    private func addIngredient() {
         withAnimation {
             viewModel.addIngredient()
         }
     }
     
-    func clearIngredient() {
+    private func clearIngredient() {
         withAnimation {
             viewModel.clearIngredients()
         }
