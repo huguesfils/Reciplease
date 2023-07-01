@@ -22,8 +22,24 @@
 		BBB8D39C29E60451008C8442 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39B29E60451008C8442 /* FavoritesView.swift */; };
 		BBB8D39E29E605AD008C8442 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39D29E605AD008C8442 /* SearchView.swift */; };
 		BBC3F2D52A0D0CB6004FAD67 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC3F2D42A0D0CB6004FAD67 /* RecipeView.swift */; };
+		BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */; };
+		BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */; };
+		BBF3E0752A504CC7003EB0F7 /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */; };
+		BBF3E0762A504CD1003EB0F7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1E2A15356E00B2A096 /* DataController.swift */; };
+		BBF3E0772A504CD4003EB0F7 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
+		BBF3E0782A505064003EB0F7 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39D29E605AD008C8442 /* SearchView.swift */; };
 		BBF96B8129F0453900FCB40B /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBBD7BFF2A4F2833004008E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBB8D38229E6030E008C8442 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBB8D38929E6030E008C8442;
+			remoteInfo = Reciplease;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		BB341FA12A0A819A0032D048 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -41,12 +57,22 @@
 		BBB8D39429E6030F008C8442 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BBB8D39B29E60451008C8442 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		BBB8D39D29E605AD008C8442 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		BBBD7BFB2A4F2833004008E2 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBC3F2D42A0D0CB6004FAD67 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTestCase.swift; sourceTree = "<group>"; };
+		BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTestCase.swift; sourceTree = "<group>"; };
 		BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BBB8D38729E6030E008C8442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBBD7BF82A4F2833004008E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -100,6 +126,8 @@
 			children = (
 				BBB8D38C29E6030E008C8442 /* Reciplease */,
 				BB921C2E2A39FA4A00857F94 /* Reciplease.app */,
+				BBBD7BFB2A4F2833004008E2 /* RecipleaseTests.xctest */,
+				BBBD7BFC2A4F2833004008E2 /* RecipleaseTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +171,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BBBD7BFC2A4F2833004008E2 /* RecipleaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */,
+				BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */,
+			);
+			path = RecipleaseTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -163,6 +200,24 @@
 			productReference = BB921C2E2A39FA4A00857F94 /* Reciplease.app */;
 			productType = "com.apple.product-type.application";
 		};
+		BBBD7BFA2A4F2833004008E2 /* RecipleaseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBBD7C032A4F2833004008E2 /* Build configuration list for PBXNativeTarget "RecipleaseTests" */;
+			buildPhases = (
+				BBBD7BF72A4F2833004008E2 /* Sources */,
+				BBBD7BF82A4F2833004008E2 /* Frameworks */,
+				BBBD7BF92A4F2833004008E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BBBD7C002A4F2833004008E2 /* PBXTargetDependency */,
+			);
+			name = RecipleaseTests;
+			productName = RecipleaseTests;
+			productReference = BBBD7BFB2A4F2833004008E2 /* RecipleaseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,6 +230,11 @@
 				TargetAttributes = {
 					BBB8D38929E6030E008C8442 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					BBBD7BFA2A4F2833004008E2 = {
+						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1430;
+						TestTargetID = BBB8D38929E6030E008C8442;
 					};
 				};
 			};
@@ -192,6 +252,7 @@
 			projectRoot = "";
 			targets = (
 				BBB8D38929E6030E008C8442 /* Reciplease */,
+				BBBD7BFA2A4F2833004008E2 /* RecipleaseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -203,6 +264,13 @@
 			files = (
 				BBB8D39529E6030F008C8442 /* Preview Assets.xcassets in Resources */,
 				BBB8D39229E6030F008C8442 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBBD7BF92A4F2833004008E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +298,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BBBD7BF72A4F2833004008E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */,
+				BBF3E0762A504CD1003EB0F7 /* DataController.swift in Sources */,
+				BBF3E0772A504CD4003EB0F7 /* RecipeModel.swift in Sources */,
+				BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */,
+				BBF3E0782A505064003EB0F7 /* SearchView.swift in Sources */,
+				BBF3E0752A504CC7003EB0F7 /* SearchView-ViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBBD7C002A4F2833004008E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBB8D38929E6030E008C8442 /* Reciplease */;
+			targetProxy = BBBD7BFF2A4F2833004008E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		BBB8D39629E6030F008C8442 /* Debug */ = {
@@ -407,6 +496,45 @@
 			};
 			name = Release;
 		};
+		BBBD7C012A4F2833004008E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RT62BPUMZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huguesfils.RecipleaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reciplease";
+			};
+			name = Debug;
+		};
+		BBBD7C022A4F2833004008E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RT62BPUMZ6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huguesfils.RecipleaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reciplease";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -424,6 +552,15 @@
 			buildConfigurations = (
 				BBB8D39929E6030F008C8442 /* Debug */,
 				BBB8D39A29E6030F008C8442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBBD7C032A4F2833004008E2 /* Build configuration list for PBXNativeTarget "RecipleaseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBBD7C012A4F2833004008E2 /* Debug */,
+				BBBD7C022A4F2833004008E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -58,9 +58,11 @@ struct RecipeView: View {
                             Text("Ingredients: ")
                                 .font(.headline)
                             Spacer()
-                            HStack {
-                                Image(systemName: "clock.badge.checkmark")
-                                Text("\(recipe.totalTimeValue) min")
+                            if recipe.totalTimeValue != 0 {
+                                HStack {
+                                    Image(systemName: "clock.badge.checkmark")
+                                    Text("\(recipe.totalTimeValue) min")
+                                }
                             }
                         }
                         

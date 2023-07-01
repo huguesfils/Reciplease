@@ -18,7 +18,7 @@ protocol RecipeProtocol: Identifiable {
     var imageValue: String { get }
     var totalTimeValue: Int { get }
     var ingredientLinesValue: [String] { get }
-//    var ingredientsValue: [String] { get }
+    //    var ingredientsValue: [String] { get }
     var storedImageValue: Data { get }
 }
 
@@ -34,7 +34,7 @@ struct Recipe: Codable {
     var label: String
     var image: String
     var ingredientLines: [String]
-//    var ingredients: [ingredient]
+    //    var ingredients: [ingredient]
     var url: String
     var totalTime: Int
 }
@@ -66,6 +66,16 @@ struct RecipeService {
     }
 }
 
+func calculateTime(_ timeValue: Int) -> String {
+    let timeMeasure = Measurement(value: Double(timeValue), unit: UnitDuration.minutes)
+    let hours = timeMeasure.converted(to: .hours)
+    if hours.value > 1 {
+        let minutes = timeMeasure.value.truncatingRemainder(dividingBy: 60)
+        return String(format: "%.f %@ %.f %@", hours.value, "h", minutes, "min")
+    }
+    return String(format: "%.f %@", timeMeasure.value, "min")
+}
+
 extension FavRecipe: RecipeProtocol {
     public var id: String {
         return urlValue
@@ -74,7 +84,7 @@ extension FavRecipe: RecipeProtocol {
         image ?? ""
     }
     var totalTimeValue: Int {
-        0
+        Int(totalTime)
     }
     var ingredientLinesValue: [String] {
         ingredientLines ?? []
@@ -88,9 +98,9 @@ extension FavRecipe: RecipeProtocol {
     var storedImageValue: Data {
         storedImage ?? Data()
     }
-//    var ingredientsValue: [String] {
-//        ingredients ?? [Any]
-//    }
+    //    var ingredientsValue: [String] {
+    //        ingredients ?? [Any]
+    //    }
 }
 
 extension Recipe: RecipeProtocol {
@@ -113,10 +123,10 @@ extension Recipe: RecipeProtocol {
         url
     }
     var storedImageValue: Data {
-       Data()
+        Data()
     }
-//    var ingredientsValue: [String] {
-//        ingredients ?? [Any]
-//    }
+    //    var ingredientsValue: [String] {
+    //        ingredients ?? [Any]
+    //    }
 }
 

@@ -17,6 +17,7 @@ struct RecipeCard: View {
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
+
     
     var body: some View {
         ZStack {
@@ -39,8 +40,9 @@ struct RecipeCard: View {
                                     
                                 }
                                 
-                                if favRecipe.totalTimeValue != 0 {
-                                    Text("\(favRecipe.totalTimeValue) min")
+                               if favRecipe.totalTimeValue != 0 {
+                                   let favTime = calculateTime(favRecipe.totalTimeValue)
+                                    Text("\(favTime)")
                                         .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
                             }
@@ -70,7 +72,8 @@ struct RecipeCard: View {
                                     }
                                     
                                     if recipe.totalTimeValue != 0 {
-                                        Text("\(recipe.totalTimeValue) min")
+                                        let time = calculateTime(recipe.totalTimeValue)
+                                        Text("\(time)")
                                             .frame(maxWidth: .infinity, alignment: .trailing)
                                     }
                                 }

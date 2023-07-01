@@ -36,7 +36,7 @@ class DataController: ObservableObject {
             favRecipe.image = image
             favRecipe.ingredientLines = ingredientLines
             favRecipe.url = url
-            favRecipe.totalTime = Int16(totalTime)
+            favRecipe.totalTime = Int64(totalTime)
             self.save(context: context)
         }
     }
