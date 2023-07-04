@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import SwiftUI
+//import SwiftUI
 
-extension SearchView {
-    @MainActor class ViewModel: ObservableObject {
+//extension SearchView {
+    @MainActor class SearchViewModel: ObservableObject {
         let service: RecipeService
         
         init(service: RecipeService = RecipeService()) {
@@ -44,4 +44,4 @@ extension SearchView {
             }
         }
     }
-}
+//}

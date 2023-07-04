@@ -99,7 +99,7 @@ struct RecipeView: View {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                         } else {
-                            dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, context: moc)
+                            dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue, context: moc)
                         }
                     }, label: {
                         Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
@@ -118,6 +118,7 @@ struct RecipeView_Previews: PreviewProvider {
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
+            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")],
             url: "https://www.apple.com",
             totalTime: 40))
     }

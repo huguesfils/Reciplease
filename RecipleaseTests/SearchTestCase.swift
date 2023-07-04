@@ -6,16 +6,17 @@
 //
 
 import XCTest
+@testable import Reciplease
 
 final class SearchTestCase: XCTestCase {
     
     @MainActor func testGivenIngredientsArrayIsEmpty_WhenIncrementAnIngredientFromUserInput_ThenIngredientShouldContainANewIngredient() throws {
        //given
-       let viewModel = SearchView.ViewModel()
+       let viewModel = SearchViewModel()
         viewModel.searchInput = "lemon"
         //when
         viewModel.addIngredient()
         //then
-        XCTAssert(viewModel.ingredients.contains(viewModel.searchInput))
+        XCTAssert(viewModel.ingredients.contains("lemon"))
     }
 }

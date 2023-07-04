@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipiesListView: View {
-    @ObservedObject var viewModel: SearchView.ViewModel
+    @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
         ScrollView{
@@ -21,6 +21,6 @@ struct RecipiesListView: View {
 
 struct RecipiesListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipiesListView(viewModel: SearchView.ViewModel())
+        RecipiesListView(viewModel: SearchViewModel())
     }
 }

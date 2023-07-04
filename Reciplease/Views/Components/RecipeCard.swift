@@ -41,7 +41,7 @@ struct RecipeCard: View {
                                 }
                                 
                                if favRecipe.totalTimeValue != 0 {
-                                   let favTime = calculateTime(favRecipe.totalTimeValue)
+                                   let favTime = favRecipe.totalTimeValue.toTimeString()
                                     Text("\(favTime)")
                                         .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
@@ -72,7 +72,7 @@ struct RecipeCard: View {
                                     }
                                     
                                     if recipe.totalTimeValue != 0 {
-                                        let time = calculateTime(recipe.totalTimeValue)
+                                        let time = recipe.totalTimeValue.toTimeString()
                                         Text("\(time)")
                                             .frame(maxWidth: .infinity, alignment: .trailing)
                                     }
@@ -109,6 +109,7 @@ struct RecipeCard_Previews: PreviewProvider {
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
+            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")],
             url: "https://www.apple.com",
             totalTime: 40))
     }

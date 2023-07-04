@@ -8,8 +8,6 @@
 import Foundation
 import SwiftUI
 
-let api = ApiData()
-
 protocol RecipeProtocol: Identifiable {
     associatedtype Id
     var id: Id { get }
@@ -18,7 +16,7 @@ protocol RecipeProtocol: Identifiable {
     var imageValue: String { get }
     var totalTimeValue: Int { get }
     var ingredientLinesValue: [String] { get }
-    //    var ingredientsValue: [String] { get }
+    var foodIngredientsValue: [String] { get }
     var storedImageValue: Data { get }
 }
 
@@ -34,7 +32,7 @@ struct Recipe: Codable {
     var label: String
     var image: String
     var ingredientLines: [String]
-    //    var ingredients: [ingredient]
+    var ingredients: [ingredient]
     var url: String
     var totalTime: Int
 }
@@ -43,26 +41,21 @@ struct ingredient: Codable {
     var food: String
 }
 
-struct RecipeService {
-    func loadData(ingredients: [String]) async throws  -> [Recipe] {
-        guard let url = URL(string: "https://api.edamam.com/search?q=\(ingredients.joined(separator: ","))&app_id=\(api.api_id)&app_key=\(api.api_key)") else {
-            print("Invalid URL")
-            return []
+extension Recipe {
+    var foodIngredients: [String] {
+        return ingredients.map { $0.food }
+    }
+}
+
+extension Int {
+    func toTimeString() -> String {
+        let timeMeasure = Measurement(value: Double(self), unit: UnitDuration.minutes)
+        let hours = timeMeasure.converted(to: .hours)
+        if hours.value > 1 {
+            let minutes = timeMeasure.value.truncatingRemainder(dividingBy: 60)
+            return String(format: "%.f %@ %.f %@", hours.value, "h", minutes, "min")
         }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
-                return (decodedResponse.hits ?? []).map { hit in
-                    hit.recipe
-                }
-            } else {
-                return []
-            }
-        } catch {
-            print("Invalid data")
-            return []
-        }
+        return String(format: "%.f %@", timeMeasure.value, "min")
     }
 }
 
@@ -98,9 +91,11 @@ extension FavRecipe: RecipeProtocol {
     var storedImageValue: Data {
         storedImage ?? Data()
     }
-    //    var ingredientsValue: [String] {
-    //        ingredients ?? [Any]
-    //    }
+    
+    var foodIngredientsValue: [String] {
+        foodIngredients ?? []
+    }
+
 }
 
 extension Recipe: RecipeProtocol {
@@ -125,8 +120,9 @@ extension Recipe: RecipeProtocol {
     var storedImageValue: Data {
         Data()
     }
-    //    var ingredientsValue: [String] {
-    //        ingredients ?? [Any]
-    //    }
+    
+    var foodIngredientsValue: [String] {
+        foodIngredients
+    }
 }
 

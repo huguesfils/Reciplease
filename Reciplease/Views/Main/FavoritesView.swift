@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @ObservedObject var viewModel: SearchView.ViewModel
+    @ObservedObject var viewModel: SearchViewModel
     @FetchRequest(sortDescriptors: [
     ]) var favorites: FetchedResults<FavRecipe>
     
@@ -35,6 +35,6 @@ struct FavoritesView: View {
 
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesView(viewModel: SearchView.ViewModel())
+        FavoritesView(viewModel: SearchViewModel())
     }
 }

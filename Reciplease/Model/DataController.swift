@@ -28,13 +28,14 @@ class DataController: ObservableObject {
         }
     }
     
-    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, context: NSManagedObjectContext) {
+    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], context: NSManagedObjectContext) {
         downloadImage(imageUrl: image) { data in
             let favRecipe = FavRecipe(context: context)
             favRecipe.storedImage = data?.image?.pngData()
             favRecipe.label = label
             favRecipe.image = image
             favRecipe.ingredientLines = ingredientLines
+            favRecipe.foodIngredients = foodIngredients
             favRecipe.url = url
             favRecipe.totalTime = Int64(totalTime)
             self.save(context: context)

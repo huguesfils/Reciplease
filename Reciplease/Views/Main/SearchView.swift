@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = SearchViewModel()
     @State private var navPath = NavigationPath()
     
     let service = RecipeService()
