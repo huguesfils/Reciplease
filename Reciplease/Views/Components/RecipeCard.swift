@@ -17,7 +17,6 @@ struct RecipeCard: View {
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
-
     
     var body: some View {
         ZStack {
@@ -36,14 +35,22 @@ struct RecipeCard: View {
                                         .font(.subheadline.weight(.heavy))
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .multilineTextAlignment(.leading)
-                                    
+                                        .lineLimit(1)
+                                    Text(favRecipe.foodIngredientsValue.joined(separator: ","))
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                        .lineLimit(1)
+                                        .padding(.top, -2)
+                                        .truncationMode(.tail)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
+                                .frame(maxWidth: 300,alignment: .leading)
                                 
-                               if favRecipe.totalTimeValue != 0 {
-                                   let favTime = favRecipe.totalTimeValue.toTimeString()
+                                if favRecipe.totalTimeValue != 0 {
+                                    let favTime = favRecipe.totalTimeValue.toTimeString()
                                     Text("\(favTime)")
-                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        .foregroundColor(.black)
+                                        .frame(maxWidth: 100, alignment: .trailing)
                                 }
                             }
                             .padding(.horizontal)
@@ -66,17 +73,27 @@ struct RecipeCard: View {
                                         Text(recipe.labelValue)
                                             .font(.subheadline.weight(.heavy))
                                             .foregroundColor(.black)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .multilineTextAlignment(.leading)
+                                            .frame(maxWidth:.infinity,alignment: .leading)
+                                            .lineLimit(1)
+                                        Text(recipe.foodIngredientsValue.joined(separator: ", "))
+                                            .font(.caption)
+                                            .foregroundColor(.black)
+                                            .lineLimit(1)
+                                            .padding(-2)
+                                            .frame(maxWidth: .infinity,alignment: .leading)
+                                            .truncationMode(.tail)
                                         
                                     }
+                                    .frame(maxWidth: 300,alignment: .leading)
                                     
                                     if recipe.totalTimeValue != 0 {
                                         let time = recipe.totalTimeValue.toTimeString()
                                         Text("\(time)")
-                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .foregroundColor(.black)
+                                            .frame(maxWidth: 100, alignment: .trailing)
                                     }
                                 }
+                                .frame(maxWidth:.infinity,alignment: .leading)
                                 .padding(.horizontal)
                             }
                             .frame(height: 65)
@@ -107,9 +124,9 @@ struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
         RecipeCard(recipe: Recipe(
             label: "Test",
-            image: "photo",
+            image: "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
-            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")],
+            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon"), ingredient(food: "paprikaaaaaaaaaaaaaaaaaaaaa")],
             url: "https://www.apple.com",
             totalTime: 40))
     }

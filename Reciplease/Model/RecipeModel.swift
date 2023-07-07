@@ -59,16 +59,6 @@ extension Int {
     }
 }
 
-func calculateTime(_ timeValue: Int) -> String {
-    let timeMeasure = Measurement(value: Double(timeValue), unit: UnitDuration.minutes)
-    let hours = timeMeasure.converted(to: .hours)
-    if hours.value > 1 {
-        let minutes = timeMeasure.value.truncatingRemainder(dividingBy: 60)
-        return String(format: "%.f %@ %.f %@", hours.value, "h", minutes, "min")
-    }
-    return String(format: "%.f %@", timeMeasure.value, "min")
-}
-
 extension FavRecipe: RecipeProtocol {
     public var id: String {
         return urlValue
@@ -91,7 +81,6 @@ extension FavRecipe: RecipeProtocol {
     var storedImageValue: Data {
         storedImage ?? Data()
     }
-    
     var foodIngredientsValue: [String] {
         foodIngredients ?? []
     }
@@ -120,7 +109,6 @@ extension Recipe: RecipeProtocol {
     var storedImageValue: Data {
         Data()
     }
-    
     var foodIngredientsValue: [String] {
         foodIngredients
     }
