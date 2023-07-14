@@ -22,6 +22,8 @@ struct SearchView: View {
                         .bold()
                     HStack {
                         TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
+//                            .accessibilityLabel("Enter one or more ingredients here")
+                            .accessibilityValue(viewModel.searchInput)
                             .onAppear {
                                 UITextField.appearance().clearButtonMode = .whileEditing
                             }
@@ -56,7 +58,10 @@ struct SearchView: View {
                                 HStack{
                                     Image(systemName: "checkmark").foregroundColor(.green)
                                     Text("\(ingredient)")
+                                    
                                 }
+                                .accessibilityElement(children: .combine)
+                                .accessibilityLabel(ingredient)
                                 
                             }
                         }

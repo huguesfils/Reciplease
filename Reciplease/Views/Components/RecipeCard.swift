@@ -34,15 +34,16 @@ struct RecipeCard: View {
                                     Text(favRecipe.labelValue)
                                         .font(.subheadline.weight(.heavy))
                                         .foregroundColor(.black)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(maxWidth:.infinity,alignment: .leading)
                                         .lineLimit(1)
-                                    Text(favRecipe.foodIngredientsValue.joined(separator: ","))
+                                    Text(favRecipe.foodIngredientsValue.joined(separator: ", "))
                                         .font(.caption)
                                         .foregroundColor(.black)
                                         .lineLimit(1)
-                                        .padding(.top, -2)
+                                        .padding(-2)
+                                        .frame(maxWidth: .infinity,alignment: .leading)
                                         .truncationMode(.tail)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
                                 }
                                 .frame(maxWidth: 300,alignment: .leading)
                                 
@@ -51,8 +52,10 @@ struct RecipeCard: View {
                                     Text("\(favTime)")
                                         .foregroundColor(.black)
                                         .frame(maxWidth: 100, alignment: .trailing)
+                                        .accessibilityValue(favTime)
                                 }
                             }
+                            .frame(maxWidth:.infinity,alignment: .leading)
                             .padding(.horizontal)
                         }
                         .frame(height: 65)
@@ -91,6 +94,7 @@ struct RecipeCard: View {
                                         Text("\(time)")
                                             .foregroundColor(.black)
                                             .frame(maxWidth: 100, alignment: .trailing)
+                                            .accessibilityValue(time)
                                     }
                                 }
                                 .frame(maxWidth:.infinity,alignment: .leading)

@@ -6,12 +6,25 @@
 //
 
 import XCTest
-import Reciplease
+@testable import Reciplease
 
 final class ApiTestCase: XCTestCase {
+    
+    
+    
 
-    func testLoadData() {
-        XCTAssert(true)
-    }
+//    func testLoadData() throws{
+//        //given
+//
+//        //when
+//
+//        let service = RecipeService(session: MockUrlSession(completion {
+//
+//        }))
+//        service.loadData(ingredients: ["cheese"])
+//        //then
+//
+//        XCTAssert(true)
+//    }
 
 }

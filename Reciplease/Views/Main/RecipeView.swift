@@ -29,12 +29,14 @@ struct RecipeView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 233)
                         .clipped()
+                        .accessibilityLabel("meal photo")
                 } else {
                     AsyncImage(url: URL(string: recipe.imageValue)) { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 233)
                             .clipped()
+                            .accessibilityLabel("meal photo")
                     } placeholder: {
                         Image(systemName: "photo")
                             .resizable()
@@ -42,6 +44,7 @@ struct RecipeView: View {
                             .frame(width: 100, height: 100, alignment: .center)
                             .foregroundColor(.white.opacity(0.7))
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .accessibilityHidden(true)
                     }
                     .frame(height: 233)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
@@ -59,10 +62,14 @@ struct RecipeView: View {
                                 .font(.headline)
                             Spacer()
                             if recipe.totalTimeValue != 0 {
+                                let recipeTime = recipe.totalTimeValue.toTimeString()
                                 HStack {
                                     Image(systemName: "clock.badge.checkmark")
-                                    Text("\(recipe.totalTimeValue) min")
+                                    Text("\(recipeTime)")
+                                        
                                 }
+                                .accessibilityElement(children: .combine)
+                                .accessibilityValue(recipeTime)
                             }
                         }
                         
@@ -104,7 +111,7 @@ struct RecipeView: View {
                     }, label: {
                         Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
                     })
-                    .accessibilityLabel("add to favorite")
+                    .accessibilityLabel(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "remove from favorite" : "add to favorite")
                 }
             }
         }
