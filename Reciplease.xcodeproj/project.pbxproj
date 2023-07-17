@@ -105,8 +105,8 @@
 		BB6AFAA42A09B5A30025742D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BB6AFAA52A09B5C20025742D /* RecipeCard.swift */,
 				BB341FA62A0A8ED10032D048 /* RecipeList.swift */,
+				BB6AFAA52A09B5C20025742D /* RecipeCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

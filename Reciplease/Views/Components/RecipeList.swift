@@ -28,10 +28,19 @@ struct RecipeList: View {
                     Spacer()
                 }
                 VStack(spacing: 15) {
-                    ForEach(results, id: \.labelValue) { item in
-                        NavigationLink(destination: RecipeView(recipe: item)) {
-                            RecipeCard(recipe: item)
+                    if results.count > 0 {
+                        ForEach(results, id: \.labelValue) { item in
+                            NavigationLink(destination: RecipeView(recipe: item)) {
+                                RecipeCard(recipe: item)
+                            }
                         }
+                    } else {
+                        Text("Sorry, no recipe found :(")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .opacity(0.7)
+                            .multilineTextAlignment(.center)
+                            .padding()
                     }
                 }
                 .padding(.top)

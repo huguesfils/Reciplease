@@ -89,7 +89,9 @@ struct RecipeView: View {
                     } label: {
                         Text("Get directions").frame(maxWidth: .infinity, alignment: .center)
                     }
-                    .padding().background(Color.green)
+                    .padding()
+                    .background(Color("button"))
+                    .cornerRadius(5)
                     .foregroundColor(Color.white)
                 }
                 .padding(.horizontal)
