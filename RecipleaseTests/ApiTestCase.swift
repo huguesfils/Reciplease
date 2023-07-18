@@ -11,6 +11,19 @@ import XCTest
 final class ApiTestCase: XCTestCase {
     
     
+    func testVincent() async throws {
+        let session = URLSessionMock()
+        let encoder = JSONEncoder()
+        session.data = try encoder.encode(["toto": "titi"])
+        
+        let service = RecipeService(session: session)
+        
+        let result = try await service.loadData(ingredients: ["turc"])
+        
+        XCTAssert(result.isEmpty)
+        
+        
+    }
     
 
 //    func testLoadData() throws{
@@ -26,5 +39,6 @@ final class ApiTestCase: XCTestCase {
 //
 //        XCTAssert(true)
 //    }
+
 
 }

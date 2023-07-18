@@ -15,10 +15,7 @@
 		BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */; };
 		BB8B2A1F2A15356E00B2A096 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1E2A15356E00B2A096 /* DataController.swift */; };
 		BB92520C2A54A6F0003F61C2 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92520B2A54A6F0003F61C2 /* RecipeService.swift */; };
-		BB92520F2A54A7A1003F61C2 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92520B2A54A6F0003F61C2 /* RecipeService.swift */; };
 		BB9252122A54A7BB003F61C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB9252112A54A7BB003F61C2 /* XCTest.framework */; platformFilter = ios; };
-		BB9252132A54A7D9003F61C2 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4533D92A3B3137007C9422 /* APIKey.swift */; };
-		BB9252142A54A7EF003F61C2 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */; };
 		BBA326AE29E6EB6D00E34018 /* RecipiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA326AD29E6EB6D00E34018 /* RecipiesListView.swift */; };
 		BBB8D38E29E6030E008C8442 /* RecipleaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D38D29E6030E008C8442 /* RecipleaseApp.swift */; };
 		BBB8D39029E6030E008C8442 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D38F29E6030E008C8442 /* ContentView.swift */; };
@@ -29,9 +26,6 @@
 		BBC3F2D52A0D0CB6004FAD67 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC3F2D42A0D0CB6004FAD67 /* RecipeView.swift */; };
 		BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */; };
 		BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */; };
-		BBF3E0752A504CC7003EB0F7 /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */; };
-		BBF3E0762A504CD1003EB0F7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1E2A15356E00B2A096 /* DataController.swift */; };
-		BBF3E0772A504CD4003EB0F7 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
 		BBF96B8129F0453900FCB40B /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -321,13 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */,
-				BBF3E0762A504CD1003EB0F7 /* DataController.swift in Sources */,
-				BB9252132A54A7D9003F61C2 /* APIKey.swift in Sources */,
-				BB9252142A54A7EF003F61C2 /* Reciplease.xcdatamodeld in Sources */,
-				BB92520F2A54A7A1003F61C2 /* RecipeService.swift in Sources */,
-				BBF3E0772A504CD4003EB0F7 /* RecipeModel.swift in Sources */,
 				BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */,
-				BBF3E0752A504CC7003EB0F7 /* SearchView-ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
