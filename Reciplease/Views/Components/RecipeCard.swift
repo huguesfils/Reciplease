@@ -92,7 +92,7 @@ struct RecipeCard: View {
                                     if recipe.totalTimeValue != 0 {
                                         let time = recipe.totalTimeValue.toTimeString()
                                         Text("\(time)")
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Color("text"))
                                             .frame(maxWidth: 100, alignment: .trailing)
                                             .accessibilityValue(time)
                                     }
