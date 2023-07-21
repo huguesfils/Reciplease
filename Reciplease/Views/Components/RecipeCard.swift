@@ -50,7 +50,7 @@ struct RecipeCard: View {
                                 if favRecipe.totalTimeValue != 0 {
                                     let favTime = favRecipe.totalTimeValue.toTimeString()
                                     Text("\(favTime)")
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color("text"))
                                         .frame(maxWidth: 100, alignment: .trailing)
                                         .accessibilityValue(favTime)
                                 }

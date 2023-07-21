@@ -22,7 +22,6 @@ struct SearchView: View {
                         .bold()
                     HStack {
                         TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-//                            .accessibilityLabel("Enter one or more ingredients here")
                             .accessibilityValue(viewModel.searchInput)
                             .onAppear {
                                 UITextField.appearance().clearButtonMode = .whileEditing
@@ -33,7 +32,7 @@ struct SearchView: View {
                                 .frame(width: 40)
                         }
                         .buttonStyle(.borderedProminent)
-                        .tint(.green)
+                        .tint(Color("button"))
                     }
                 }
                 
@@ -56,7 +55,7 @@ struct SearchView: View {
                         VStack(alignment: .leading, spacing: 10){
                             ForEach(viewModel.ingredients, id: \.self) { ingredient in
                                 HStack{
-                                    Image(systemName: "checkmark").foregroundColor(.green)
+                                    Image(systemName: "checkmark").foregroundColor(Color("button"))
                                     Text("\(ingredient)")
                                     
                                 }
@@ -83,7 +82,7 @@ struct SearchView: View {
                             Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
                         }
                         .disabled(viewModel.ingredients.isEmpty)
-                        .tint(.green)
+                        .tint(Color("button"))
                     }
                 }
             }
