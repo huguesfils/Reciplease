@@ -21,7 +21,7 @@ protocol RecipeProtocol: Identifiable {
 }
 
 struct Response: Codable {
-    var hits: [Hit]?
+    var hits: [Hit]
 }
 
 struct Hit: Codable {

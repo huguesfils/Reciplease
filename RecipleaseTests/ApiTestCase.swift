@@ -10,35 +10,22 @@ import XCTest
 
 final class ApiTestCase: XCTestCase {
     
-    
-    
-    
     func testVincent() async throws {
-        let session = URLSessionMock()
-        let encoder = JSONEncoder()
-        session.data = try encoder.encode(["toto": "titi"])
+        URLProtocol.registerClass(MockURLProtocol.self)
+        MockURLProtocol.requestHandler = {request in
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(["toto": "titi"])
+            return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
+        }
+        
+        let service = RecipeService()
 
-        let service = RecipeService(session: session)
-
-        let result = try await service.loadData(ingredients: ["turc"])
-
-        XCTAssert(result.isEmpty)
+        do {
+            _ = try await service.loadData(ingredients: ["turc"])
+            XCTAssert(false)
+        } catch  {
+            XCTAssert(true)
+            XCTAssert(error is RecipeService.Error)
+        }
     }
-    
-
-//    func testLoadData() throws{
-//        //given
-//
-//        //when
-//
-//        let service = RecipeService(session: MockUrlSession(completion {
-//
-//        }))
-//        service.loadData(ingredients: ["cheese"])
-//        //then
-//
-//        XCTAssert(true)
-//    }
-
-
 }

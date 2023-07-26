@@ -7,46 +7,152 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2AC53DAD-545E-45B2-B84A-394C199FC9A9"
+            uuid = "FC43B114-70CB-4837-838B-5A348B9B9D67"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Reciplease/Search/Views/Main/RecipiesListView.swift"
+            filePath = "Reciplease/Model/RecipeService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "previews"
-            landmarkType = "24">
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "RecipeService"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RecipleaseTests/ApiTestCase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "testVincent()"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "2AC53DAD-545E-45B2-B84A-394C199FC9A9 - 2d7bc5ef882cb240"
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 555586b49f0fcdba"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static Reciplease.RecipiesListView_Previews.previews.getter : some"
-                  moduleName = "Reciplease"
+                  symbolName = "(1) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Search/Views/Main/RecipiesListView.swift"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 56c3e0d1f66a55b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 6b2c50d9c9c49dc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
                   offsetFromSymbolStart = "56">
                </Location>
                <Location
-                  uuid = "2AC53DAD-545E-45B2-B84A-394C199FC9A9 - 2d7bc5ef882cbc71"
-                  shouldBeEnabled = "No"
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 501ea43112530bcf"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static Reciplease.RecipiesListView_Previews.previews.getter : some"
-                  moduleName = "Reciplease"
+                  symbolName = "(4) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Search/Views/Main/RecipiesListView.swift"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 555586b49f0fcd9b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 56c3e0d1f66a5591"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 6b2c50d9c9c49fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "C8B9C7CE-A53D-40FF-B6AC-4B34EB0415CD - 501ea43112530bee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for RecipleaseTests.ApiTestCase.testVincent() async throws -&gt; ()"
+                  moduleName = "RecipleaseTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/RecipleaseTests/ApiTestCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
                   offsetFromSymbolStart = "56">
                </Location>
             </Locations>
@@ -55,77 +161,79 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8817D086-D857-4D02-9EF7-1B406BC742BA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Reciplease/Search/Views/Main/RecipiesListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "RecipiesListView"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            uuid = "1481E41E-AC7C-412F-B144-1CF0DD35C22C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            breakpointStackSelectionBehavior = "1"
-            scope = "1"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "855D483C-D5D7-45A1-9E44-7E794E7C1542"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Reciplease/Views/Main/SearchView-ViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "init(service:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1DACA466-1CFC-4716-B40C-CF5330B63B7F"
+            uuid = "A2B4CB19-EC86-413D-BA29-E3FB862C2930"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Reciplease/Model/RecipeService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "dataTask(with:completionHandler:)"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "loadData(ingredients:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6D30222D-CBAD-40CB-B2F7-BBE15B60923A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Reciplease/Model/RecipeService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "A2B4CB19-EC86-413D-BA29-E3FB862C2930 - 253d663c581b2ae9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Reciplease.RecipeService.loadData(ingredients: Swift.Array&lt;Swift.String&gt;) async throws -&gt; Swift.Array&lt;Reciplease.Recipe&gt;"
+                  moduleName = "Reciplease"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Model/RecipeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "864">
+               </Location>
+               <Location
+                  uuid = "A2B4CB19-EC86-413D-BA29-E3FB862C2930 - 4ba7bc79a476fb68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for Reciplease.RecipeService.loadData(ingredients: Swift.Array&lt;Swift.String&gt;) async throws -&gt; Swift.Array&lt;Reciplease.Recipe&gt;"
+                  moduleName = "Reciplease"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Model/RecipeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "A2B4CB19-EC86-413D-BA29-E3FB862C2930 - f5af5e658ce9a2ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Reciplease.RecipeService.loadData(ingredients: Swift.Array&lt;Swift.String&gt;) async throws -&gt; Swift.Array&lt;Reciplease.Recipe&gt;"
+                  moduleName = "Reciplease"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Model/RecipeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  uuid = "A2B4CB19-EC86-413D-BA29-E3FB862C2930 - ac185d8656876693"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Reciplease.RecipeService.loadData(ingredients: Swift.Array&lt;Swift.String&gt;) async throws -&gt; Swift.Array&lt;Reciplease.Recipe&gt;"
+                  moduleName = "Reciplease"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huguesfils/Desktop/OC/iOS/Reciplease/Reciplease/Model/RecipeService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

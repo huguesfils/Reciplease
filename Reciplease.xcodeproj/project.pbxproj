@@ -27,7 +27,6 @@
 		BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */; };
 		BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */; };
 		BBF96B8129F0453900FCB40B /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */; };
-		BBFC4A8E2A6AD53600588C6B /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFC4A8D2A6AD53600588C6B /* URLSessionProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +62,6 @@
 		BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTestCase.swift; sourceTree = "<group>"; };
 		BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTestCase.swift; sourceTree = "<group>"; };
 		BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
-		BBFC4A8D2A6AD53600588C6B /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +178,6 @@
 				BB8B2A1E2A15356E00B2A096 /* DataController.swift */,
 				BB4533D92A3B3137007C9422 /* APIKey.swift */,
 				BB92520B2A54A6F0003F61C2 /* RecipeService.swift */,
-				BBFC4A8D2A6AD53600588C6B /* URLSessionProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,7 +304,6 @@
 				BBB8D39029E6030E008C8442 /* ContentView.swift in Sources */,
 				BBF96B8129F0453900FCB40B /* SearchView-ViewModel.swift in Sources */,
 				BBB8D38E29E6030E008C8442 /* RecipleaseApp.swift in Sources */,
-				BBFC4A8E2A6AD53600588C6B /* URLSessionProtocol.swift in Sources */,
 				BB341FA72A0A8ED10032D048 /* RecipeList.swift in Sources */,
 				BB6AFAA62A09B5C20025742D /* RecipeCard.swift in Sources */,
 				BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */,
