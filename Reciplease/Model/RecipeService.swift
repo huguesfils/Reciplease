@@ -30,7 +30,7 @@ class RecipeService {
         let (data, response) = try await session.data(from: url)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            print("bad code error")
+            print("Bad status code")
             throw Error.HttpStatusCodeError
         }
         if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
