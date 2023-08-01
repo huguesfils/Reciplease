@@ -23,6 +23,7 @@
 		BBB8D39529E6030F008C8442 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBB8D39429E6030F008C8442 /* Preview Assets.xcassets */; };
 		BBB8D39C29E60451008C8442 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39B29E60451008C8442 /* FavoritesView.swift */; };
 		BBB8D39E29E605AD008C8442 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB8D39D29E605AD008C8442 /* SearchView.swift */; };
+		BBBBFC622A79919500C27D1F /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */; };
 		BBC3F2D52A0D0CB6004FAD67 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC3F2D42A0D0CB6004FAD67 /* RecipeView.swift */; };
 		BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */; };
 		BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */; };
@@ -57,6 +58,8 @@
 		BBB8D39429E6030F008C8442 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BBB8D39B29E60451008C8442 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		BBB8D39D29E605AD008C8442 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		BBBBFC632A79921600C27D1F /* Reciplease.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Reciplease.xctestplan; sourceTree = "<group>"; };
 		BBBD7BFB2A4F2833004008E2 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBC3F2D42A0D0CB6004FAD67 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTestCase.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		BBB8D38129E6030E008C8442 = {
 			isa = PBXGroup;
 			children = (
+				BBBBFC632A79921600C27D1F /* Reciplease.xctestplan */,
 				BBB8D38C29E6030E008C8442 /* Reciplease */,
 				BB921C2E2A39FA4A00857F94 /* Reciplease.app */,
 				BBBD7BFB2A4F2833004008E2 /* RecipleaseTests.xctest */,
@@ -187,6 +191,7 @@
 			children = (
 				BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */,
 				BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */,
+				BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBBBFC622A79919500C27D1F /* MockURLProtocol.swift in Sources */,
 				BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */,
 				BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */,
 			);

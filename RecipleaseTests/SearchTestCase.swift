@@ -30,6 +30,4 @@ final class SearchTestCase: XCTestCase {
         //then
         XCTAssert(viewModel.ingredients.isEmpty)
     }
-    
-    
 }
