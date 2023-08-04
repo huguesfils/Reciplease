@@ -71,7 +71,7 @@ final class ApiTestCase: XCTestCase {
         URLProtocol.registerClass(MockURLProtocol.self)
         MockURLProtocol.requestHandler = {request in
             let encoder = JSONEncoder()
-            let recipe = Recipe(label: "Truc", image: "imagepath.jpg", ingredientLines: ["ingredient1", "ingredient2"], ingredients: [ingredient(food: "toamto")], url: "http://www.google.com", totalTime: 10)
+            let recipe = Recipe(label: "test", image: "imagepath.jpg", ingredientLines: ["ingredient1", "ingredient2"], ingredients: [ingredient(food: "tomato")], url: "http://www.google.com", totalTime: 10)
             let response = Response(hits: [Hit(recipe: recipe)])
             let data = try encoder.encode(response)
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
@@ -80,13 +80,13 @@ final class ApiTestCase: XCTestCase {
         let service = RecipeService()
 
         do {
-            let result = try await service.loadData(ingredients: ["cheese"])
-            XCTAssertEqual(result.first?.label, "Truc")
+            let result = try await service.loadData(ingredients: ["tomato"])
+            XCTAssertEqual(result.first?.label, "test")
             XCTAssertEqual(result.first?.image, "imagepath.jpg")
             XCTAssertEqual(result.first?.ingredientLines, ["ingredient1", "ingredient2"])
-            XCTAssertEqual(result.first?.ingredients.first?.food, "toamto")
-            XCTAssertEqual(result.first?.image, "imagepath.jpg")
-            XCTAssertEqual(result.first?.image, "imagepath.jpg")
+            XCTAssertEqual(result.first?.ingredients.first?.food, "tomato")
+            XCTAssertEqual(result.first?.url, "http://www.google.com")
+            XCTAssertEqual(result.first?.totalTime, 10)
         } catch  {
             XCTAssert(false)
         }

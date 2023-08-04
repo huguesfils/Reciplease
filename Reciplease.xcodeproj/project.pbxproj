@@ -10,6 +10,8 @@
 		BB341FA22A0A819A0032D048 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA12A0A819A0032D048 /* TabBar.swift */; };
 		BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
 		BB341FA72A0A8ED10032D048 /* RecipeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA62A0A8ED10032D048 /* RecipeList.swift */; };
+		BB37DEAB2A7A5D9300F07FED /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37DEAA2A7A5D9300F07FED /* CoreDataTestCase.swift */; };
+		BB37DEAD2A7BBCBA00F07FED /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37DEAC2A7BBCBA00F07FED /* CoreDataTestStack.swift */; };
 		BB4533DA2A3B3137007C9422 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4533D92A3B3137007C9422 /* APIKey.swift */; };
 		BB6AFAA62A09B5C20025742D /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6AFAA52A09B5C20025742D /* RecipeCard.swift */; };
 		BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */; };
@@ -44,6 +46,8 @@
 		BB341FA12A0A819A0032D048 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		BB341FA42A0A82FB0032D048 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		BB341FA62A0A8ED10032D048 /* RecipeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeList.swift; sourceTree = "<group>"; };
+		BB37DEAA2A7A5D9300F07FED /* CoreDataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
+		BB37DEAC2A7BBCBA00F07FED /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 		BB4533D92A3B3137007C9422 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		BB6AFAA52A09B5C20025742D /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		BB8B2A1C2A152FF900B2A096 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
@@ -191,7 +195,9 @@
 			children = (
 				BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */,
 				BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */,
+				BB37DEAA2A7A5D9300F07FED /* CoreDataTestCase.swift */,
 				BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */,
+				BB37DEAC2A7BBCBA00F07FED /* CoreDataTestStack.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -319,7 +325,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB37DEAB2A7A5D9300F07FED /* CoreDataTestCase.swift in Sources */,
 				BBBBFC622A79919500C27D1F /* MockURLProtocol.swift in Sources */,
+				BB37DEAD2A7BBCBA00F07FED /* CoreDataTestStack.swift in Sources */,
 				BBF3E0722A5043AC003EB0F7 /* ApiTestCase.swift in Sources */,
 				BBF3E0742A5048FF003EB0F7 /* SearchTestCase.swift in Sources */,
 			);
