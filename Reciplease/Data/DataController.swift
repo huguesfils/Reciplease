@@ -42,6 +42,22 @@ class DataController: ObservableObject {
         }
     }
     
+    func removeFavorite(recipe: FavRecipe, context: NSManagedObjectContext) {
+        context.delete(recipe)
+        save(context: context)
+    }
+    
+    func fetch(context: NSManagedObjectContext) -> [FavRecipe]? {
+        var favRecipe: [FavRecipe]?
+        let favRecipeRequest: NSFetchRequest<FavRecipe> = FavRecipe.fetchRequest()
+        do {
+            favRecipe = try context.fetch(favRecipeRequest)
+        } catch {
+            print("Error loading favRecipe: \(error)")
+        }
+        return favRecipe
+    }
+    
     func downloadImage(imageUrl: String, completionHandler: @escaping (Data?) -> ()) {
         DispatchQueue.global().async {
             guard let imageUrl = URL(string: imageUrl) else {
@@ -61,11 +77,6 @@ class DataController: ObservableObject {
                 }
             }
         }
-    }
-    
-    func removeFavorite(recipe: FavRecipe, context: NSManagedObjectContext) {
-        context.delete(recipe)
-        save(context: context)
     }
 }
 

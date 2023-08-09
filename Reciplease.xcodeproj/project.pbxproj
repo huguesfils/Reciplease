@@ -103,6 +103,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		BB5954232A827C5700197D90 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */,
+				BB37DEAC2A7BBCBA00F07FED /* CoreDataTestStack.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		BB6AFAA42A09B5A30025742D /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +124,7 @@
 		BB8B2A1A2A152FDA00B2A096 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BB8B2A1E2A15356E00B2A096 /* DataController.swift */,
 				BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */,
 			);
 			path = Data;
@@ -183,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				BB341FA42A0A82FB0032D048 /* RecipeModel.swift */,
-				BB8B2A1E2A15356E00B2A096 /* DataController.swift */,
 				BB4533D92A3B3137007C9422 /* APIKey.swift */,
 				BB92520B2A54A6F0003F61C2 /* RecipeService.swift */,
 			);
@@ -196,8 +205,7 @@
 				BBF3E0712A5043AC003EB0F7 /* ApiTestCase.swift */,
 				BBF3E0732A5048FF003EB0F7 /* SearchTestCase.swift */,
 				BB37DEAA2A7A5D9300F07FED /* CoreDataTestCase.swift */,
-				BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */,
-				BB37DEAC2A7BBCBA00F07FED /* CoreDataTestStack.swift */,
+				BB5954232A827C5700197D90 /* Components */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
