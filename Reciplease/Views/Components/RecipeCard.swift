@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RecipeCard: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [
-    ]) var favorites: FetchedResults<FavRecipe>
+    ]) private var favorites: FetchedResults<FavRecipe>
     
-    let recipe: any RecipeProtocol
+    private let recipe: any RecipeProtocol
     
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe

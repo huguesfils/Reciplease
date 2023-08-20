@@ -14,6 +14,7 @@ class RecipeService {
         case WrongDataReceived
         case BadUrlForRequesst
     }
+    
     private let session: URLSession
     
     init(session: URLSession = .shared) {

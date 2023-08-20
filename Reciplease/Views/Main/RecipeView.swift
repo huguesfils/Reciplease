@@ -8,112 +8,115 @@
 import SwiftUI
 
 struct RecipeView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [
-    ]) var favorites: FetchedResults<FavRecipe>
+    ]) private var favorites: FetchedResults<FavRecipe>
     
-    let recipe: any RecipeProtocol
-    let dataController = DataController()
+    private let recipe: any RecipeProtocol
+    private let dataController = DataController()
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
     
     var body: some View {
-        ScrollView{
-            VStack{
-                if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
-                    Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 233)
-                        .clipped()
-                        .accessibilityLabel("meal photo")
-                } else {
-                    AsyncImage(url: URL(string: recipe.imageValue)) { image in
-                        image.resizable()
+        ZStack {
+            Color("listColor").ignoresSafeArea()
+            ScrollView{
+                VStack{
+                    if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                        Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
+                            .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 233)
                             .clipped()
                             .accessibilityLabel("meal photo")
-                    } placeholder: {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .foregroundColor(.white.opacity(0.7))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .accessibilityHidden(true)
+                    } else {
+                        AsyncImage(url: URL(string: recipe.imageValue)) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 233)
+                                .clipped()
+                                .accessibilityLabel("meal photo")
+                        } placeholder: {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .foregroundColor(.white.opacity(0.7))
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .accessibilityHidden(true)
+                        }
+                        .frame(height: 233)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
                     }
-                    .frame(height: 233)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
-                }
-                
-                VStack(spacing: 30) {
-                    Text(recipe.labelValue)
-                        .font(.largeTitle)
-                        .bold()
-                        .multilineTextAlignment(.center)
                     
-                    VStack(alignment: .leading, spacing: 10){
-                        HStack {
-                            Text("Ingredients: ")
-                                .font(.headline)
-                            Spacer()
-                            if recipe.totalTimeValue != 0 {
-                                let recipeTime = recipe.totalTimeValue.toTimeString()
-                                HStack {
-                                    Image(systemName: "clock.badge.checkmark")
-                                    Text("\(recipeTime)")
-                                        
+                    VStack(spacing: 30) {
+                        Text(recipe.labelValue)
+                            .font(.largeTitle)
+                            .bold()
+                            .multilineTextAlignment(.center)
+                        
+                        VStack(alignment: .leading, spacing: 10){
+                            HStack {
+                                Text("Ingredients: ")
+                                    .font(.headline)
+                                Spacer()
+                                if recipe.totalTimeValue != 0 {
+                                    let recipeTime = recipe.totalTimeValue.toTimeString()
+                                    HStack {
+                                        Image(systemName: "clock.badge.checkmark")
+                                        Text("\(recipeTime)")
+                                            
+                                    }
+                                    .accessibilityElement(children: .combine)
+                                    .accessibilityValue(recipeTime)
                                 }
-                                .accessibilityElement(children: .combine)
-                                .accessibilityValue(recipeTime)
+                            }
+                            
+                            ForEach(recipe.ingredientLinesValue, id: \.self) {
+                                item in
+                                Text("- \(item)")
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        ForEach(recipe.ingredientLinesValue, id: \.self) {
-                            item in
-                            Text("- \(item)")
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Button {
-                        Task {
-                            if let url = URL(string: recipe.urlValue) {
-                                UIApplication.shared.open(url)
+                        Button {
+                            Task {
+                                if let url = URL(string: recipe.urlValue) {
+                                    UIApplication.shared.open(url)
+                                }
                             }
+                        } label: {
+                            Text("Get directions").frame(maxWidth: .infinity, alignment: .center)
                         }
-                    } label: {
-                        Text("Get directions").frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                        .background(Color("button"))
+                        .cornerRadius(5)
+                        .foregroundColor(Color.white)
                     }
-                    .padding()
-                    .background(Color("button"))
-                    .cornerRadius(5)
-                    .foregroundColor(Color.white)
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
-            }
-            .navigationTitle("Details")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .automatic){
-                    Button(action: {
-                        
-                        if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
-                            dataController.removeFavorite(recipe: favRecipe)
-                            if recipe is FavRecipe {
-                                self.presentationMode.wrappedValue.dismiss()
+                .navigationTitle("Details")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .automatic){
+                        Button(action: {
+                            
+                            if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                                dataController.removeFavorite(recipe: favRecipe)
+                                if recipe is FavRecipe {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            } else {
+                                 dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { }
                             }
-                        } else {
-                            dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { }
-                        }
-                    }, label: {
-                        Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
-                    })
-                    .accessibilityLabel(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "remove from favorite" : "add to favorite")
+                        }, label: {
+                            Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
+                        })
+                        .accessibilityLabel(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "remove from favorite" : "add to favorite")
+                    }
                 }
             }
         }

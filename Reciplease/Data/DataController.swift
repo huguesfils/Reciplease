@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 class DataController: ObservableObject {
-    static var container: NSPersistentContainer = {
+     static var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Reciplease")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -19,12 +19,16 @@ class DataController: ObservableObject {
         }
         return container
     }()
+
+    private let mainContext: NSManagedObjectContext
     
-    private let context = container.viewContext
+    init(mainContext: NSManagedObjectContext = container.viewContext) {
+        self.mainContext = mainContext
+    }
     
     func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
         downloadImage(imageUrl: image) { data in
-            let favRecipe = FavRecipe(context: self.context)
+            let favRecipe = FavRecipe(context: self.mainContext)
             favRecipe.storedImage = data?.image?.pngData()
             favRecipe.label = label
             favRecipe.image = image
@@ -33,18 +37,19 @@ class DataController: ObservableObject {
             favRecipe.url = url
             favRecipe.totalTime = Int64(totalTime)
             do {
-                try self.context.save()
+                try self.mainContext.save()
                 completionHandler()
             } catch let error{
                 print("Error adding recipe to favorites: \(error)")
+                //chercher web comment mettre en echec un save()
             }
         }
     }
     
     func removeFavorite(recipe: FavRecipe) {
-        context.delete(recipe)
+        mainContext.delete(recipe)
         do {
-            try context.save()
+            try mainContext.save()
         } catch let error {
             print("Error deleting item: \(error)")
         }
@@ -55,17 +60,20 @@ class DataController: ObservableObject {
             guard let imageUrl = URL(string: imageUrl) else {
                 return DispatchQueue.main.async {
                     completionHandler(nil)
+                    //url pas bonne
                 }
             }
             do {
                 let data = try Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
                     completionHandler(data)
+                    //succes
                 }
             } catch {
                 print("Error in download of image \(error)")
                 DispatchQueue.main.async {
                     completionHandler(nil)
+                    //erreur reseau
                 }
             }
         }

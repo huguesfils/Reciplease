@@ -11,11 +11,14 @@ struct RecipiesListView: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView{
-            RecipeList(results: viewModel.results)
-        }
-        .navigationTitle("Recipes")
+        ZStack {
+            Color("listColor").ignoresSafeArea()
+            ScrollView{
+                RecipeList(results: viewModel.results)
+            }
+            .navigationTitle("Recipes")
         .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 

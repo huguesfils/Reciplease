@@ -10,10 +10,12 @@ import SwiftUI
 struct FavoritesView: View {
     @ObservedObject var viewModel: SearchViewModel
     @FetchRequest(sortDescriptors: [
-    ]) var favorites: FetchedResults<FavRecipe>
+    ]) private var favorites: FetchedResults<FavRecipe>
     
     var body: some View {
         NavigationStack {
+            ZStack {
+                Color("listColor").ignoresSafeArea()
                 if favorites.isEmpty {
                     Text("You don't have favorite recipe for the moment")
                         .font(.headline)
@@ -26,7 +28,7 @@ struct FavoritesView: View {
                         RecipeList(results: favorites.map { $0 })
                     }
                 }
-            
+            }
         }
         .navigationTitle("Favorites")
         .navigationBarTitleDisplayMode(.inline)

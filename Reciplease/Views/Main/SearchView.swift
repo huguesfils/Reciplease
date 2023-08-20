@@ -11,7 +11,7 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var navPath = NavigationPath()
     
-    let service = RecipeService()
+    private let service = RecipeService()
     
     var body: some View {
         NavigationStack(path: $navPath) {
@@ -86,6 +86,7 @@ struct SearchView: View {
                     }
                 }
             }
+            
             .navigationTitle("Search")
             .navigationDestination(for: Int.self, destination: { i in
                 RecipiesListView(viewModel: self.viewModel)
