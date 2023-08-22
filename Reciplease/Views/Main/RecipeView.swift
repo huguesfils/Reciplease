@@ -103,14 +103,15 @@ struct RecipeView: View {
                 .toolbar {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
-                            
                             if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
                                 dataController.removeFavorite(recipe: favRecipe)
                                 if recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
-                            } else {
-                                 dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { }
+                            } else{
+                                dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { errorMessage in
+                                    //alert
+                                }
                             }
                         }, label: {
                             Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")

@@ -26,7 +26,7 @@ class DataController: ObservableObject {
         self.mainContext = mainContext
     }
     
-    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
+    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping (String?) -> ()) {
         downloadImage(imageUrl: image) { data in
             let favRecipe = FavRecipe(context: self.mainContext)
             favRecipe.storedImage = data?.image?.pngData()
@@ -38,10 +38,10 @@ class DataController: ObservableObject {
             favRecipe.totalTime = Int64(totalTime)
             do {
                 try self.mainContext.save()
-                completionHandler()
+                completionHandler(nil)
             } catch let error{
+                completionHandler("Error adding recipe to favorites: \(error)")
                 print("Error adding recipe to favorites: \(error)")
-                //chercher web comment mettre en echec un save()
             }
         }
     }
@@ -60,7 +60,6 @@ class DataController: ObservableObject {
             guard let imageUrl = URL(string: imageUrl) else {
                 return DispatchQueue.main.async {
                     completionHandler(nil)
-                    //url pas bonne
                 }
             }
             do {
