@@ -66,13 +66,11 @@ class DataController: ObservableObject {
                 let data = try Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
                     completionHandler(data)
-                    //succes
                 }
             } catch {
                 print("Error in download of image \(error)")
                 DispatchQueue.main.async {
                     completionHandler(nil)
-                    //erreur reseau
                 }
             }
         }

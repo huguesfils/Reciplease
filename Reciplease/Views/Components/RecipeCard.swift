@@ -130,7 +130,7 @@ struct RecipeCard_Previews: PreviewProvider {
             label: "Test",
             image: "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
-            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon"), ingredient(food: "paprikaaaaaaaaaaaaaaaaaaaaa")],
+            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon"), ingredient(food: "paprika")],
             url: "https://www.apple.com",
             totalTime: 40))
     }

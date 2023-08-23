@@ -54,6 +54,5 @@ struct RecipeList_Previews: PreviewProvider {
         ScrollView {
             RecipeList(results: [])
         }
-        
     }
 }

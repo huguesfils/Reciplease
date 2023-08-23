@@ -68,7 +68,7 @@ struct RecipeView: View {
                                     HStack {
                                         Image(systemName: "clock.badge.checkmark")
                                         Text("\(recipeTime)")
-                                            
+                                        
                                     }
                                     .accessibilityElement(children: .combine)
                                     .accessibilityValue(recipeTime)

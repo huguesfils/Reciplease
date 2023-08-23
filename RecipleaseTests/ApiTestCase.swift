@@ -19,7 +19,7 @@ final class ApiTestCase: XCTestCase {
         }
         
         let service = RecipeService()
-
+        
         do {
             _ = try await service.loadData(ingredients: ["test"])
             XCTAssert(false)
@@ -38,7 +38,7 @@ final class ApiTestCase: XCTestCase {
         }
         
         let service = RecipeService()
-
+        
         do {
             _ = try await service.loadData(ingredients: ["test"])
             XCTAssert(false)
@@ -55,9 +55,9 @@ final class ApiTestCase: XCTestCase {
             let data = try encoder.encode(["test": "test"])
             return (HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data)
         }
-
+        
         let service = RecipeService()
-
+        
         do {
             _ = try await service.loadData(ingredients: ["2️⃣2️⃣"])
             XCTAssert(false)
@@ -67,7 +67,7 @@ final class ApiTestCase: XCTestCase {
         }
     }
     
-   func testLoadWithWithCorrectResponse() async throws {
+    func testLoadWithWithCorrectResponse() async throws {
         URLProtocol.registerClass(MockURLProtocol.self)
         MockURLProtocol.requestHandler = {request in
             let encoder = JSONEncoder()
@@ -76,9 +76,9 @@ final class ApiTestCase: XCTestCase {
             let data = try encoder.encode(response)
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
         }
-
+        
         let service = RecipeService()
-
+        
         do {
             let result = try await service.loadData(ingredients: ["tomato"])
             XCTAssertEqual(result.first?.label, "test")

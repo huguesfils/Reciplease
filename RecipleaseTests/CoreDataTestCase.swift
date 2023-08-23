@@ -19,26 +19,30 @@ final class CoreDataTestCase: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
         appTestContext = createInMemoryManagedObjectContext()
         dataController = DataController(mainContext: appTestContext!)
     }
     
     func createInMemoryManagedObjectContext() -> NSManagedObjectContext? {
         guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main]) else { return nil }
+        
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         } catch {
             print("Error creating test core data store: \(error)")
             return nil
         }
+        
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
         return managedObjectContext
     }
     
-    func testAddToFavoriteSucess() {
-        
+    func testAddToFavorite() {
         let recipe = Recipe(label: "FirstRecipe",
                             image: correctImageUrl,
                             ingredientLines: ["lemon, cheese"],
@@ -47,24 +51,28 @@ final class CoreDataTestCase: XCTestCase {
                             totalTime: 10)
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
+        
         dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {_ in
-            let favRecipe = self.fetch()
-            print(favRecipe as Any)
-            XCTAssertEqual(favRecipe?.last?.label, recipe.label)
             
+            let favRecipe = self.fetch()
+            
+            XCTAssertEqual(favRecipe?.last?.label, recipe.label)
             expectation.fulfill()
         })
         wait(for: [expectation], timeout: 2)
     }
     
     
-    func testRemoveFromFavoriteSucess() {
+    func testRemoveFromFavorite() {
+        self.deleteAllData("FavRecipe")
+        
         let recipe = Recipe(label: "FirstRecipe",
                             image: correctImageUrl,
                             ingredientLines: ["lemon, cheese"],
                             ingredients: [ingredient(food: "lemon"), ingredient(food: "cheese")],
                             url: "www.testtest.com",
                             totalTime: 10)
+        
         let expectation = XCTestExpectation(description: "waiting for data saving")
         dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {_ in
             let favRecipe = self.fetch()
@@ -74,7 +82,6 @@ final class CoreDataTestCase: XCTestCase {
             let favRecipes = self.fetch()
             
             XCTAssert(favRecipes!.isEmpty)
-            // vider la base avant
             expectation.fulfill()
         })
         wait(for: [expectation], timeout: 2)
@@ -87,25 +94,37 @@ final class CoreDataTestCase: XCTestCase {
             let data = try encoder.encode(["test": "test"])
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
         }
+        
         let image = wrongImageUrl
         
         let expectation = XCTestExpectation(description: "waiting for data")
+        
         dataController?.downloadImage(imageUrl: image, completionHandler: { data in
-            
             XCTAssertNil(data)
             expectation.fulfill()
         })
+        
         wait(for: [expectation], timeout: 20)
     }
     
-    //    func testDownloadImageError() {
-    //        let image = correctImageUrl
-    //
-    //        dataController?.downloadImage(imageUrl: image, completionHandler: { data in
-    //            return (HTTPURLResponse(url: URL(from: image as! Decoder), statusCode: 400, httpVersion: nil, headerFields: nil)!, data)
-    
-    //        })
-    //    }
+    func testDownloadImageError() {
+        URLProtocol.registerClass(MockURLProtocol.self)
+        MockURLProtocol.requestHandler = {request in
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(["test": "test"])
+            
+            return (HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data)
+        }
+        let image = correctImageUrl
+        
+        let expectation = XCTestExpectation(description: "waiting for data")
+        dataController?.downloadImage(imageUrl: image, completionHandler: { data in
+            XCTAssertNil(data)
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+    }
 }
 
 extension CoreDataTestCase {
@@ -118,5 +137,19 @@ extension CoreDataTestCase {
             print("Failed to fetch favRecipes: \(error)")
         }
         return nil
+    }
+    
+    private func deleteAllData(_ entity:String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try appTestContext!.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                appTestContext!.delete(objectData)
+            }
+        } catch let error {
+            print("Detele all data in \(entity) error :", error)
+        }
     }
 }
