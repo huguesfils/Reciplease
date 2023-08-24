@@ -21,7 +21,7 @@ final class CoreDataTestCase: XCTestCase {
         super.setUp()
         
         appTestContext = createInMemoryManagedObjectContext()
-        dataController = DataController(mainContext: appTestContext!)
+        dataController = DataController(mainContext: appTestContext!, errorCd: "")
     }
     
     func createInMemoryManagedObjectContext() -> NSManagedObjectContext? {
@@ -52,7 +52,7 @@ final class CoreDataTestCase: XCTestCase {
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
         
-        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {_ in
+        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
             
             let favRecipe = self.fetch()
             
@@ -74,7 +74,7 @@ final class CoreDataTestCase: XCTestCase {
                             totalTime: 10)
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
-        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {_ in
+        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
             let favRecipe = self.fetch()
             
             self.dataController?.removeFavorite(recipe: (favRecipe?.first!)!)
