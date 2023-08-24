@@ -14,8 +14,11 @@ struct RecipeView: View {
     @FetchRequest(sortDescriptors: [
     ]) private var favorites: FetchedResults<FavRecipe>
     
+    @State private var showAlert = false
+    
     private let recipe: any RecipeProtocol
-    private let dataController = DataController()
+    @StateObject private var dataController = DataController(errorCd: "")
+    
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
     }
@@ -98,6 +101,12 @@ struct RecipeView: View {
                     }
                     .padding(.horizontal)
                 }
+                .alert("Error", isPresented: $dataController.hasError) {
+                    Button("Dismiss") {
+                    }
+                } message: {
+                    Text(dataController.errorCd)
+                }
                 .navigationTitle("Details")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -109,9 +118,7 @@ struct RecipeView: View {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
                             } else{
-                                dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { errorMessage in
-                                    //alert
-                                }
+                                dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { }
                             }
                         }, label: {
                             Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")

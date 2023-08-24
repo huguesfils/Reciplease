@@ -10,6 +10,11 @@ import Foundation
 import SwiftUI
 
 class DataController: ObservableObject {
+    
+    @Published var hasError: Bool = false
+    @Published private(set) var errorCd: String
+    
+    
      static var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Reciplease")
         container.loadPersistentStores { description, error in
@@ -22,11 +27,12 @@ class DataController: ObservableObject {
 
     private let mainContext: NSManagedObjectContext
     
-    init(mainContext: NSManagedObjectContext = container.viewContext) {
+    init(mainContext: NSManagedObjectContext = container.viewContext, errorCd: String) {
         self.mainContext = mainContext
+        self.errorCd = errorCd
     }
     
-    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping (String?) -> ()) {
+    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
         downloadImage(imageUrl: image) { data in
             let favRecipe = FavRecipe(context: self.mainContext)
             favRecipe.storedImage = data?.image?.pngData()
@@ -38,20 +44,12 @@ class DataController: ObservableObject {
             favRecipe.totalTime = Int64(totalTime)
             do {
                 try self.mainContext.save()
-                completionHandler(nil)
+                completionHandler()
             } catch let error{
-                completionHandler("Error adding recipe to favorites: \(error)")
+                self.errorCd = error.localizedDescription
+                self.hasError = true
                 print("Error adding recipe to favorites: \(error)")
             }
-        }
-    }
-    
-    func removeFavorite(recipe: FavRecipe) {
-        mainContext.delete(recipe)
-        do {
-            try mainContext.save()
-        } catch let error {
-            print("Error deleting item: \(error)")
         }
     }
     
@@ -67,12 +65,25 @@ class DataController: ObservableObject {
                 DispatchQueue.main.async {
                     completionHandler(data)
                 }
-            } catch {
+            } catch let error{
+                self.errorCd = error.localizedDescription
+                self.hasError = true
                 print("Error in download of image \(error)")
                 DispatchQueue.main.async {
                     completionHandler(nil)
                 }
             }
+        }
+    }
+    
+    func removeFavorite(recipe: FavRecipe) {
+        mainContext.delete(recipe)
+        do {
+            try mainContext.save()
+        } catch let error {
+            self.errorCd = error.localizedDescription
+            self.hasError = true
+            print("Error deleting item: \(error)")
         }
     }
 }

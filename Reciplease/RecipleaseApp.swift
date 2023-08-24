@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct RecipleaseApp: App {
-    @StateObject private var dataController = DataController()
+    @StateObject private var dataController = DataController(errorCd: "")
     
     var body: some Scene {
         WindowGroup {
