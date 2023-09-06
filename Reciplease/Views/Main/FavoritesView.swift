@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @ObservedObject var viewModel: SearchViewModel
-    @FetchRequest(sortDescriptors: [
-    ]) private var favorites: FetchedResults<FavRecipe>
+    @StateObject private var viewModel = FavoritesViewModel()
     
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("listColor").ignoresSafeArea()
-                if favorites.isEmpty {
+                if $viewModel.favorites.isEmpty {
                     Text("You don't have favorite recipe for the moment")
                         .font(.headline)
                         .fontWeight(.medium)
@@ -25,7 +23,7 @@ struct FavoritesView: View {
                         .padding()
                 } else {
                     ScrollView{
-                        RecipeList(results: favorites.map { $0 })
+                        RecipeList(results: viewModel.favorites.map { $0 })
                     }
                 }
             }
@@ -37,6 +35,6 @@ struct FavoritesView: View {
 
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesView(viewModel: SearchViewModel())
+        FavoritesView()
     }
 }

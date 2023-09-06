@@ -14,10 +14,9 @@ struct RecipeView: View {
     @FetchRequest(sortDescriptors: [
     ]) private var favorites: FetchedResults<FavRecipe>
     
-    @State private var showAlert = false
     
     private let recipe: any RecipeProtocol
-    @StateObject private var dataController = DataController(errorCd: "")
+    @StateObject private var dataController = DataController(errorCoreData: "")
     
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
@@ -105,7 +104,7 @@ struct RecipeView: View {
                     Button("Dismiss") {
                     }
                 } message: {
-                    Text(dataController.errorCd)
+                    Text(dataController.errorCoreData)
                 }
                 .navigationTitle("Details")
                 .navigationBarTitleDisplayMode(.inline)
@@ -113,7 +112,7 @@ struct RecipeView: View {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
                             if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
-                                dataController.removeFavorite(recipe: favRecipe)
+                                dataController.removeFavorite(favRecipe: favRecipe)
                                 if recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }

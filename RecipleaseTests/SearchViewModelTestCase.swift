@@ -1,5 +1,5 @@
 //
-//  SearchTestCase.swift
+//  SearchViewModelTestCase.swift
 //  RecipleaseTests
 //
 //  Created by Hugues Fils on 01/07/2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Reciplease
 
-final class SearchTestCase: XCTestCase {
+final class SearchViewModelTestCase: XCTestCase {
     
     @MainActor func testGivenIngredientsArrayIsEmpty_WhenIncrementAnIngredientFromUserInput_ThenIngredientShouldContainANewIngredient() throws {
         //given

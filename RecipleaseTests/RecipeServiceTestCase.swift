@@ -1,5 +1,5 @@
 //
-//  ApiTestCase.swift
+//  RecipeServiceTestCase.swift
 //  RecipleaseTests
 //
 //  Created by Hugues Fils on 01/07/2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Reciplease
 
-final class ApiTestCase: XCTestCase {
+final class RecipeServiceTestCase: XCTestCase {
     
     func testLoadDataWithInvalidData() async throws {
         URLProtocol.registerClass(MockURLProtocol.self)

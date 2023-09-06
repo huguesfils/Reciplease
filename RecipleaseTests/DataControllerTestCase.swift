@@ -1,5 +1,5 @@
 //
-//  CoreDataTestCase.swift
+//  DataControllerTestCase.swift
 //  RecipleaseTests
 //
 //  Created by Hugues Fils on 02/08/2023.
@@ -9,40 +9,23 @@ import XCTest
 import CoreData
 @testable import Reciplease
 
-final class CoreDataTestCase: XCTestCase {
+final class DataControllerTestCase: XCTestCase {
     
-    private var appTestContext: NSManagedObjectContext?
-    private var dataController: DataController?
+    var dataController: DataController!
+    var coreDataStack: CoreDataTestStack!
     
     private let correctImageUrl = "https://urlz.fr/ncHy"
     private let wrongImageUrl = "88889ED8FIDSIFHDSF8àç!èçà!ç!è"
     
     override func setUp() {
         super.setUp()
-        
-        appTestContext = createInMemoryManagedObjectContext()
-        dataController = DataController(mainContext: appTestContext!, errorCd: "")
+        coreDataStack = CoreDataTestStack()
+        dataController = DataController(mainContext: coreDataStack.mainContext,
+                                        backgroundContext: coreDataStack.mainContext, errorCoreData: "")
     }
     
-    func createInMemoryManagedObjectContext() -> NSManagedObjectContext? {
-        guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main]) else { return nil }
-        
-        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
-        
-        do {
-            try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
-        } catch {
-            print("Error creating test core data store: \(error)")
-            return nil
-        }
-        
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
-        
-        return managedObjectContext
-    }
     
-    func testAddToFavorite() {
+    func test_DataController_addToFavorite() {
         let recipe = Recipe(label: "FirstRecipe",
                             image: correctImageUrl,
                             ingredientLines: ["lemon, cheese"],
@@ -54,7 +37,8 @@ final class CoreDataTestCase: XCTestCase {
         
         dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
             
-            let favRecipe = self.fetch()
+            let favRecipe = self.dataController.fetch()
+            print(favRecipe as Any)
             
             XCTAssertEqual(favRecipe?.last?.label, recipe.label)
             expectation.fulfill()
@@ -63,7 +47,7 @@ final class CoreDataTestCase: XCTestCase {
     }
     
     
-    func testRemoveFromFavorite() {
+    func test_DataController_removeFavorite() {
         self.deleteAllData("FavRecipe")
         
         let recipe = Recipe(label: "FirstRecipe",
@@ -75,11 +59,11 @@ final class CoreDataTestCase: XCTestCase {
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
         dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
-            let favRecipe = self.fetch()
+            let favRecipe = self.dataController.fetch()
             
-            self.dataController?.removeFavorite(recipe: (favRecipe?.first!)!)
+            self.dataController?.removeFavorite(favRecipe: (favRecipe?.first!)!)
             
-            let favRecipes = self.fetch()
+            let favRecipes = self.dataController.fetch()
             
             XCTAssert(favRecipes!.isEmpty)
             expectation.fulfill()
@@ -87,7 +71,7 @@ final class CoreDataTestCase: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testDownloadImageWrongUrl() {
+    func test_DataController_downloadImage_wrongUrl() {
         URLProtocol.registerClass(MockURLProtocol.self)
         MockURLProtocol.requestHandler = {request in
             let encoder = JSONEncoder()
@@ -107,7 +91,7 @@ final class CoreDataTestCase: XCTestCase {
         wait(for: [expectation], timeout: 20)
     }
     
-    func testDownloadImageError() {
+    func test_DataController_downloadImage_error() {
         URLProtocol.registerClass(MockURLProtocol.self)
         MockURLProtocol.requestHandler = {request in
             let encoder = JSONEncoder()
@@ -127,26 +111,16 @@ final class CoreDataTestCase: XCTestCase {
     }
 }
 
-extension CoreDataTestCase {
-    private func fetch() -> [FavRecipe]? {
-        let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
-        do {
-            let favRecipes = try appTestContext!.fetch(fetchRequest)
-            return favRecipes
-        } catch let error {
-            print("Failed to fetch favRecipes: \(error)")
-        }
-        return nil
-    }
+extension DataControllerTestCase {
     
     private func deleteAllData(_ entity:String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try appTestContext!.fetch(fetchRequest)
+            let results = try coreDataStack.mainContext.fetch(fetchRequest)
             for object in results {
                 guard let objectData = object as? NSManagedObject else {continue}
-                appTestContext!.delete(objectData)
+                coreDataStack.mainContext.delete(objectData)
             }
         } catch let error {
             print("Detele all data in \(entity) error :", error)
