@@ -13,6 +13,9 @@ class DataController: ObservableObject {
     @Published private(set) var errorCoreData: String
     @Published var hasError: Bool = false
     
+//    var favRecipes = CurrentValueSubject<[FavRecipe], Never>([])
+//    private let courseFetchController: NSFetchedResultsController<FavRecipe>
+    
     let backgroundcontext: NSManagedObjectContext
     let mainContext: NSManagedObjectContext
     
@@ -101,73 +104,6 @@ class DataController: ObservableObject {
         }
         return favRecipes
     }
-    
-    
-    
-    //    @Published var hasError: Bool = false
-    //    @Published private(set) var errorCd: String
-    //
-    //     static var container: NSPersistentContainer = {
-    //        let container = NSPersistentContainer(name: "Reciplease")
-    //        container.loadPersistentStores { description, error in
-    //            if let error = error {
-    //                print("Core Data failed to load: \(error.localizedDescription)")
-    //            }
-    //        }
-    //        return container
-    //    }()
-    //
-    //    private let mainContext: NSManagedObjectContext
-    //
-    //    init(mainContext: NSManagedObjectContext = container.viewContext, errorCd: String) {
-    //        self.mainContext = mainContext
-    //        self.errorCd = errorCd
-    //    }
-    //
-    //    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
-    //        downloadImage(imageUrl: image) { data in
-    //            let favRecipe = FavRecipe(context: self.mainContext)
-    //            favRecipe.storedImage = data?.image?.pngData()
-    //            favRecipe.label = label
-    //            favRecipe.image = image
-    //            favRecipe.ingredientLines = ingredientLines
-    //            favRecipe.foodIngredients = foodIngredients
-    //            favRecipe.url = url
-    //            favRecipe.totalTime = Int64(totalTime)
-    //            do {
-    //                try self.mainContext.save()
-    //                completionHandler()
-    //            } catch let error{
-    //                self.errorCd = error.localizedDescription
-    //                self.hasError = true
-    //                print("Error adding recipe to favorites: \(error)")
-    //            }
-    //        }
-    //    }
-    //
-    
-    //
-    //    func removeFavorite(recipe: FavRecipe) {
-    //        mainContext.delete(recipe)
-    //        do {
-    //            try mainContext.save()
-    //        } catch let error {
-    //            self.errorCd = error.localizedDescription
-    //            self.hasError = true
-    //            print("Error deleting item: \(error)")
-    //        }
-    //    }
-    //
-    //    private func fetch() -> [FavRecipe]? {
-    //        let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
-    //        do {
-    //            let favRecipes = try mainContext.fetch(fetchRequest)
-    //            return favRecipes
-    //        } catch let error {
-    //            print("Failed to fetch favRecipes: \(error)")
-    //        }
-    //        return nil
-    //    }
 }
 
 extension Data {

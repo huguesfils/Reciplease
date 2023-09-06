@@ -6,20 +6,31 @@
 //
 
 import Foundation
+import CoreData
 
 
 @MainActor class FavoritesViewModel: ObservableObject {
-    @Published var favorites = [FavRecipe] = []
+    @Published var favorites: [FavRecipe] = []
     
-    let dataController: DataController
+    let mainContext: NSManagedObjectContext
     
-    init(dataController: DataController = DataController(errorCoreData: "")) {
-        self.dataController = dataController
+    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.mainContext = mainContext
+        fetch()
     }
     
-    func fetchFavorites()  {
-        favorites = dataController.fetch()!
+    func fetch() {
+        let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
+        
+        mainContext.performAndWait {
+            do {
+                favorites = try mainContext.fetch(fetchRequest)
+            } catch let error {
+                print("Failed to fetch favRecipes: \(error)")
+            }
+        }
     }
+    
     
 }
 
