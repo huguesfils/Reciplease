@@ -13,9 +13,6 @@ class DataController: ObservableObject {
     @Published private(set) var errorCoreData: String
     @Published var hasError: Bool = false
     
-//    var favRecipes = CurrentValueSubject<[FavRecipe], Never>([])
-//    private let courseFetchController: NSFetchedResultsController<FavRecipe>
-    
     let backgroundcontext: NSManagedObjectContext
     let mainContext: NSManagedObjectContext
     
@@ -40,6 +37,7 @@ class DataController: ObservableObject {
                 favRecipe.totalTime = Int64(totalTime)
                 do {
                     try self.backgroundcontext.save()
+                    print("save: ", favRecipe)
                     completionHandler()
                 } catch let error{
                     self.errorCoreData = error.localizedDescription
@@ -74,13 +72,16 @@ class DataController: ObservableObject {
     }
     
     func removeFavorite(favRecipe: FavRecipe) {
-        let objectID = favRecipe.objectID
+        let objectId = favRecipe.objectID
+        print("objectID", objectId)
         backgroundcontext.performAndWait {
             do {
-                if let favRecipeInContext = try? backgroundcontext.existingObject(with: objectID) {
-                    backgroundcontext.delete(favRecipeInContext)
+                print("yoyo : \(favRecipe)")
+                if let favRecipeInContext = try? backgroundcontext.existingObject(with: objectId) {
+                    print("yaya: \(favRecipe)")
+                    backgroundcontext.delete(favRecipe)
                     try backgroundcontext.save()
-                }
+               }
             } catch let error{
                 self.errorCoreData = error.localizedDescription
                 self.hasError = true
