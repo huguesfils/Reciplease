@@ -10,9 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var navPath = NavigationPath()
-    
-    private let service = RecipeService()
-    
+  
     var body: some View {
         NavigationStack(path: $navPath) {
             List {

@@ -24,6 +24,7 @@ class DataController: ObservableObject {
     }
     
     
+    
     func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
         backgroundcontext.performAndWait {
             downloadImage(imageUrl: image) { data in
@@ -77,17 +78,16 @@ class DataController: ObservableObject {
         backgroundcontext.performAndWait {
             do {
                 print("yoyo : \(favRecipe)")
-                if let favRecipeInContext = try? backgroundcontext.existingObject(with: objectId) {
+                if let favRecipeInContext = try? self.backgroundcontext.existingObject(with: objectId) {
                     print("yaya: \(favRecipe)")
-                    backgroundcontext.delete(favRecipe)
-                    try backgroundcontext.save()
+                    self.backgroundcontext.delete(favRecipeInContext)
+                    try self.backgroundcontext.save()
                }
             } catch let error{
                 self.errorCoreData = error.localizedDescription
                 self.hasError = true
                 print("Error deleting item: \(error)")
             }
-            
         }
     }
     

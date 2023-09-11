@@ -9,11 +9,14 @@ import SwiftUI
 
 @main
 struct RecipleaseApp: App {
-    @StateObject private var dataController = DataController(errorCoreData: "")
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some Scene {
         WindowGroup {
             ContentView().environment(\.managedObjectContext, CoreDataStack.shared.mainContext)
+        }
+        .onChange(of: scenePhase) { _ in
+            CoreDataStack.shared.saveContext()
         }
     }
 }

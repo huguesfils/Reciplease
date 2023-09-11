@@ -15,7 +15,7 @@ class CoreDataStack {
     let backgroundContext: NSManagedObjectContext
     let mainContext: NSManagedObjectContext
     
-     init() {
+     private init() {
         persistentContainer = NSPersistentContainer(name: "Reciplease")
         let description = persistentContainer.persistentStoreDescriptions.first
         description?.type = NSSQLiteStoreType
@@ -31,5 +31,18 @@ class CoreDataStack {
         backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         backgroundContext.parent = self.mainContext
+    }
+
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }

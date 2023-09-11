@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RecipeView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [
     ]) private var favorites: FetchedResults<FavRecipe>
@@ -112,6 +111,7 @@ struct RecipeView: View {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
                             if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                                print("recipeView: ", favRecipe)
                                 dataController.removeFavorite(favRecipe: favRecipe)
                                 if recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()

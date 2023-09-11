@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RecipeCard: View {
-    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [
     ]) private var favorites: FetchedResults<FavRecipe>
     
