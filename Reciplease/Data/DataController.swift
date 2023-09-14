@@ -10,41 +10,45 @@ import Foundation
 import SwiftUI
 
 class DataController: ObservableObject {
-    @Published private(set) var errorCoreData: String
+    @Published var errorCoreData: String = ""
     @Published var hasError: Bool = false
     
-    let backgroundcontext: NSManagedObjectContext
-    let mainContext: NSManagedObjectContext
+    static let shared = DataController()
     
-    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext,
-         backgroundContext: NSManagedObjectContext = CoreDataStack.shared.backgroundContext, errorCoreData: String) {
-        self.errorCoreData = errorCoreData
-        self.mainContext = mainContext
-        self.backgroundcontext = backgroundContext
+    let container: NSPersistentContainer
+    let context: NSManagedObjectContext
+    
+    private init() {
+        container = NSPersistentContainer(name: "Reciplease")
+        
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                print("Core Data failed to load: \(error.localizedDescription)")
+            }
+        }
+        
+        context = container.viewContext
     }
-    
-    
-    
-    func addFavorite(label: String, image: String, ingredientLines: [String], url: String, totalTime: Int, foodIngredients: [String], completionHandler: @escaping () -> ()) {
-        backgroundcontext.performAndWait {
-            downloadImage(imageUrl: image) { data in
-                let favRecipe = NSEntityDescription.insertNewObject(forEntityName: "FavRecipe", into: self.backgroundcontext) as! FavRecipe
-                favRecipe.storedImage = data?.image?.pngData()
-                favRecipe.label = label
-                favRecipe.image = image
-                favRecipe.ingredientLines = ingredientLines
-                favRecipe.foodIngredients = foodIngredients
-                favRecipe.url = url
-                favRecipe.totalTime = Int64(totalTime)
-                do {
-                    try self.backgroundcontext.save()
-                    print("save: ", favRecipe)
-                    completionHandler()
-                } catch let error{
-                    self.errorCoreData = error.localizedDescription
-                    self.hasError = true
-                    print("Error adding recipe to favorites: \(error)")
-                }
+
+    func addFavorite(recipe: Recipe, completionHandler: @escaping () -> ()) {
+        downloadImage(imageUrl: recipe.image) { data in
+            let favRecipe = FavRecipe(context: self.context)
+            favRecipe.storedImage = data?.image?.pngData()
+            favRecipe.label = recipe.label
+            favRecipe.image = recipe.image
+            favRecipe.ingredientLines = recipe.ingredientLines
+            favRecipe.foodIngredients = recipe.foodIngredients
+            favRecipe.url = recipe.url
+            favRecipe.totalTime = Int64(recipe.totalTime)
+            do {
+                try self.context.save()
+                print("save: ", favRecipe)
+                completionHandler()
+            } catch let error{
+                self.errorCoreData = error.localizedDescription
+                self.hasError = true
+                print("Error adding recipe to favorites: \(error)")
+                
             }
         }
     }
@@ -72,37 +76,30 @@ class DataController: ObservableObject {
         }
     }
     
-    func removeFavorite(favRecipe: FavRecipe) {
-        let objectId = favRecipe.objectID
-        print("objectID", objectId)
-        backgroundcontext.performAndWait {
-            do {
-                print("yoyo : \(favRecipe)")
-                if let favRecipeInContext = try? self.backgroundcontext.existingObject(with: objectId) {
-                    print("yaya: \(favRecipe)")
-                    self.backgroundcontext.delete(favRecipeInContext)
-                    try self.backgroundcontext.save()
-               }
-            } catch let error{
-                self.errorCoreData = error.localizedDescription
-                self.hasError = true
-                print("Error deleting item: \(error)")
-            }
+    func removeFavorite(recipe: FavRecipe) {
+        let context = container.viewContext
+        context.delete(recipe)
+        do {
+            try context.save()
+        } catch let error {
+            self.errorCoreData = error.localizedDescription
+            self.hasError = true
+            print("Error deleting item: \(error)")
         }
     }
     
     func fetch() -> [FavRecipe]? {
+        let context = container.viewContext
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         var favRecipes: [FavRecipe]?
-        
-        mainContext.performAndWait {
-            do {
-                favRecipes = try mainContext.fetch(fetchRequest)
-            } catch let error {
-                print("Failed to fetch favRecipes: \(error)")
-            }
+
+        do {
+            favRecipes = try context.fetch(fetchRequest)
+        } catch let error {
+            print("Failed to fetch favRecipes: \(error)")
         }
+        
         return favRecipes
     }
 }

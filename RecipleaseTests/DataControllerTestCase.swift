@@ -12,17 +12,35 @@ import CoreData
 final class DataControllerTestCase: XCTestCase {
     
     var dataController: DataController!
-    var coreDataStack: CoreDataTestStack!
+    var appTestContext: NSManagedObjectContext!
+
     
     private let correctImageUrl = "https://urlz.fr/ncHy"
     private let wrongImageUrl = "88889ED8FIDSIFHDSF8àç!èçà!ç!è"
     
     override func setUp() {
         super.setUp()
-        coreDataStack = CoreDataTestStack()
-        dataController = DataController(mainContext: coreDataStack.mainContext,
-                                        backgroundContext: coreDataStack.mainContext, errorCoreData: "")
+        appTestContext = createInMemoryManagedObjectContext()
+        dataController = DataController.shared
     }
+    
+    func createInMemoryManagedObjectContext() -> NSManagedObjectContext? {
+            guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main]) else { return nil }
+            
+            let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+            
+            do {
+                try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+            } catch {
+                print("Error creating test core data store: \(error)")
+                return nil
+            }
+            
+            let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+            
+            return managedObjectContext
+        }
     
     
     func test_DataController_addToFavorite() {
@@ -35,7 +53,7 @@ final class DataControllerTestCase: XCTestCase {
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
         
-        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
+        dataController?.addFavorite(recipe: recipe, completionHandler: {
             
             let favRecipe = self.dataController.fetch()
             print(favRecipe as Any)
@@ -58,10 +76,10 @@ final class DataControllerTestCase: XCTestCase {
                             totalTime: 10)
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
-        dataController?.addFavorite(label: recipe.label, image: recipe.image, ingredientLines: recipe.ingredientLines, url: recipe.url, totalTime: recipe.totalTime, foodIngredients: recipe.foodIngredients, completionHandler: {
+        dataController?.addFavorite(recipe: recipe, completionHandler: {
             let favRecipe = self.dataController.fetch()
             
-            self.dataController?.removeFavorite(favRecipe: (favRecipe?.first!)!)
+            self.dataController?.removeFavorite(recipe: (favRecipe?.first!)!)
             
             let favRecipes = self.dataController.fetch()
             
@@ -112,15 +130,14 @@ final class DataControllerTestCase: XCTestCase {
 }
 
 extension DataControllerTestCase {
-    
-    private func deleteAllData(_ entity:String) {
+    private func deleteAllData(_ entity: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try coreDataStack.mainContext.fetch(fetchRequest)
+            let results = try dataController.container.viewContext.fetch(fetchRequest)
             for object in results {
                 guard let objectData = object as? NSManagedObject else {continue}
-                coreDataStack.mainContext.delete(objectData)
+                dataController.container.viewContext.delete(objectData)
             }
         } catch let error {
             print("Detele all data in \(entity) error :", error)

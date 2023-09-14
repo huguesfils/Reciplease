@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @StateObject private var viewModel = FavoritesViewModel()
-    
+
     @FetchRequest(sortDescriptors: [
         ]) private var favorites: FetchedResults<FavRecipe>
     

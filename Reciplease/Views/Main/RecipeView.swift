@@ -13,9 +13,10 @@ struct RecipeView: View {
     @FetchRequest(sortDescriptors: [
     ]) private var favorites: FetchedResults<FavRecipe>
     
+    @ObservedObject private var dataController = DataController.shared
     
     private let recipe: any RecipeProtocol
-    @StateObject private var dataController = DataController(errorCoreData: "")
+   
     
     init(recipe: any RecipeProtocol) {
         self.recipe = recipe
@@ -112,12 +113,12 @@ struct RecipeView: View {
                         Button(action: {
                             if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
                                 print("recipeView: ", favRecipe)
-                                dataController.removeFavorite(favRecipe: favRecipe)
+                                dataController.removeFavorite(recipe: favRecipe)
                                 if recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
                             } else{
-                                dataController.addFavorite(label: recipe.labelValue, image: recipe.imageValue, ingredientLines: recipe.ingredientLinesValue, url: recipe.urlValue, totalTime: recipe.totalTimeValue, foodIngredients: recipe.foodIngredientsValue) { }
+                                dataController.addFavorite(recipe: recipe as! Recipe) { }
                             }
                         }, label: {
                             Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")

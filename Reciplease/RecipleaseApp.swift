@@ -11,12 +11,11 @@ import SwiftUI
 struct RecipleaseApp: App {
     @Environment(\.scenePhase) var scenePhase
     
+    let dataController = DataController.shared
+    
     var body: some Scene {
         WindowGroup {
-            ContentView().environment(\.managedObjectContext, CoreDataStack.shared.mainContext)
-        }
-        .onChange(of: scenePhase) { _ in
-            CoreDataStack.shared.saveContext()
+            ContentView().environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
