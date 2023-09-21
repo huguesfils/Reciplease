@@ -10,16 +10,10 @@ import SwiftUI
 struct RecipeView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
-    @FetchRequest(sortDescriptors: [
-    ]) private var favorites: FetchedResults<FavRecipe>
+    @ObservedObject private var viewModel: RecipeViewModel
     
-    @ObservedObject private var dataController = DataController.shared
-    
-    private let recipe: any RecipeProtocol
-   
-    
-    init(recipe: any RecipeProtocol) {
-        self.recipe = recipe
+    init(_ viewModel: RecipeViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -27,7 +21,7 @@ struct RecipeView: View {
             Color("listColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                    if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
                         Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -35,7 +29,7 @@ struct RecipeView: View {
                             .clipped()
                             .accessibilityLabel("meal photo")
                     } else {
-                        AsyncImage(url: URL(string: recipe.imageValue)) { image in
+                        AsyncImage(url: URL(string: viewModel.image)) { image in
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: 233)
@@ -55,7 +49,7 @@ struct RecipeView: View {
                     }
                     
                     VStack(spacing: 30) {
-                        Text(recipe.labelValue)
+                        Text(viewModel.title)
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
@@ -65,8 +59,8 @@ struct RecipeView: View {
                                 Text("Ingredients: ")
                                     .font(.headline)
                                 Spacer()
-                                if recipe.totalTimeValue != 0 {
-                                    let recipeTime = recipe.totalTimeValue.toTimeString()
+                                if viewModel.totalTime != 0 {
+                                    let recipeTime = viewModel.totalTime.toTimeString()
                                     HStack {
                                         Image(systemName: "clock.badge.checkmark")
                                         Text("\(recipeTime)")
@@ -77,7 +71,7 @@ struct RecipeView: View {
                                 }
                             }
                             
-                            ForEach(recipe.ingredientLinesValue, id: \.self) {
+                            ForEach(viewModel.ingredientLines, id: \.self) {
                                 item in
                                 Text("- \(item)")
                             }
@@ -86,7 +80,7 @@ struct RecipeView: View {
                         
                         Button {
                             Task {
-                                if let url = URL(string: recipe.urlValue) {
+                                if let url = URL(string: viewModel.url) {
                                     UIApplication.shared.open(url)
                                 }
                             }
@@ -100,32 +94,35 @@ struct RecipeView: View {
                     }
                     .padding(.horizontal)
                 }
-                .alert("Error", isPresented: $dataController.hasError) {
+                .alert("Error", isPresented: $viewModel.dataController.hasError) {
                     Button("Dismiss") {
                     }
                 } message: {
-                    Text(dataController.errorCoreData)
+                    Text(viewModel.dataController.errorCoreData)
                 }
                 .navigationTitle("Details")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
-                            if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+                            if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
                                 print("recipeView: ", favRecipe)
-                                dataController.removeFavorite(recipe: favRecipe)
-                                if recipe is FavRecipe {
+                                viewModel.dataController.removeFavorite(recipe: favRecipe)
+                                if viewModel.recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
                             } else{
-                                dataController.addFavorite(recipe: recipe as! Recipe) { }
+                                viewModel.dataController.addFavorite(recipe: viewModel.recipe as! Recipe) { }
                             }
                         }, label: {
-                            Image(systemName: favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "heart.fill" : "heart")
+                            Image(systemName: viewModel.favorites.contains(where: {$0.urlValue == viewModel.url}) ? "heart.fill" : "heart")
                         })
-                        .accessibilityLabel(favorites.contains(where: {$0.urlValue == recipe.urlValue}) ? "remove from favorite" : "add to favorite")
+                        .accessibilityLabel(viewModel.favorites.contains(where: {$0.urlValue == viewModel.url}) ? "remove from favorite" : "add to favorite")
                     }
                 }
+            }
+            .onAppear {
+                viewModel.fetch()
             }
         }
     }
@@ -134,12 +131,6 @@ struct RecipeView: View {
 
 struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(recipe: Recipe(
-            label: "Test",
-            image: "photo",
-            ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
-            ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")],
-            url: "https://www.apple.com",
-            totalTime: 40))
+        RecipeView(RecipeViewModel(recipe: Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"], ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")], url: "https://www.apple.com", totalTime: 40)))
     }
 }

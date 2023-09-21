@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct RecipeCard: View {
-    @FetchRequest(sortDescriptors: [
-    ]) private var favorites: FetchedResults<FavRecipe>
     
-    private let recipe: any RecipeProtocol
+    @ObservedObject private var viewModel: RecipeViewModel
     
-    init(recipe: any RecipeProtocol) {
-        self.recipe = recipe
+    init(_ viewModel: RecipeViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
         ZStack {
-            if let favRecipe = favorites.first(where: {$0.urlValue == recipe.urlValue}) {
+            if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
                 Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -61,8 +59,8 @@ struct RecipeCard: View {
                         .background(.regularMaterial, in: RoundedCornersShape(corners: [.bottomLeft, .bottomRight], radius: 20))
                     }
             } else {
-                AsyncImage(url: URL(string: recipe.imageValue)) { image in
-                    return image
+                AsyncImage(url: URL(string: viewModel.image)) { image in
+                    image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .clipped()
@@ -72,12 +70,12 @@ struct RecipeCard: View {
                             VStack {
                                 HStack {
                                     VStack {
-                                        Text(recipe.labelValue)
+                                        Text(viewModel.title)
                                             .font(.subheadline.weight(.heavy))
                                             .foregroundColor(Color("text"))
                                             .frame(maxWidth:.infinity,alignment: .leading)
                                             .lineLimit(1)
-                                        Text(recipe.foodIngredientsValue.joined(separator: ", "))
+                                        Text(viewModel.ingredients.joined(separator: ", "))
                                             .font(.caption)
                                             .foregroundColor(Color("text"))
                                             .lineLimit(1)
@@ -88,8 +86,8 @@ struct RecipeCard: View {
                                     }
                                     .frame(maxWidth: 300,alignment: .leading)
                                     
-                                    if recipe.totalTimeValue != 0 {
-                                        let time = recipe.totalTimeValue.toTimeString()
+                                    if viewModel.totalTime == 0 {
+                                        let time = viewModel.totalTime.toTimeString()
                                         Text("\(time)")
                                             .foregroundColor(Color("text"))
                                             .frame(maxWidth: 100, alignment: .trailing)
@@ -108,6 +106,9 @@ struct RecipeCard: View {
             }
             
         }
+        .onAppear {
+            viewModel.fetch()
+        }
     }
 }
 
@@ -125,13 +126,13 @@ struct RoundedCornersShape: Shape {
 
 struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCard(recipe: Recipe(
+        RecipeCard(RecipeViewModel(recipe: Recipe(
             label: "Test",
-            image: "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg",
+            image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],
             ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon"), ingredient(food: "paprika")],
             url: "https://www.apple.com",
-            totalTime: 40))
+            totalTime: 40)))
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B5C917DAC9D8B9606BC1C5E /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F139D5CF0E0B1652F55799D /* Pods_Reciplease.framework */; };
+		BB03B3F82ABA2A1D005B14EB /* Recipe-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03B3F72ABA2A1D005B14EB /* Recipe-ViewModel.swift */; };
 		BB341FA22A0A819A0032D048 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA12A0A819A0032D048 /* TabBar.swift */; };
 		BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
 		BB341FA72A0A8ED10032D048 /* RecipeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA62A0A8ED10032D048 /* RecipeList.swift */; };
@@ -51,6 +52,7 @@
 		6895EA6096CDE5F3D9DBA7CE /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DC0D1F12FA7E667C1AB531 /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		9F139D5CF0E0B1652F55799D /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB03B3F72ABA2A1D005B14EB /* Recipe-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe-ViewModel.swift"; sourceTree = "<group>"; };
 		BB341FA12A0A819A0032D048 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		BB341FA42A0A82FB0032D048 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		BB341FA62A0A8ED10032D048 /* RecipeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeList.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				BBF96B8029F0453900FCB40B /* SearchView-ViewModel.swift */,
+				BB03B3F72ABA2A1D005B14EB /* Recipe-ViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				BBF96B8129F0453900FCB40B /* SearchView-ViewModel.swift in Sources */,
 				BBB8D38E29E6030E008C8442 /* RecipleaseApp.swift in Sources */,
 				BB341FA72A0A8ED10032D048 /* RecipeList.swift in Sources */,
+				BB03B3F82ABA2A1D005B14EB /* Recipe-ViewModel.swift in Sources */,
 				BB6AFAA62A09B5C20025742D /* RecipeCard.swift in Sources */,
 				BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */,
 			);

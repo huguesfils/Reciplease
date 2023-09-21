@@ -17,7 +17,7 @@ import Foundation
     @Published var ingredients = [String]()
     @Published var searchInput = ""
     @Published var isLoading = false
-    @Published var results = [Recipe]()
+    @Published var results = [RecipeViewModel]()
     
     func addIngredient() {
         let newIngredient = searchInput.lowercased()
@@ -36,7 +36,8 @@ import Foundation
         }
         do {
             isLoading = true
-            results = try await service.loadData(ingredients: ingredients)
+            var tempResults = try await service.loadData(ingredients: ingredients)
+            results = tempResults.map{ $0.self }
         } catch {
             print("Error loading data")
         }

@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct RecipeList: View {
-    @FetchRequest(sortDescriptors: [
-    ]) private var favorites: FetchedResults<FavRecipe>
+    private let results: [RecipeViewModel]
     
-    private let results: [any RecipeProtocol]
-    
-    init(results: [any RecipeProtocol]) {
+    init(results: [RecipeViewModel]) {
         self.results = results
     }
     
@@ -29,9 +26,9 @@ struct RecipeList: View {
             }
             VStack(spacing: 15) {
                 if results.count > 0 {
-                    ForEach(results, id: \.labelValue) { item in
-                        NavigationLink(destination: RecipeView(recipe: item)) {
-                            RecipeCard(recipe: item)
+                    ForEach(results, id: \.title) { item in
+                        NavigationLink(destination: RecipeView(item)) {
+                            RecipeCard(item)
                         }
                     }
                 } else {
