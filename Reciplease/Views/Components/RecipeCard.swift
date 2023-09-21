@@ -88,7 +88,7 @@ struct RecipeCard: View {
                                     
                                     if viewModel.totalTime == 0 {
                                         let time = viewModel.totalTime.toTimeString()
-                                        Text("\(time)")
+                                        Text("\(viewModel.totalTime.toTimeString())")
                                             .foregroundColor(Color("text"))
                                             .frame(maxWidth: 100, alignment: .trailing)
                                             .accessibilityValue(time)
@@ -107,7 +107,7 @@ struct RecipeCard: View {
             
         }
         .onAppear {
-            viewModel.fetch()
+            viewModel.fetchFavorites()
         }
     }
 }

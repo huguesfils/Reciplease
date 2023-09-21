@@ -18,7 +18,7 @@ class DataController: ObservableObject {
     let container: NSPersistentContainer
     let context: NSManagedObjectContext
     
-    private init() {
+    init() {
         container = NSPersistentContainer(name: "Reciplease")
         
         container.loadPersistentStores { description, error in

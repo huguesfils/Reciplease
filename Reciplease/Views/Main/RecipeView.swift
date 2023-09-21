@@ -27,14 +27,14 @@ struct RecipeView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 233)
                             .clipped()
-                            .accessibilityLabel("meal photo")
+                            .accessibilityLabel("dish photo")
                     } else {
                         AsyncImage(url: URL(string: viewModel.image)) { image in
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: 233)
                                 .clipped()
-                                .accessibilityLabel("meal photo")
+                                .accessibilityLabel("dish photo")
                         } placeholder: {
                             Image(systemName: "photo")
                                 .resizable()
@@ -122,7 +122,7 @@ struct RecipeView: View {
                 }
             }
             .onAppear {
-                viewModel.fetch()
+                viewModel.fetchFavorites()
             }
         }
     }

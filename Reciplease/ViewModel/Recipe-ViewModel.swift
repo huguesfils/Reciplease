@@ -39,7 +39,7 @@ import CoreData
         return recipe.totalTimeValue
     }
     
-    func fetch() {
+    func fetchFavorites() {
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         do {

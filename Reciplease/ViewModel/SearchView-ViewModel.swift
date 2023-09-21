@@ -17,7 +17,12 @@ import Foundation
     @Published var ingredients = [String]()
     @Published var searchInput = ""
     @Published var isLoading = false
-    @Published var results = [RecipeViewModel]()
+    //@Published var results = [RecipeViewModel]()
+    private var recipes: [Recipe] = []
+    
+    var recipeListViewModel: RecipeListViewModel {
+        return RecipeListViewModel(recipes)
+    }
     
     func addIngredient() {
         let newIngredient = searchInput.lowercased()
@@ -36,8 +41,8 @@ import Foundation
         }
         do {
             isLoading = true
-            var tempResults = try await service.loadData(ingredients: ingredients)
-            results = tempResults.map{ $0.self }
+            recipes = try await service.loadData(ingredients: ingredients)
+            
         } catch {
             print("Error loading data")
         }

@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 
 class ApiService {
-    
     enum Error: Swift.Error {
         case HttpStatusCodeError
         case WrongDataReceived
