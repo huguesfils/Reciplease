@@ -1,5 +1,5 @@
 //
-//  RecipeServiceTestCase.swift
+//  ApiServiceTestCase.swift
 //  RecipleaseTests
 //
 //  Created by Hugues Fils on 01/07/2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Reciplease
 
-final class RecipeServiceTestCase: XCTestCase {
+final class ApiServiceTestCase: XCTestCase {
     
     func testLoadDataWithInvalidData() async throws {
         URLProtocol.registerClass(MockURLProtocol.self)
@@ -18,14 +18,14 @@ final class RecipeServiceTestCase: XCTestCase {
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
         }
         
-        let service = RecipeService()
+        let service = ApiService()
         
         do {
             _ = try await service.loadData(ingredients: ["test"])
             XCTAssert(false)
         } catch  {
             XCTAssert(true)
-            XCTAssert(error is RecipeService.Error)
+            XCTAssert(error is ApiService.Error)
         }
     }
     
@@ -37,14 +37,14 @@ final class RecipeServiceTestCase: XCTestCase {
             return (HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data)
         }
         
-        let service = RecipeService()
+        let service = ApiService()
         
         do {
             _ = try await service.loadData(ingredients: ["test"])
             XCTAssert(false)
         } catch  {
             XCTAssert(true)
-            XCTAssert(error is RecipeService.Error)
+            XCTAssert(error is ApiService.Error)
         }
     }
     
@@ -56,14 +56,14 @@ final class RecipeServiceTestCase: XCTestCase {
             return (HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data)
         }
         
-        let service = RecipeService()
+        let service = ApiService()
         
         do {
             _ = try await service.loadData(ingredients: ["2️⃣2️⃣"])
             XCTAssert(false)
         } catch  {
             XCTAssert(true)
-            XCTAssert(error is RecipeService.Error)
+            XCTAssert(error is ApiService.Error)
         }
     }
     
@@ -77,7 +77,7 @@ final class RecipeServiceTestCase: XCTestCase {
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
         }
         
-        let service = RecipeService()
+        let service = ApiService()
         
         do {
             let result = try await service.loadData(ingredients: ["tomato"])

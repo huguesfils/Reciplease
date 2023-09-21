@@ -1,5 +1,5 @@
 //
-//  RecipeService.swift
+//  ApiService.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 04/07/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class RecipeService {
+class ApiService {
     
     enum Error: Swift.Error {
         case HttpStatusCodeError

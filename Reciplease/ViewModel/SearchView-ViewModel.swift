@@ -8,9 +8,9 @@
 import Foundation
 
 @MainActor class SearchViewModel: ObservableObject {
-    let service: RecipeService
+    let service: ApiService
     
-    init(service: RecipeService = RecipeService()) {
+    init(service: ApiService = ApiService()) {
         self.service = service
     }
     
