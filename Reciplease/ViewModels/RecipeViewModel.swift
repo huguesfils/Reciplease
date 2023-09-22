@@ -1,5 +1,5 @@
 //
-//  Recipe-ViewModel.swift
+//  RecipeViewModel.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 19/09/2023.

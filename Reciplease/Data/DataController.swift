@@ -88,7 +88,7 @@ class DataController: ObservableObject {
         }
     }
     
-    func fetch() -> [FavRecipe]? {
+    func fetchFavorites() -> [FavRecipe]? {
         let context = container.viewContext
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         

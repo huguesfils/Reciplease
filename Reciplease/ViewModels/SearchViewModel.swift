@@ -1,5 +1,5 @@
 //
-//  SearchView-ViewModel.swift
+//  SearchViewModel.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 19/04/2023.
@@ -8,20 +8,20 @@
 import Foundation
 
 @MainActor class SearchViewModel: ObservableObject {
-    let service: ApiService
-    
-    init(service: ApiService = ApiService()) {
-        self.service = service
-    }
-    
     @Published var ingredients = [String]()
     @Published var searchInput = ""
     @Published var isLoading = false
-    //@Published var results = [RecipeViewModel]()
+    
     private var recipes: [Recipe] = []
     
     var recipeListViewModel: RecipeListViewModel {
         return RecipeListViewModel(recipes)
+    }
+    
+    let service: ApiService
+    
+    init(service: ApiService = ApiService()) {
+        self.service = service
     }
     
     func addIngredient() {

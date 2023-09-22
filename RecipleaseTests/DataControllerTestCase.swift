@@ -55,7 +55,7 @@ final class DataControllerTestCase: XCTestCase {
         
         dataController?.addFavorite(recipe: recipe, completionHandler: {
             
-            let favRecipe = self.dataController.fetch()
+            let favRecipe = self.dataController.fetchFavorites()
             print(favRecipe as Any)
             
             XCTAssertEqual(favRecipe?.last?.label, recipe.label)
@@ -77,11 +77,11 @@ final class DataControllerTestCase: XCTestCase {
         
         let expectation = XCTestExpectation(description: "waiting for data saving")
         dataController?.addFavorite(recipe: recipe, completionHandler: {
-            let favRecipe = self.dataController.fetch()
+            let favRecipe = self.dataController.fetchFavorites()
             
             self.dataController?.removeFavorite(recipe: (favRecipe?.first!)!)
             
-            let favRecipes = self.dataController.fetch()
+            let favRecipes = self.dataController.fetchFavorites()
             
             XCTAssert(favRecipes!.isEmpty)
             expectation.fulfill()

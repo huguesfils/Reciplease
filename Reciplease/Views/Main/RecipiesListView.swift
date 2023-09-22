@@ -9,7 +9,7 @@ import SwiftUI
 
     
 struct RecipiesListView: View {
-    @ObservedObject var viewModel: RecipeListViewModel
+    @ObservedObject var recipeListViewModel: RecipeListViewModel
     
     var body: some View {
         ZStack {
@@ -17,7 +17,7 @@ struct RecipiesListView: View {
             ScrollView{
                 VStack {
                     HStack{
-                        Text("\(viewModel.recipesViewModel.count) \(viewModel.recipesViewModel.count > 1 ? "recipes" : "recipe")")
+                        Text("\(recipeListViewModel.recipesViewModel.count) \(recipeListViewModel.recipesViewModel.count > 1 ? "recipes" : "recipe")")
                             .font(.headline)
                             .fontWeight(.medium)
                             .opacity(0.7)
@@ -25,14 +25,14 @@ struct RecipiesListView: View {
                         Spacer()
                     }
                     VStack(spacing: 15) {
-                        if viewModel.recipesViewModel.count > 0 {
-                            ForEach(viewModel.recipesViewModel, id: \.title) { item in
+                        if recipeListViewModel.recipesViewModel.count > 0 {
+                            ForEach(recipeListViewModel.recipesViewModel, id: \.title) { item in
                                 NavigationLink(destination: RecipeView(item)) {
                                     RecipeCard(item)
                                 }
                             }
                         } else {
-                            Text("Sorry, no recipe found :(")
+                            Text("Sorry, no recipe founded :(")
                                 .font(.headline)
                                 .fontWeight(.medium)
                                 .opacity(0.7)
@@ -43,15 +43,19 @@ struct RecipiesListView: View {
                     .padding(.top)
                 }
                 .padding(.horizontal)
+                
             }
             .navigationTitle("Recipes")
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            recipeListViewModel.fetchFavorites()
         }
     }
 }
 
 struct RecipiesListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipiesListView(viewModel: RecipeListViewModel([Recipe]()))
+        RecipiesListView(recipeListViewModel: RecipeListViewModel([Recipe]()))
     }
 }

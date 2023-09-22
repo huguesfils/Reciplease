@@ -10,10 +10,10 @@ import SwiftUI
 struct RecipeView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
-    @ObservedObject private var viewModel: RecipeViewModel
+    @ObservedObject private var recipeViewModel: RecipeViewModel
     
-    init(_ viewModel: RecipeViewModel) {
-        self.viewModel = viewModel
+    init(_ recipeViewModel: RecipeViewModel) {
+        self.recipeViewModel = recipeViewModel
     }
     
     var body: some View {
@@ -21,7 +21,7 @@ struct RecipeView: View {
             Color("listColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
+                    if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
                         Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -29,7 +29,7 @@ struct RecipeView: View {
                             .clipped()
                             .accessibilityLabel("dish photo")
                     } else {
-                        AsyncImage(url: URL(string: viewModel.image)) { image in
+                        AsyncImage(url: URL(string: recipeViewModel.image)) { image in
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: 233)
@@ -49,7 +49,7 @@ struct RecipeView: View {
                     }
                     
                     VStack(spacing: 30) {
-                        Text(viewModel.title)
+                        Text(recipeViewModel.title)
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
@@ -59,8 +59,8 @@ struct RecipeView: View {
                                 Text("Ingredients: ")
                                     .font(.headline)
                                 Spacer()
-                                if viewModel.totalTime != 0 {
-                                    let recipeTime = viewModel.totalTime.toTimeString()
+                                if recipeViewModel.totalTime != 0 {
+                                    let recipeTime = recipeViewModel.totalTime.toTimeString()
                                     HStack {
                                         Image(systemName: "clock.badge.checkmark")
                                         Text("\(recipeTime)")
@@ -71,7 +71,7 @@ struct RecipeView: View {
                                 }
                             }
                             
-                            ForEach(viewModel.ingredientLines, id: \.self) {
+                            ForEach(recipeViewModel.ingredientLines, id: \.self) {
                                 item in
                                 Text("- \(item)")
                             }
@@ -80,7 +80,7 @@ struct RecipeView: View {
                         
                         Button {
                             Task {
-                                if let url = URL(string: viewModel.url) {
+                                if let url = URL(string: recipeViewModel.url) {
                                     UIApplication.shared.open(url)
                                 }
                             }
@@ -94,35 +94,35 @@ struct RecipeView: View {
                     }
                     .padding(.horizontal)
                 }
-                .alert("Error", isPresented: $viewModel.dataController.hasError) {
+                .alert("Error", isPresented: $recipeViewModel.dataController.hasError) {
                     Button("Dismiss") {
                     }
                 } message: {
-                    Text(viewModel.dataController.errorCoreData)
+                    Text(recipeViewModel.dataController.errorCoreData)
                 }
                 .navigationTitle("Details")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
-                            if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
+                            if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
                                 print("recipeView: ", favRecipe)
-                                viewModel.dataController.removeFavorite(recipe: favRecipe)
-                                if viewModel.recipe is FavRecipe {
+                                recipeViewModel.dataController.removeFavorite(recipe: favRecipe)
+                                if recipeViewModel.recipe is FavRecipe {
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
                             } else{
-                                viewModel.dataController.addFavorite(recipe: viewModel.recipe as! Recipe) { }
+                                recipeViewModel.dataController.addFavorite(recipe: recipeViewModel.recipe as! Recipe) { }
                             }
                         }, label: {
-                            Image(systemName: viewModel.favorites.contains(where: {$0.urlValue == viewModel.url}) ? "heart.fill" : "heart")
+                            Image(systemName: recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "heart.fill" : "heart")
                         })
-                        .accessibilityLabel(viewModel.favorites.contains(where: {$0.urlValue == viewModel.url}) ? "remove from favorite" : "add to favorite")
+                        .accessibilityLabel(recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "remove from favorite" : "add to favorite")
                     }
                 }
             }
             .onAppear {
-                viewModel.fetchFavorites()
+                recipeViewModel.fetchFavorites()
             }
         }
     }

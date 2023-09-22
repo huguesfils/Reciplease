@@ -87,7 +87,7 @@ struct SearchView: View {
             
             .navigationTitle("Search")
             .navigationDestination(for: Int.self, destination: { i in
-                RecipiesListView(viewModel: self.viewModel.recipeListViewModel)
+                RecipiesListView(recipeListViewModel: self.viewModel.recipeListViewModel)
             })
         }.navigationBarTitleDisplayMode(.inline)
     }

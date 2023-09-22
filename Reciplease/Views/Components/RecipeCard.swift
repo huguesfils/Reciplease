@@ -86,7 +86,7 @@ struct RecipeCard: View {
                                     }
                                     .frame(maxWidth: 300,alignment: .leading)
                                     
-                                    if viewModel.totalTime == 0 {
+                                    if viewModel.totalTime != 0 {
                                         let time = viewModel.totalTime.toTimeString()
                                         Text("\(viewModel.totalTime.toTimeString())")
                                             .foregroundColor(Color("text"))

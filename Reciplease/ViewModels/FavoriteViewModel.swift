@@ -1,5 +1,5 @@
 //
-//  Favorite-ViewModel.swift
+//  FavoriteViewModel.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 21/09/2023.
@@ -10,7 +10,9 @@ import CoreData
 
 @MainActor class FavoriteViewModel: ObservableObject {
     private var favorites: [FavRecipe] = []
+    
     @Published var isEmpty: Bool = false
+    
     let dataController: DataController
     
     init(dataController: DataController = DataController()) {

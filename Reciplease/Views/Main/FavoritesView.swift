@@ -22,7 +22,7 @@ struct FavoritesView: View {
                         .multilineTextAlignment(.center)
                         .padding()
                 } else {
-                    RecipiesListView(viewModel: self.favoriteViewModel.recipeListViewModel)
+                    RecipiesListView(recipeListViewModel: self.favoriteViewModel.recipeListViewModel)
                 }
             }
         }
@@ -31,9 +31,7 @@ struct FavoritesView: View {
         .onAppear {
             favoriteViewModel.fetchFavorites()
         }
-        
     }
-      
 }
 
 struct FavoritesView_Previews: PreviewProvider {
