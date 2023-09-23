@@ -28,8 +28,10 @@ import CoreData
         
         do {
             favorites = try dataController.container.viewContext.fetch(fetchRequest)
+            print(favorites.count)
             
             self.isEmpty = favorites.isEmpty
+            print("is empty: ", favorites.isEmpty)
             
         } catch let error {
             print("Failed to fetch favorites: \(error)")

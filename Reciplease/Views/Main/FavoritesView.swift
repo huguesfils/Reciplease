@@ -25,12 +25,11 @@ struct FavoritesView: View {
                     RecipiesListView(recipeListViewModel: self.favoriteViewModel.recipeListViewModel)
                 }
             }
+            .onAppear {
+                favoriteViewModel.fetchFavorites()
+            }
         }
-        .navigationTitle("Favorites")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            favoriteViewModel.fetchFavorites()
-        }
+        
     }
 }
 

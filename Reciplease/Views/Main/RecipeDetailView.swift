@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct RecipeView: View {
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+struct RecipeDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     
     @ObservedObject private var recipeViewModel: RecipeViewModel
     
@@ -95,8 +95,7 @@ struct RecipeView: View {
                     .padding(.horizontal)
                 }
                 .alert("Error", isPresented: $recipeViewModel.dataController.hasError) {
-                    Button("Dismiss") {
-                    }
+                    Button("Dismiss") { }
                 } message: {
                     Text(recipeViewModel.dataController.errorCoreData)
                 }
@@ -106,13 +105,15 @@ struct RecipeView: View {
                     ToolbarItem(placement: .automatic){
                         Button(action: {
                             if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
-                                print("recipeView: ", favRecipe)
                                 recipeViewModel.dataController.removeFavorite(recipe: favRecipe)
                                 if recipeViewModel.recipe is FavRecipe {
-                                    self.presentationMode.wrappedValue.dismiss()
+                                    recipeViewModel.fetchFavorites()
+                                    dismiss()
                                 }
                             } else{
-                                recipeViewModel.dataController.addFavorite(recipe: recipeViewModel.recipe as! Recipe) { }
+                                recipeViewModel.dataController.addFavorite(recipe: recipeViewModel.recipe as! Recipe) { 
+                                    recipeViewModel.fetchFavorites()
+                                }
                             }
                         }, label: {
                             Image(systemName: recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "heart.fill" : "heart")
@@ -121,16 +122,16 @@ struct RecipeView: View {
                     }
                 }
             }
-            .onAppear {
-                recipeViewModel.fetchFavorites()
-            }
+        }
+        .onAppear {
+            recipeViewModel.fetchFavorites()
         }
     }
 }
 
 
-struct RecipeView_Previews: PreviewProvider {
+struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(RecipeViewModel(recipe: Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"], ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")], url: "https://www.apple.com", totalTime: 40)))
+        RecipeDetailView(RecipeViewModel(recipe: Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"], ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")], url: "https://www.apple.com", totalTime: 40)))
     }
 }

@@ -85,7 +85,7 @@ struct SearchView: View {
                 }
             }
             
-            .navigationTitle("Search")
+            .navigationTitle("Reciplease")
             .navigationDestination(for: Int.self, destination: { i in
                 RecipiesListView(recipeListViewModel: self.viewModel.recipeListViewModel)
             })

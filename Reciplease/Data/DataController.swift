@@ -29,7 +29,7 @@ class DataController: ObservableObject {
         
         context = container.viewContext
     }
-
+    
     func addFavorite(recipe: Recipe, completionHandler: @escaping () -> ()) {
         downloadImage(imageUrl: recipe.image) { data in
             let favRecipe = FavRecipe(context: self.context)
@@ -42,7 +42,6 @@ class DataController: ObservableObject {
             favRecipe.totalTime = Int64(recipe.totalTime)
             do {
                 try self.context.save()
-                print("save: ", favRecipe)
                 completionHandler()
             } catch let error{
                 self.errorCoreData = error.localizedDescription
@@ -93,7 +92,7 @@ class DataController: ObservableObject {
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         var favRecipes: [FavRecipe]?
-
+        
         do {
             favRecipes = try context.fetch(fetchRequest)
         } catch let error {

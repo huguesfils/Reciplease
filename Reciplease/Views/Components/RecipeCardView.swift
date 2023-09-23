@@ -1,5 +1,5 @@
 //
-//  RecipeCard.swift
+//  RecipeCardView.swift
 //  Reciplease
 //
 //  Created by Hugues Fils on 09/05/2023.
@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct RecipeCard: View {
+struct RecipeCardView: View {
     
-    @ObservedObject private var viewModel: RecipeViewModel
+    @ObservedObject private var recipeViewModel: RecipeViewModel
     
-    init(_ viewModel: RecipeViewModel) {
-        self.viewModel = viewModel
+    init(_ recipeViewModel: RecipeViewModel) {
+        self.recipeViewModel = recipeViewModel
     }
     
     var body: some View {
         ZStack {
-            if let favRecipe = viewModel.favorites.first(where: {$0.urlValue == viewModel.url}) {
+            if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
                 Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -59,7 +59,7 @@ struct RecipeCard: View {
                         .background(.regularMaterial, in: RoundedCornersShape(corners: [.bottomLeft, .bottomRight], radius: 20))
                     }
             } else {
-                AsyncImage(url: URL(string: viewModel.image)) { image in
+                AsyncImage(url: URL(string: recipeViewModel.image)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -70,12 +70,12 @@ struct RecipeCard: View {
                             VStack {
                                 HStack {
                                     VStack {
-                                        Text(viewModel.title)
+                                        Text(recipeViewModel.title)
                                             .font(.subheadline.weight(.heavy))
                                             .foregroundColor(Color("text"))
                                             .frame(maxWidth:.infinity,alignment: .leading)
                                             .lineLimit(1)
-                                        Text(viewModel.ingredients.joined(separator: ", "))
+                                        Text(recipeViewModel.ingredients.joined(separator: ", "))
                                             .font(.caption)
                                             .foregroundColor(Color("text"))
                                             .lineLimit(1)
@@ -86,9 +86,9 @@ struct RecipeCard: View {
                                     }
                                     .frame(maxWidth: 300,alignment: .leading)
                                     
-                                    if viewModel.totalTime != 0 {
-                                        let time = viewModel.totalTime.toTimeString()
-                                        Text("\(viewModel.totalTime.toTimeString())")
+                                    if recipeViewModel.totalTime != 0 {
+                                        let time = recipeViewModel.totalTime.toTimeString()
+                                        Text("\(recipeViewModel.totalTime.toTimeString())")
                                             .foregroundColor(Color("text"))
                                             .frame(maxWidth: 100, alignment: .trailing)
                                             .accessibilityValue(time)
@@ -106,9 +106,6 @@ struct RecipeCard: View {
             }
             
         }
-        .onAppear {
-            viewModel.fetchFavorites()
-        }
     }
 }
 
@@ -124,9 +121,9 @@ struct RoundedCornersShape: Shape {
     }
 }
 
-struct RecipeCard_Previews: PreviewProvider {
+struct RecipeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCard(RecipeViewModel(recipe: Recipe(
+        RecipeCardView(RecipeViewModel(recipe: Recipe(
             label: "Test",
             image: "photo",
             ingredientLines:["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"],

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-    
+
 struct RecipiesListView: View {
     @ObservedObject var recipeListViewModel: RecipeListViewModel
     
@@ -25,19 +25,10 @@ struct RecipiesListView: View {
                         Spacer()
                     }
                     VStack(spacing: 15) {
-                        if recipeListViewModel.recipesViewModel.count > 0 {
-                            ForEach(recipeListViewModel.recipesViewModel, id: \.title) { item in
-                                NavigationLink(destination: RecipeView(item)) {
-                                    RecipeCard(item)
-                                }
+                        ForEach(recipeListViewModel.recipesViewModel, id: \.title) { item in
+                            NavigationLink(destination: RecipeDetailView(item)) {
+                                RecipeCardView(item)
                             }
-                        } else {
-                            Text("Sorry, no recipe founded :(")
-                                .font(.headline)
-                                .fontWeight(.medium)
-                                .opacity(0.7)
-                                .multilineTextAlignment(.center)
-                                .padding()
                         }
                     }
                     .padding(.top)
@@ -47,9 +38,6 @@ struct RecipiesListView: View {
             }
             .navigationTitle("Recipes")
             .navigationBarTitleDisplayMode(.inline)
-        }
-        .onAppear {
-            recipeListViewModel.fetchFavorites()
         }
     }
 }
