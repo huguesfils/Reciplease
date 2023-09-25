@@ -43,7 +43,7 @@ import CoreData
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         do {
-            favorites = try dataController.container.viewContext.fetch(fetchRequest)
+            favorites = try dataController.mainContext.fetch(fetchRequest)
         } catch let error {
             print("Failed to fetch favorites: \(error)")
         }

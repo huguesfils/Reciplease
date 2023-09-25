@@ -15,6 +15,8 @@
 		BB341FA52A0A82FB0032D048 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB341FA42A0A82FB0032D048 /* RecipeModel.swift */; };
 		BB37DEAB2A7A5D9300F07FED /* DataControllerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB37DEAA2A7A5D9300F07FED /* DataControllerTestCase.swift */; };
 		BB4533DA2A3B3137007C9422 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4533D92A3B3137007C9422 /* APIKey.swift */; };
+		BB6236B62AC1D0280058354B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6236B52AC1D0280058354B /* CoreDataStack.swift */; };
+		BB6236B82AC1D0CB0058354B /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6236B72AC1D0CB0058354B /* CoreDataTestStack.swift */; };
 		BB6AFAA62A09B5C20025742D /* RecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6AFAA52A09B5C20025742D /* RecipeCardView.swift */; };
 		BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */; };
 		BB8B2A1F2A15356E00B2A096 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B2A1E2A15356E00B2A096 /* DataController.swift */; };
@@ -60,6 +62,8 @@
 		BB37DEAA2A7A5D9300F07FED /* DataControllerTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerTestCase.swift; sourceTree = "<group>"; };
 		BB4486072A9CD2F300D192F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB4533D92A3B3137007C9422 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		BB6236B52AC1D0280058354B /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		BB6236B72AC1D0CB0058354B /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 		BB6AFAA52A09B5C20025742D /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
 		BB8B2A1C2A152FF900B2A096 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		BB8B2A1E2A15356E00B2A096 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				BBBBFC612A79919500C27D1F /* MockURLProtocol.swift */,
+				BB6236B72AC1D0CB0058354B /* CoreDataTestStack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 				BB8B2A1B2A152FF900B2A096 /* Reciplease.xcdatamodeld */,
 				BB341FA42A0A82FB0032D048 /* RecipeModel.swift */,
 				BB8B2A1E2A15356E00B2A096 /* DataController.swift */,
+				BB6236B52AC1D0280058354B /* CoreDataStack.swift */,
 			);
 			name = Data;
 			path = ../Data;
@@ -419,6 +425,7 @@
 				BBA326AE29E6EB6D00E34018 /* RecipiesListView.swift in Sources */,
 				BBB8D39C29E60451008C8442 /* FavoritesView.swift in Sources */,
 				BBB8D39E29E605AD008C8442 /* SearchView.swift in Sources */,
+				BB6236B62AC1D0280058354B /* CoreDataStack.swift in Sources */,
 				BB4533DA2A3B3137007C9422 /* APIKey.swift in Sources */,
 				BB8B2A1D2A152FFA00B2A096 /* Reciplease.xcdatamodeld in Sources */,
 				BB341FA22A0A819A0032D048 /* TabBar.swift in Sources */,
@@ -442,6 +449,7 @@
 			files = (
 				BB37DEAB2A7A5D9300F07FED /* DataControllerTestCase.swift in Sources */,
 				BBBBFC622A79919500C27D1F /* MockURLProtocol.swift in Sources */,
+				BB6236B82AC1D0CB0058354B /* CoreDataTestStack.swift in Sources */,
 				BBF3E0722A5043AC003EB0F7 /* RecipeServiceTestCase.swift in Sources */,
 				BBF3E0742A5048FF003EB0F7 /* SearchViewModelTestCase.swift in Sources */,
 			);

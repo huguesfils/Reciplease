@@ -27,7 +27,7 @@ import CoreData
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         do {
-            favorites = try dataController.container.viewContext.fetch(fetchRequest)
+            favorites = try dataController.mainContext.fetch(fetchRequest)
             print(favorites.count)
             
             self.isEmpty = favorites.isEmpty

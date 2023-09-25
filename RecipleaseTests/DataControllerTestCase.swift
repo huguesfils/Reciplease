@@ -12,16 +12,18 @@ import CoreData
 final class DataControllerTestCase: XCTestCase {
     
     var dataController: DataController!
-    var appTestContext: NSManagedObjectContext!
+//    var appTestContext: NSManagedObjectContext!
 
+    var coreDataTestStack: CoreDataTestStack!
     
     private let correctImageUrl = "https://urlz.fr/ncHy"
-    private let wrongImageUrl = "88889ED8FIDSIFHDSF8àç!èçà!ç!è"
+    private let wrongImageUrl = "123://example.com"
     
     override func setUp() {
         super.setUp()
-        appTestContext = createInMemoryManagedObjectContext()
-        dataController = DataController.shared
+//        appTestContext = createInMemoryManagedObjectContext()
+        coreDataTestStack = CoreDataTestStack()
+        dataController = DataController(mainContext: coreDataTestStack.mainContext)
     }
     
     func createInMemoryManagedObjectContext() -> NSManagedObjectContext? {
@@ -97,7 +99,7 @@ final class DataControllerTestCase: XCTestCase {
             return (HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data)
         }
         
-        let image = wrongImageUrl
+        let image = wrongImageUrl // = "✅!èçà!ç!è"
         
         let expectation = XCTestExpectation(description: "waiting for data")
         
@@ -134,10 +136,10 @@ extension DataControllerTestCase {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try dataController.container.viewContext.fetch(fetchRequest)
+            let results = try dataController.mainContext.fetch(fetchRequest)
             for object in results {
                 guard let objectData = object as? NSManagedObject else {continue}
-                dataController.container.viewContext.delete(objectData)
+                dataController.mainContext.delete(objectData)
             }
         } catch let error {
             print("Detele all data in \(entity) error :", error)

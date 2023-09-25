@@ -15,24 +15,15 @@ class DataController: ObservableObject {
     
     static let shared = DataController()
     
-    let container: NSPersistentContainer
-    let context: NSManagedObjectContext
+    let mainContext: NSManagedObjectContext
     
-    init() {
-        container = NSPersistentContainer(name: "Reciplease")
-        
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                print("Core Data failed to load: \(error.localizedDescription)")
-            }
-        }
-        
-        context = container.viewContext
+    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.mainContext = mainContext
     }
     
     func addFavorite(recipe: Recipe, completionHandler: @escaping () -> ()) {
         downloadImage(imageUrl: recipe.image) { data in
-            let favRecipe = FavRecipe(context: self.context)
+            let favRecipe = FavRecipe(context: self.mainContext)
             favRecipe.storedImage = data?.image?.pngData()
             favRecipe.label = recipe.label
             favRecipe.image = recipe.image
@@ -41,7 +32,7 @@ class DataController: ObservableObject {
             favRecipe.url = recipe.url
             favRecipe.totalTime = Int64(recipe.totalTime)
             do {
-                try self.context.save()
+                try self.mainContext.save()
                 completionHandler()
             } catch let error{
                 self.errorCoreData = error.localizedDescription
@@ -76,10 +67,9 @@ class DataController: ObservableObject {
     }
     
     func removeFavorite(recipe: FavRecipe) {
-        let context = container.viewContext
-        context.delete(recipe)
+        mainContext.delete(recipe)
         do {
-            try context.save()
+            try mainContext.save()
         } catch let error {
             self.errorCoreData = error.localizedDescription
             self.hasError = true
@@ -88,13 +78,12 @@ class DataController: ObservableObject {
     }
     
     func fetchFavorites() -> [FavRecipe]? {
-        let context = container.viewContext
         let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
         
         var favRecipes: [FavRecipe]?
         
         do {
-            favRecipes = try context.fetch(fetchRequest)
+            favRecipes = try mainContext.fetch(fetchRequest)
         } catch let error {
             print("Failed to fetch favRecipes: \(error)")
         }
