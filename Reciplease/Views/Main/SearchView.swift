@@ -71,7 +71,7 @@ struct SearchView: View {
                     } else {
                         Button {
                             Task {
-                                await viewModel.search()
+                                viewModel.search()
                                 await MainActor.run {
                                     navPath.append(1)
                                 }

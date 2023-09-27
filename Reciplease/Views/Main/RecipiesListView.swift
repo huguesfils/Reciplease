@@ -10,25 +10,19 @@ import SwiftUI
 
 struct RecipiesListView: View {
     @ObservedObject var recipeListViewModel: RecipeListViewModel
+//    @StateObject private var searchViewModel = SearchViewModel()
     
     var body: some View {
         ZStack {
             Color("listColor").ignoresSafeArea()
             ScrollView{
-                VStack {
-                    HStack{
-                        Text("\(recipeListViewModel.recipesViewModel.count) \(recipeListViewModel.recipesViewModel.count > 1 ? "recipes" : "recipe")")
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .opacity(0.7)
-                            .accessibilityAddTraits(.isHeader)
-                        Spacer()
-                    }
-                    VStack(spacing: 15) {
-                        ForEach(recipeListViewModel.recipesViewModel, id: \.title) { item in
-                            NavigationLink(destination: RecipeDetailView(item)) {
-                                RecipeCardView(item)
-                            }
+                VStack(spacing: 15) {
+                    ForEach(recipeListViewModel.recipesViewModel, id: \.title) { item in
+                        NavigationLink(destination: RecipeDetailView(item)) {
+                            RecipeCardView(item)
+//                                .onAppear(){
+//                                    searchViewModel.loadMoreContent()
+//                                }
                         }
                     }
                     .padding(.top)

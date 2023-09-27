@@ -20,25 +20,25 @@ protocol RecipeProtocol: Identifiable {
     var storedImageValue: Data { get }
 }
 
-struct Response: Codable {
-    var hits: [Hit]
+struct RecipesResponse: Decodable {
+    let hits: [Hit]
 }
 
 struct Hit: Codable {
-    var recipe: Recipe
+    let recipe: Recipe
 }
 
 struct Recipe: Codable {
-    var label: String
-    var image: String
-    var ingredientLines: [String]
-    var ingredients: [ingredient]
-    var url: String
-    var totalTime: Int
+    let label: String
+    let image: String
+    let ingredientLines: [String]
+    let ingredients: [ingredient]
+    let url: String
+    let totalTime: Int
 }
 
 struct ingredient: Codable {
-    var food: String
+    let food: String
 }
 
 extension Recipe {
