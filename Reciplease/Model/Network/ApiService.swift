@@ -55,6 +55,7 @@ class ApiService {
                 
             }
             callback(self?.recipes, .Success)
+//            self?.recipes = []
         }
     }
     

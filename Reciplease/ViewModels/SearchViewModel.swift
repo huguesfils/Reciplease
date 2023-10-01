@@ -41,7 +41,6 @@ import Foundation
         defer {
             isLoading = true
         }
-        
         service.loadData(ingredients: ingredients) { recipes, cases in
             switch cases {
             case .Success:
