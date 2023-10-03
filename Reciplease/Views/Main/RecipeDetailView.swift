@@ -10,26 +10,24 @@ import SwiftUI
 struct RecipeDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @ObservedObject private var recipeViewModel: RecipeViewModel
+    @ObservedObject private var recipeDetailViewModel: RecipeDetailViewModel
     
-    init(_ recipeViewModel: RecipeViewModel) {
-        self.recipeViewModel = recipeViewModel
-    }
+    var recipe: Recipe
     
     var body: some View {
         ZStack {
             Color("listColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
-                        Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 233)
-                            .clipped()
-                            .accessibilityLabel("dish photo")
-                    } else {
-                        AsyncImage(url: URL(string: recipeViewModel.image)) { image in
+//                    if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
+//                        Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(height: 233)
+//                            .clipped()
+//                            .accessibilityLabel("dish photo")
+//                    } else {
+                        AsyncImage(url: URL(string: recipe.image)) { image in
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: 233)
@@ -46,10 +44,10 @@ struct RecipeDetailView: View {
                         }
                         .frame(height: 233)
                         .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
-                    }
+//                    }
                     
                     VStack(spacing: 30) {
-                        Text(recipeViewModel.title)
+                        Text(recipe.label)
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
@@ -59,8 +57,8 @@ struct RecipeDetailView: View {
                                 Text("Ingredients: ")
                                     .font(.headline)
                                 Spacer()
-                                if recipeViewModel.totalTime != 0 {
-                                    let recipeTime = recipeViewModel.totalTime.toTimeString()
+                                if recipe.totalTime != 0 {
+                                    let recipeTime = recipe.totalTime.toTimeString()
                                     HStack {
                                         Image(systemName: "clock.badge.checkmark")
                                         Text("\(recipeTime)")
@@ -71,7 +69,7 @@ struct RecipeDetailView: View {
                                 }
                             }
                             
-                            ForEach(recipeViewModel.ingredientLines, id: \.self) {
+                            ForEach(recipe.ingredientLines, id: \.self) {
                                 item in
                                 Text("- \(item)")
                             }
@@ -80,7 +78,7 @@ struct RecipeDetailView: View {
                         
                         Button {
                             Task {
-                                if let url = URL(string: recipeViewModel.url) {
+                                if let url = URL(string: recipe.url) {
                                     UIApplication.shared.open(url)
                                 }
                             }
@@ -94,44 +92,44 @@ struct RecipeDetailView: View {
                     }
                     .padding(.horizontal)
                 }
-                .alert("Error", isPresented: $recipeViewModel.dataController.hasError) {
-                    Button("Dismiss") { }
-                } message: {
-                    Text(recipeViewModel.dataController.errorCoreData)
-                }
+//                .alert("Error", isPresented: $recipeViewModel.dataController.hasError) {
+//                    Button("Dismiss") { }
+//                } message: {
+//                    Text(recipeViewModel.dataController.errorCoreData)
+//                }
                 .navigationTitle("Details")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .automatic){
-                        Button(action: {
-                            if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
-                                recipeViewModel.dataController.removeFavorite(recipe: favRecipe)
-                                if recipeViewModel.recipe is FavRecipe {
-                                    recipeViewModel.fetchFavorites()
-                                    dismiss()
-                                }
-                            } else{
-                                recipeViewModel.dataController.addFavorite(recipe: recipeViewModel.recipe as! Recipe) { 
-                                    recipeViewModel.fetchFavorites()
-                                }
-                            }
-                        }, label: {
-                            Image(systemName: recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "heart.fill" : "heart")
-                        })
-                        .accessibilityLabel(recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "remove from favorite" : "add to favorite")
-                    }
-                }
+//                .toolbar {
+//                    ToolbarItem(placement: .automatic){
+//                        Button(action: {
+//                            if let favRecipe = recipeDetailViewModel.favorites.first(where: {$0.label == recipe.label}) {
+//                                recipeDetailViewModel.removeFavorite(recipe: favRecipe)
+//                                if recipe is FavRecipe {
+//                                    recipeDetailViewModel.fetchFavorites()
+//                                    dismiss()
+//                                }
+//                            } else{
+//                                recipeDetailViewModel.addFavorite(recipe: recipe) {
+//                                    recipeDetailViewModel.fetchFavorites()
+//                               }
+//                            }
+//                        }, label: {
+//                            Image(systemName: recipeDetailViewModel.favorites.contains(where: {$0.label == recipe.label}) ? "heart.fill" : "heart")
+//                        })
+//                        .accessibilityLabel(recipeDetailViewModel.favorites.contains(where: {$0.label == recipe.label}) ? "remove from favorite" : "add to favorite")
+//                   }
+//              }
             }
         }
-        .onAppear {
-            recipeViewModel.fetchFavorites()
-        }
+//        .onAppear {
+//            recipeViewModel.fetchFavorites()
+//        }
     }
 }
 
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetailView(RecipeViewModel(recipe: Recipe(label: "Test", image: "photo", ingredientLines: ["2 tablespoons bottled fat-free Italian salad dressing", "Dash cayenne pepper"], ingredients: [ingredient(food: "cheese"), ingredient(food: "lemon")], url: "https://www.apple.com", totalTime: 40)))
+        RecipeDetailView()
     }
 }

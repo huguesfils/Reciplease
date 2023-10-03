@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @StateObject private var favoriteViewModel = FavoriteViewModel()
+    @ObservedObject var favoriteViewModel: FavoriteViewModel
     
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("listColor").ignoresSafeArea()
-                if favoriteViewModel.isEmpty {
+                if favoriteViewModel.favorites.isEmpty {
                     Text("You don't have favorite recipe for the moment")
                         .font(.headline)
                         .fontWeight(.medium)
@@ -22,7 +22,7 @@ struct FavoritesView: View {
                         .multilineTextAlignment(.center)
                         .padding()
                 } else {
-                    RecipiesListView(recipeListViewModel: self.favoriteViewModel.recipeListViewModel)
+                    RecipiesListView(recipeListViewModel: RecipeListViewModel())
                 }
             }
             .onAppear {
@@ -35,6 +35,6 @@ struct FavoritesView: View {
 
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesView()
+        FavoritesView(favoriteViewModel: FavoriteViewModel())
     }
 }

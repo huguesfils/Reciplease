@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var viewModel = SearchViewModel()
+    @StateObject private var searchViewModel = SearchViewModel()
     @State private var navPath = NavigationPath()
   
     var body: some View {
@@ -19,8 +19,8 @@ struct SearchView: View {
                         .font(.title)
                         .bold()
                     HStack {
-                        TextField("Lemon, cheese, Sausages...", text: $viewModel.searchInput)
-                            .accessibilityValue(viewModel.searchInput)
+                        TextField("Lemon, cheese, Sausages...", text: $searchViewModel.searchInput)
+                            .accessibilityValue(searchViewModel.searchInput)
                             .onAppear {
                                 UITextField.appearance().clearButtonMode = .whileEditing
                             }
@@ -40,7 +40,7 @@ struct SearchView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        if !viewModel.ingredients.isEmpty {
+                        if !searchViewModel.ingredients.isEmpty {
                             Button(action: clearIngredient){
                                 Text("Clear")
                                     .frame(width: 40)
@@ -49,9 +49,9 @@ struct SearchView: View {
                             .tint(.gray)
                         }
                     }
-                    if !viewModel.ingredients.isEmpty {
+                    if !searchViewModel.ingredients.isEmpty {
                         VStack(alignment: .leading, spacing: 10){
-                            ForEach(viewModel.ingredients, id: \.self) { ingredient in
+                            ForEach(searchViewModel.ingredients, id: \.self) { ingredient in
                                 HStack{
                                     Image(systemName: "checkmark").foregroundColor(Color("button"))
                                     Text("\(ingredient)")
@@ -66,12 +66,8 @@ struct SearchView: View {
                 }
                 
                 Section {
-                    if viewModel.isLoading {
-                        ProgressView().frame(maxWidth: .infinity, alignment: .center)
-                    } else {
                         Button {
                             Task {
-                                viewModel.search()
                                 await MainActor.run {
                                     navPath.append(1)
                                 }
@@ -79,28 +75,26 @@ struct SearchView: View {
                         } label: {
                             Text("Search for recipies").frame(maxWidth: .infinity, alignment: .center)
                         }
-                        .disabled(viewModel.ingredients.isEmpty)
+                        .disabled(searchViewModel.ingredients.isEmpty)
                         .tint(Color("button"))
-                    }
                 }
             }
-            
             .navigationTitle("Reciplease")
             .navigationDestination(for: Int.self, destination: { i in
-                RecipiesListView(recipeListViewModel: self.viewModel.recipeListViewModel)
+                RecipiesListView(recipeListViewModel: self.searchViewModel.toRecipeListViewModel())
             })
         }.navigationBarTitleDisplayMode(.inline)
     }
     
     private func addIngredient() {
         withAnimation {
-            viewModel.addIngredient()
+            searchViewModel.addIngredient()
         }
     }
     
     private func clearIngredient() {
         withAnimation {
-            viewModel.clearIngredients()
+            searchViewModel.clearIngredients()
         }
     }
 }
