@@ -90,7 +90,6 @@ class DataController: ObservableObject {
             } catch let error {
                 print("Error checking if recipe is favorite : \(error.localizedDescription)")
             }
-        
     }
     
     func downloadImage(imageUrl: String, completionHandler: @escaping (Data?) -> ()) {
@@ -113,6 +112,12 @@ class DataController: ObservableObject {
                     completionHandler(nil)
                 }
             }
+        }
+    }
+    
+    func hasFavorites(_ completion: (Bool) -> Void) {
+        fetchFavorites { list in
+            completion(list.isEmpty == false)
         }
     }
 }

@@ -13,13 +13,13 @@ class RecipiesListViewModel: ObservableObject {
 
     private var ingredients: [String]?
     private let service = Service()
+    private var dataController: DataController?
     
     init(_ ingredients: [String]) {
         self.ingredients = ingredients
         service.loadData(ingredients: ingredients) { recipes, nextPage, cases in
             switch cases {
             case .Success:
-                print("Success")
                 guard let recipes = recipes else { return }
                 self.isLoading = false
                 self.recipesViewModel = recipes.map { RecipeViewModel(recipe: $0) }
@@ -39,8 +39,20 @@ class RecipiesListViewModel: ObservableObject {
         }
     }
     
-    init(_ favorites: [FavRecipe]) {
-        self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
-        print("list: ",favorites.count)
+    init(_ dataControler: DataController) {
+        self.dataController = dataControler
+        refreshData()
+    }
+    
+    func refreshData() {
+        guard let dataController = self.dataController else {
+            return
+        }
+
+        dataController.fetchFavorites { favorites in
+            self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
+            //self.favorites = favorites
+            print("favoris: ", self.recipesViewModel.count)
+        } 
     }
 }

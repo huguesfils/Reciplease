@@ -107,13 +107,12 @@ struct RecipeDetailsView: View {
                     Button(action: {
                         if recipeViewModel.isFavorite {
                             recipeViewModel.removeFavorite(recipe: recipeViewModel.recipe as! Recipe)
-                            if recipeViewModel.recipe is FavRecipe {
-                                recipeViewModel.fetchFavorites()
+                            if recipeViewModel.isComingFromFavoriteList {
                                 dismiss()
                             }
+                            
                         } else{
                             recipeViewModel.addFavorite(recipe: recipeViewModel.recipe as! Recipe)
-                            recipeViewModel.fetchFavorites()
                         }
                     }, label: {
                         Image(systemName: recipeViewModel.isFavorite ? "heart.fill" : "heart")
@@ -123,7 +122,7 @@ struct RecipeDetailsView: View {
             }
         }
         .onAppear {
-            recipeViewModel.fetchFavorites()
+            recipeViewModel.checkIfRecipeIsFavorite()
         }
     }
     

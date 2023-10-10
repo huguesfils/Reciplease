@@ -30,12 +30,12 @@ struct RecipeCardView: View {
                                 VStack {
                                     Text(recipeViewModel.label)
                                         .font(.subheadline.weight(.heavy))
-                                        .foregroundColor(Color("text"))
+                                        .foregroundColor(Color("CustomTextColor"))
                                         .frame(maxWidth:.infinity,alignment: .leading)
                                         .lineLimit(1)
                                     Text(recipeViewModel.ingredients.joined(separator: ", "))
                                         .font(.caption)
-                                        .foregroundColor(Color("text"))
+                                        .foregroundColor(Color("CustomTextColor"))
                                         .lineLimit(1)
                                         .padding(-2)
                                         .frame(maxWidth: .infinity,alignment: .leading)
@@ -47,7 +47,7 @@ struct RecipeCardView: View {
                                 if recipeViewModel.totalTime != 0 {
                                     let favTime = recipeViewModel.totalTime.toTimeString()
                                     Text("\(favTime)")
-                                        .foregroundColor(Color("text"))
+                                        .foregroundColor(Color("CustomTextColor"))
                                         .frame(maxWidth: 100, alignment: .trailing)
                                         .accessibilityValue(favTime)
                                 }

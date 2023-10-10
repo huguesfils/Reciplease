@@ -42,6 +42,9 @@ struct RecipiesListView: View {
         }
         .navigationTitle("Recipes")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            recipiesListViewModel.refreshData()
+        }
     }
 }
 

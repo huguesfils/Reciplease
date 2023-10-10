@@ -8,13 +8,13 @@
 import Foundation
 
 class FavoriteViewModel: ObservableObject {
-    
     var favorites = [FavRecipe]()
+    @Published var hasFavorites: Bool = false
     
-    var dataController: DataController
+    private var dataController: DataController
     
     var recipiesListViewModel: RecipiesListViewModel {
-        return RecipiesListViewModel(favorites)
+        return RecipiesListViewModel(dataController)
     }
     
     init(dataController: DataController = .shared) {
@@ -27,6 +27,9 @@ class FavoriteViewModel: ObservableObject {
             self.favorites = favorites
             print("favoris: ", favorites.count)
         }
+//        dataController.hasFavorites { hasFav in
+//            hasFavorites = hasFav
+//        }
     }
 }
 

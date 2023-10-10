@@ -11,9 +11,9 @@ import CoreData
 class RecipeViewModel: ObservableObject {
     @Published var isFavorite = Bool()
     
-    var dataController: DataController
+    var isComingFromFavoriteList: Bool
     
-    var favorites = [FavRecipe]()
+    var dataController: DataController
     
     let recipe: any RecipeProtocol
     
@@ -21,6 +21,7 @@ class RecipeViewModel: ObservableObject {
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController
         self.recipe = recipe
+        self.isComingFromFavoriteList = self.recipe is FavRecipe
     }
     
     var id: String {
@@ -50,13 +51,19 @@ class RecipeViewModel: ObservableObject {
     
     func addFavorite(recipe: Recipe) {
         do {
-            try dataController.addToFavorite(recipe: recipe) {}
+            try dataController.addToFavorite(recipe: recipe) { [weak self] in
+                self?.checkIfRecipeIsFavorite()
+            }
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
     func removeFavorite(recipe: Recipe) {
+        defer {
+            checkIfRecipeIsFavorite()
+        }
+        
         dataController.fetchFavorite(url: recipe.url) { recipe in
             guard let recipe = recipe else { return }
             
@@ -70,7 +77,7 @@ class RecipeViewModel: ObservableObject {
     }
     
     func checkIfRecipeIsFavorite() {
-        dataController.isFavorite(recipe: recipe as! Recipe) { favorite in
+        dataController.isFavorite(recipe: recipe as! Recipe ) { favorite in
             guard let favorite = favorite else {
                 return
             }
@@ -81,12 +88,13 @@ class RecipeViewModel: ObservableObject {
             }
         }
     }
-    
+    /*
     func fetchFavorites() {
         dataController.fetchFavorites { favorites in
             self.favorites = favorites
+            
             print("favoris: ", favorites.count)
         }
     }
-    
+    */
 }
