@@ -2,15 +2,13 @@
 //  RecipeViewModel.swift
 //  Reciplease
 //
-//  Created by Hugues Fils on 19/09/2023.
+//  Created by Hugues Fils on 04/10/2023.
 //
 
 import Foundation
 import CoreData
 
-@MainActor class RecipeViewModel: ObservableObject {
-    @Published var favorites: [FavRecipe] = []
-    
+class RecipeViewModel: ObservableObject {
     var dataController: DataController
     
     let recipe: any RecipeProtocol
@@ -20,7 +18,10 @@ import CoreData
         self.recipe = recipe
     }
     
-    var title: String {
+    var id: String {
+        return recipe.urlValue
+    }
+    var label: String {
         return recipe.labelValue
     }
     var image: String {
@@ -39,14 +40,25 @@ import CoreData
         return recipe.totalTimeValue
     }
     
-    func fetchFavorites() {
-        let fetchRequest = NSFetchRequest<FavRecipe>(entityName: "FavRecipe")
-        
+    func addFavorite(recipe: Recipe) {
         do {
-            favorites = try dataController.mainContext.fetch(fetchRequest)
+            try dataController.addToFavorite(recipe: recipe)
         } catch let error {
-            print("Failed to fetch favorites: \(error)")
+            print(error.localizedDescription)
         }
     }
+    
+    func removeFavorite(recipe: FavRecipe) {
+        dataController.fetchFavorite(url: recipe.url!) { recipe in
+            guard let recipe = recipe else { return }
+            
+            do {
+                try dataController.removeFromFavorite(recipe: recipe)
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
-

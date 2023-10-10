@@ -2,7 +2,7 @@
 //  SearchViewModel.swift
 //  Reciplease
 //
-//  Created by Hugues Fils on 19/04/2023.
+//  Created by Hugues Fils on 04/10/2023.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ class SearchViewModel: ObservableObject {
         ingredients.removeAll()
     }
     
-    func toRecipeListViewModel() -> RecipeListViewModel {
-        return RecipeListViewModel(fromIngredients: ingredients)
+    func toRecipeListViewModel() -> RecipiesListViewModel {
+        return RecipiesListViewModel(ingredients)
     }
 }

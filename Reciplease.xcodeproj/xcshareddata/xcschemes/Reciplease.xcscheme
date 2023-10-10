@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BBB8D38929E6030E008C8442"
+               BlueprintIdentifier = "BBEFA6852ACD4C440018C87A"
                BuildableName = "Reciplease.app"
                BlueprintName = "Reciplease"
                ReferencedContainer = "container:Reciplease.xcodeproj">
@@ -26,22 +26,28 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:Reciplease.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
             skipped = "NO"
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BBBD7BFA2A4F2833004008E2"
+               BlueprintIdentifier = "BBEFA69A2ACD4C450018C87A"
                BuildableName = "RecipleaseTests.xctest"
                BlueprintName = "RecipleaseTests"
+               ReferencedContainer = "container:Reciplease.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BBEFA6A42ACD4C450018C87A"
+               BuildableName = "RecipleaseUITests.xctest"
+               BlueprintName = "RecipleaseUITests"
                ReferencedContainer = "container:Reciplease.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -61,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBB8D38929E6030E008C8442"
+            BlueprintIdentifier = "BBEFA6852ACD4C440018C87A"
             BuildableName = "Reciplease.app"
             BlueprintName = "Reciplease"
             ReferencedContainer = "container:Reciplease.xcodeproj">
@@ -85,7 +91,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBB8D38929E6030E008C8442"
+            BlueprintIdentifier = "BBEFA6852ACD4C440018C87A"
             BuildableName = "Reciplease.app"
             BlueprintName = "Reciplease"
             ReferencedContainer = "container:Reciplease.xcodeproj">
