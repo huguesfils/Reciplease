@@ -9,9 +9,14 @@ import Foundation
 import CoreData
 
 class RecipeViewModel: ObservableObject {
+    @Published var isFavorite = Bool()
+    
     var dataController: DataController
     
+    var favorites = [FavRecipe]()
+    
     let recipe: any RecipeProtocol
+    
     
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController
@@ -39,17 +44,20 @@ class RecipeViewModel: ObservableObject {
     var totalTime: Int {
         return recipe.totalTimeValue
     }
+    var storedImage: Data {
+        return recipe.storedImageValue
+    }
     
     func addFavorite(recipe: Recipe) {
         do {
-            try dataController.addToFavorite(recipe: recipe)
+            try dataController.addToFavorite(recipe: recipe) {}
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
-    func removeFavorite(recipe: FavRecipe) {
-        dataController.fetchFavorite(url: recipe.url!) { recipe in
+    func removeFavorite(recipe: Recipe) {
+        dataController.fetchFavorite(url: recipe.url) { recipe in
             guard let recipe = recipe else { return }
             
             do {
@@ -58,6 +66,26 @@ class RecipeViewModel: ObservableObject {
             } catch let error {
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    func checkIfRecipeIsFavorite() {
+        dataController.isFavorite(recipe: recipe as! Recipe) { favorite in
+            guard let favorite = favorite else {
+                return
+            }
+            if favorite {
+                isFavorite = true
+            } else {
+                isFavorite = false
+            }
+        }
+    }
+    
+    func fetchFavorites() {
+        dataController.fetchFavorites { favorites in
+            self.favorites = favorites
+            print("favoris: ", favorites.count)
         }
     }
     

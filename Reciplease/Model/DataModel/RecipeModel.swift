@@ -86,7 +86,6 @@ extension FavRecipe: RecipeProtocol {
     var foodIngredientsValue: [String] {
         foodIngredients ?? []
     }
-    
 }
 
 extension Recipe: RecipeProtocol {

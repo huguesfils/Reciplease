@@ -19,20 +19,21 @@ class RecipiesListViewModel: ObservableObject {
         service.loadData(ingredients: ingredients) { recipes, nextPage, cases in
             switch cases {
             case .Success:
+                print("Success")
                 guard let recipes = recipes else { return }
                 self.isLoading = false
                 self.recipesViewModel = recipes.map { RecipeViewModel(recipe: $0) }
             case .WrongDataReceived:
-                //                alerte
+                print("WrongDataReceived")
                 return
             case .BadUrlForRequest:
-                //                alerte
+                print("BadUrlForRequest")
                 return
             case .HttpStatusCodeError:
-                //                alerte
+                print("HttpStatusCodeError")
                 return
             case .Empty:
-                //                salerte
+                print("Empty")
                 return
             }
         }

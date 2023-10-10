@@ -21,23 +21,32 @@ struct RecipeDetailsView: View {
             Color("CustomBackgroundColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    AsyncImage(url: URL(string: recipeViewModel.image)) { image in
-                        image.resizable()
+                    if recipeViewModel.isFavorite {
+                        Image(uiImage: UIImage(data: recipeViewModel.storedImage) ?? UIImage())
+                            .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 233)
                             .clipped()
                             .accessibilityLabel("dish photo")
-                    } placeholder: {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .foregroundColor(.white.opacity(0.7))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .accessibilityHidden(true)
+                    } else {
+                        AsyncImage(url: URL(string: recipeViewModel.image)) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 233)
+                                .clipped()
+                                .accessibilityLabel("dish photo")
+                        } placeholder: {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .foregroundColor(.white.opacity(0.7))
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .accessibilityHidden(true)
+                        }
+                        .frame(height: 233)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
                     }
-                    .frame(height: 233)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)]), startPoint: .top, endPoint: .bottom))
                 }
                 
                 VStack(spacing: 30) {
@@ -93,30 +102,30 @@ struct RecipeDetailsView: View {
             //                      }
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
-                                  .toolbar {
-                                      ToolbarItem(placement: .automatic){
-                                          Button(action: {
-                                              //                                              if let favRecipe = $recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
-                                              //                                                  recipeViewModel.dataController.removeFavorite(recipe: favRecipe)
-                                              //                                                  if recipeViewModel.recipe is FavRecipe {
-                                              //                                                      recipeViewModel.fetchFavorites()
-                                              //                                                      dismiss()
-                                              //                                                  }
-                                              //                                              } else{
-                                              recipeViewModel.addFavorite(recipe: recipeViewModel.recipe as! Recipe)
-//                                          }
-                                          }, label: {
-                                              Image(systemName: "heart")
-                                          })
-//                                          .accessibilityLabel(recipeViewModel.favorites.contains(where: {$0.urlValue == recipeViewModel.url}) ? "remove from favorite" : "add to favorite")
-                                      }
-                                  }
+            .toolbar {
+                ToolbarItem(placement: .automatic){
+                    Button(action: {
+                        if recipeViewModel.isFavorite {
+                            recipeViewModel.removeFavorite(recipe: recipeViewModel.recipe as! Recipe)
+                            if recipeViewModel.recipe is FavRecipe {
+                                recipeViewModel.fetchFavorites()
+                                dismiss()
+                            }
+                        } else{
+                            recipeViewModel.addFavorite(recipe: recipeViewModel.recipe as! Recipe)
+                            recipeViewModel.fetchFavorites()
+                        }
+                    }, label: {
+                        Image(systemName: recipeViewModel.isFavorite ? "heart.fill" : "heart")
+                    })
+                    .accessibilityLabel(recipeViewModel.isFavorite ? "remove from favorite" : "add to favorite")
+                }
+            }
+        }
+        .onAppear {
+            recipeViewModel.fetchFavorites()
         }
     }
-    //              .onAppear {
-    //                  recipeViewModel.fetchFavorites()
-    //              }
-    //          }
     
 }
 

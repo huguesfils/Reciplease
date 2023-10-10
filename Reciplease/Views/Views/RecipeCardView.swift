@@ -17,8 +17,8 @@ struct RecipeCardView: View {
     
     var body: some View {
         ZStack {
-            if let favRecipe = recipeViewModel.favorites.first(where: {$0.urlValue == recipeViewModel.url}) {
-                Image(uiImage: UIImage(data: favRecipe.storedImage ?? Data()) ?? UIImage())
+            if recipeViewModel.isFavorite {
+                Image(uiImage: UIImage(data: recipeViewModel.storedImage) ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipped()
@@ -28,12 +28,12 @@ struct RecipeCardView: View {
                         VStack {
                             HStack {
                                 VStack {
-                                    Text(favRecipe.labelValue)
+                                    Text(recipeViewModel.label)
                                         .font(.subheadline.weight(.heavy))
                                         .foregroundColor(Color("text"))
                                         .frame(maxWidth:.infinity,alignment: .leading)
                                         .lineLimit(1)
-                                    Text(favRecipe.foodIngredientsValue.joined(separator: ", "))
+                                    Text(recipeViewModel.ingredients.joined(separator: ", "))
                                         .font(.caption)
                                         .foregroundColor(Color("text"))
                                         .lineLimit(1)
@@ -44,8 +44,8 @@ struct RecipeCardView: View {
                                 }
                                 .frame(maxWidth: 300,alignment: .leading)
                                 
-                                if favRecipe.totalTimeValue != 0 {
-                                    let favTime = favRecipe.totalTimeValue.toTimeString()
+                                if recipeViewModel.totalTime != 0 {
+                                    let favTime = recipeViewModel.totalTime.toTimeString()
                                     Text("\(favTime)")
                                         .foregroundColor(Color("text"))
                                         .frame(maxWidth: 100, alignment: .trailing)

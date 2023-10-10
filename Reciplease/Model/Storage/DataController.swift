@@ -19,7 +19,7 @@ class DataController: ObservableObject {
         self.mainContext = mainContext
     }
     
-    func addToFavorite(recipe: Recipe) throws {
+    func addToFavorite(recipe: Recipe, completionHandler: @escaping () -> ()) throws {
         downloadImage(imageUrl: recipe.image) { data in
             let favRecipe = FavRecipe(context: self.mainContext)
             favRecipe.storedImage = data?.image?.pngData()
@@ -32,6 +32,7 @@ class DataController: ObservableObject {
             
             do {
                 try self.mainContext.save()
+                completionHandler()
             } catch let error{
                 print("Error adding recipe to favorites: \(error.localizedDescription)")
                 // throw error
@@ -44,7 +45,7 @@ class DataController: ObservableObject {
                 mainContext.delete(recipe)
                 try mainContext.save()
             } catch let error{
-                print("Error while deleting recipe from favorites: \(error.localizedDescription)")
+                print("Error deleting recipe from favorites: \(error.localizedDescription)")
 //                throw error
         }
     }
@@ -57,7 +58,7 @@ class DataController: ObservableObject {
                 let recipes = try mainContext.fetch(request)
                 completion(recipes)
             } catch let error{
-                print("Error while fetching favorites: \(error.localizedDescription)")
+                print("Error fetching favorites: \(error.localizedDescription)")
             }
         
     }
@@ -73,8 +74,23 @@ class DataController: ObservableObject {
                 }
                 completion(recipe)
             } catch let error{
-                print("Error while fetching favorite: \(error.localizedDescription)")
+                print("Error fetching favorite: \(error.localizedDescription)")
             }
+    }
+    
+    func isFavorite(recipe: Recipe, completion : (Bool?) -> Void) {
+            let request : NSFetchRequest<FavRecipe> = FavRecipe.fetchRequest()
+            request.predicate = NSPredicate(format: "url == %@", recipe.url)
+            do {
+                guard let _ = try mainContext.fetch(request).first else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            } catch let error {
+                print("Error checking if recipe is favorite : \(error.localizedDescription)")
+            }
+        
     }
     
     func downloadImage(imageUrl: String, completionHandler: @escaping (Data?) -> ()) {
