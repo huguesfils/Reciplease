@@ -53,14 +53,12 @@ class DataController: ObservableObject {
     func fetchFavorites(completion: ([FavRecipe]) -> Void) {
         let request: NSFetchRequest<FavRecipe> = FavRecipe.fetchRequest()
 
-       
             do {
                 let recipes = try mainContext.fetch(request)
                 completion(recipes)
             } catch let error{
                 print("Error fetching favorites: \(error.localizedDescription)")
             }
-        
     }
     
     func fetchFavorite(url: String, completion: (FavRecipe?) -> Void) {
@@ -78,9 +76,9 @@ class DataController: ObservableObject {
             }
     }
     
-    func isFavorite(recipe: Recipe, completion : (Bool?) -> Void) {
+    func isFavorite(recipe: any RecipeProtocol, completion : (Bool?) -> Void) {
             let request : NSFetchRequest<FavRecipe> = FavRecipe.fetchRequest()
-            request.predicate = NSPredicate(format: "url == %@", recipe.url)
+            request.predicate = NSPredicate(format: "url == %@", recipe.urlValue)
             do {
                 guard let _ = try mainContext.fetch(request).first else {
                     completion(false)
@@ -112,12 +110,6 @@ class DataController: ObservableObject {
                     completionHandler(nil)
                 }
             }
-        }
-    }
-    
-    func hasFavorites(_ completion: (Bool) -> Void) {
-        fetchFavorites { list in
-            completion(list.isEmpty == false)
         }
     }
 }

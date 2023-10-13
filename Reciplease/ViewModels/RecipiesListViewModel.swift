@@ -51,8 +51,6 @@ class RecipiesListViewModel: ObservableObject {
 
         dataController.fetchFavorites { favorites in
             self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
-            //self.favorites = favorites
-            print("favoris: ", self.recipesViewModel.count)
         } 
     }
 }

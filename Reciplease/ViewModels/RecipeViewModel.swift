@@ -17,7 +17,6 @@ class RecipeViewModel: ObservableObject {
     
     let recipe: any RecipeProtocol
     
-    
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController
         self.recipe = recipe
@@ -59,12 +58,12 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-    func removeFavorite(recipe: Recipe) {
+    func removeFavorite(recipe: any RecipeProtocol) {
         defer {
             checkIfRecipeIsFavorite()
         }
         
-        dataController.fetchFavorite(url: recipe.url) { recipe in
+        dataController.fetchFavorite(url: recipe.urlValue) { recipe in
             guard let recipe = recipe else { return }
             
             do {
@@ -77,7 +76,7 @@ class RecipeViewModel: ObservableObject {
     }
     
     func checkIfRecipeIsFavorite() {
-        dataController.isFavorite(recipe: recipe as! Recipe ) { favorite in
+        dataController.isFavorite(recipe: recipe ) { favorite in
             guard let favorite = favorite else {
                 return
             }
@@ -88,13 +87,4 @@ class RecipeViewModel: ObservableObject {
             }
         }
     }
-    /*
-    func fetchFavorites() {
-        dataController.fetchFavorites { favorites in
-            self.favorites = favorites
-            
-            print("favoris: ", favorites.count)
-        }
-    }
-    */
 }

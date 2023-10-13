@@ -15,7 +15,7 @@ struct FavoritesView: View {
             ZStack {
                 Color("CustomBackgroundColor").ignoresSafeArea()
                 if favoriteViewModel.favorites.isEmpty {
-//                if favoriteViewModel. {
+                    let _ = print("coucou")
                     Text("You don't have favorite recipe for the moment")
                         .font(.headline)
                         .fontWeight(.medium)
@@ -26,9 +26,8 @@ struct FavoritesView: View {
                     RecipiesListView(recipiesListViewModel: favoriteViewModel.recipiesListViewModel)
                 }
             }
-            .onAppear {
-                favoriteViewModel.fetchFavorites()
-            }
+        }.onAppear {
+            favoriteViewModel.fetchFavorites()
         }
     }
 }

@@ -21,7 +21,7 @@ struct RecipeDetailsView: View {
             Color("CustomBackgroundColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    if recipeViewModel.isFavorite {
+                    if recipeViewModel.recipe is FavRecipe {
                         Image(uiImage: UIImage(data: recipeViewModel.storedImage) ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -106,7 +106,7 @@ struct RecipeDetailsView: View {
                 ToolbarItem(placement: .automatic){
                     Button(action: {
                         if recipeViewModel.isFavorite {
-                            recipeViewModel.removeFavorite(recipe: recipeViewModel.recipe as! Recipe)
+                            recipeViewModel.removeFavorite(recipe: recipeViewModel.recipe)
                             if recipeViewModel.isComingFromFavoriteList {
                                 dismiss()
                             }
