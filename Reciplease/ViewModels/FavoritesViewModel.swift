@@ -8,11 +8,12 @@
 import Foundation
 
 class FavoriteViewModel: ObservableObject {
+    @Published var recipesViewModel = [RecipeViewModel]()
+    @Published var noFavorites = false
     
-    @Published var hasFavorites: Bool = false
+    var favorites = [FavRecipe]()
     
     private var dataController: DataController
-    var favorites = [FavRecipe]()
     
     var recipiesListViewModel: RecipiesListViewModel {
         return RecipiesListViewModel(dataController)
@@ -20,13 +21,13 @@ class FavoriteViewModel: ObservableObject {
     
     init(dataController: DataController = .shared) {
         self.dataController = dataController
-        fetchFavorites()
+//        fetchFavorites()
     }
     
     func fetchFavorites() {
         dataController.fetchFavorites { favorites in
-            self.favorites = favorites
-            print(favorites)
+            self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
+            print("else", recipesViewModel.count)
         }
     }
 }

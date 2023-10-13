@@ -18,7 +18,7 @@ struct RecipeCardView: View {
     var body: some View {
         ZStack {
             if recipeViewModel.recipe is FavRecipe{
-                Image(uiImage: UIImage(data: recipeViewModel.storedImage) ?? UIImage())
+                Image(uiImage: (UIImage(data: recipeViewModel.storedImage) ?? UIImage(systemName: "photo"))!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipped()

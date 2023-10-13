@@ -11,21 +11,32 @@ struct FavoritesView: View {
     @StateObject var favoriteViewModel = FavoriteViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color("CustomBackgroundColor").ignoresSafeArea()
-                if favoriteViewModel.favorites.isEmpty {
-                    let _ = print("coucou")
-                    Text("You don't have favorite recipe for the moment")
+                if favoriteViewModel.recipesViewModel.isEmpty {
+                    Text("You don't have any favorite recipes at the moment")
                         .font(.headline)
                         .fontWeight(.medium)
                         .opacity(0.7)
                         .multilineTextAlignment(.center)
                         .padding()
                 } else {
-                    RecipiesListView(recipiesListViewModel: favoriteViewModel.recipiesListViewModel)
+                    ScrollView{
+                        VStack(spacing: 15) {
+                            ForEach(favoriteViewModel.recipesViewModel, id: \.url) { item in
+                                NavigationLink(destination: RecipeDetailsView(item)) {
+                                    RecipeCardView(item)
+                                }
+                            }
+                            .padding(.top)
+                        }
+                        .padding(.horizontal)
+                    }
                 }
             }
+            .navigationTitle("Favorites")
+            .navigationBarTitleDisplayMode(.inline)
         }.onAppear {
             favoriteViewModel.fetchFavorites()
         }

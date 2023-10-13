@@ -15,7 +15,7 @@ class RecipeViewModel: ObservableObject {
     
     var dataController: DataController
     
-    let recipe: any RecipeProtocol
+    var recipe: any RecipeProtocol
     
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController

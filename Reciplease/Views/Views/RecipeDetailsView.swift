@@ -113,6 +113,7 @@ struct RecipeDetailsView: View {
                             
                         } else{
                             recipeViewModel.addFavorite(recipe: recipeViewModel.recipe as! Recipe)
+                            
                         }
                     }, label: {
                         Image(systemName: recipeViewModel.isFavorite ? "heart.fill" : "heart")
