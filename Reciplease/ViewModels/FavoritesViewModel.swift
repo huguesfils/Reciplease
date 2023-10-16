@@ -27,7 +27,6 @@ class FavoriteViewModel: ObservableObject {
     func fetchFavorites() {
         dataController.fetchFavorites { favorites in
             self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
-            print("else", recipesViewModel.count)
         }
     }
 }

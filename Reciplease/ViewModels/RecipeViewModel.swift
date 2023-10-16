@@ -17,11 +17,14 @@ class RecipeViewModel: ObservableObject {
     
     var recipe: any RecipeProtocol
     
+   
+    
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController
         self.recipe = recipe
         self.isComingFromFavoriteList = self.recipe is FavRecipe
     }
+    
     
     var id: String {
         return recipe.urlValue

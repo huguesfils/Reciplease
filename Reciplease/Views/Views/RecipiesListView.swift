@@ -16,9 +16,13 @@ struct RecipiesListView: View {
             ScrollView{
                 VStack(spacing: 15) {
                     ForEach(recipiesListViewModel.recipesViewModel, id: \.url) { item in
-                        NavigationLink(destination: RecipeDetailsView(item)) {
-                            RecipeCardView(item)
-                        }
+                        NavigationLink(destination:
+                                        RecipeDetailsView(item)
+                            .onDisappear {
+                                recipiesListViewModel.refreshData()
+                            }) {
+                                RecipeCardView(item)
+                            }
                     }
                     .padding(.top)
                 }
