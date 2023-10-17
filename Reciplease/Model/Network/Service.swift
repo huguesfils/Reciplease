@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 class Service {
+    
     var recipes = [Recipe]()
     
     enum Cases {
