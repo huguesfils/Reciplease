@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ApiResponse: Decodable {
+struct ApiResponse: Codable {
     let hits: [Hit]
     let links: Links
     
@@ -18,11 +18,11 @@ struct ApiResponse: Decodable {
     }
 }
 
-struct Hit: Decodable {
+struct Hit: Codable {
     let recipe: Recipe
 }
 
-struct Recipe: Decodable {
+struct Recipe: Codable {
     let label: String
     let image: String
     let ingredientLines: [String]
@@ -31,15 +31,15 @@ struct Recipe: Decodable {
     let url: String
 }
 
-struct Ingredient: Decodable {
+struct Ingredient: Codable {
     let food: String
 }
 
-struct Links: Decodable {
+struct Links: Codable {
     let next: Next?
 }
 
-struct Next: Decodable {
+struct Next: Codable {
     let href: String?
 }
 

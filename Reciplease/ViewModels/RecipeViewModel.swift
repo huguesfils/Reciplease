@@ -12,19 +12,15 @@ class RecipeViewModel: ObservableObject {
     @Published var isFavorite = Bool()
     
     var isComingFromFavoriteList: Bool
-    
-    var dataController: DataController
-    
     var recipe: any RecipeProtocol
     
-   
-    
+    private var dataController: DataController
+
     init(dataController: DataController = .shared, recipe: any RecipeProtocol) {
         self.dataController = dataController
         self.recipe = recipe
         self.isComingFromFavoriteList = self.recipe is FavRecipe
     }
-    
     
     var id: String {
         return recipe.urlValue
@@ -61,7 +57,7 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-    func removeFavorite(recipe: any RecipeProtocol) {
+    func removeFavorite() {
         defer {
             checkIfRecipeIsFavorite()
         }

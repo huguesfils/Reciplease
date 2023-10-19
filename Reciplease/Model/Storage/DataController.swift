@@ -35,7 +35,6 @@ class DataController: ObservableObject {
                 completionHandler()
             } catch let error{
                 print("Error adding recipe to favorites: \(error.localizedDescription)")
-                // throw error
             }
         }
     }
@@ -46,7 +45,6 @@ class DataController: ObservableObject {
                 try mainContext.save()
             } catch let error{
                 print("Error deleting recipe from favorites: \(error.localizedDescription)")
-//                throw error
         }
     }
     
@@ -70,7 +68,9 @@ class DataController: ObservableObject {
                     completion(nil)
                     return
                 }
+                
                 completion(recipe)
+                
             } catch let error{
                 print("Error fetching favorite: \(error.localizedDescription)")
             }
@@ -103,8 +103,6 @@ class DataController: ObservableObject {
                     completionHandler(data)
                 }
             } catch let error{
-//                self.errorCoreData = error.localizedDescription
-//                self.hasError = true
                 print("Error in download of image \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completionHandler(nil)

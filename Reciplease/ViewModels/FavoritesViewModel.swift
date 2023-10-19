@@ -21,7 +21,6 @@ class FavoriteViewModel: ObservableObject {
     
     init(dataController: DataController = .shared) {
         self.dataController = dataController
-//        fetchFavorites()
     }
     
     func fetchFavorites() {

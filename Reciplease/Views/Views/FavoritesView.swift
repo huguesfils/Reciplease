@@ -25,11 +25,7 @@ struct FavoritesView: View {
                     ScrollView{
                         VStack(spacing: 15) {
                             ForEach(favoriteViewModel.recipesViewModel, id: \.url) { item in
-                                NavigationLink(destination:
-                                                RecipeDetailsView(item)
-                                    .onDisappear {
-                                        favoriteViewModel.fetchFavorites()
-                                    }) {
+                                NavigationLink(destination: RecipeDetailsView(item)) {
                                         RecipeCardView(item)
                                     }
                             }
@@ -41,8 +37,9 @@ struct FavoritesView: View {
             }
             .navigationTitle("Favorites")
             .navigationBarTitleDisplayMode(.inline)
-        }.onAppear {
-            favoriteViewModel.fetchFavorites()
+            .onAppear {
+                favoriteViewModel.fetchFavorites()
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ struct RecipeDetailsView: View {
             Color("CustomBackgroundColor").ignoresSafeArea()
             ScrollView{
                 VStack{
-                    if recipeViewModel.recipe is FavRecipe {
+                    if recipeViewModel.isComingFromFavoriteList {
                         Image(uiImage: UIImage(data: recipeViewModel.storedImage) ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -95,22 +95,16 @@ struct RecipeDetailsView: View {
                 }
                 .padding(.horizontal)
             }
-            //                      .alert("Error", isPresented: $recipeViewModel.dataController.hasError) {
-            //                          Button("Dismiss") { }
-            //                      } message: {
-            //                          Text(recipeViewModel.dataController.errorCoreData)
-            //                      }
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .automatic){
                     Button(action: {
                         if recipeViewModel.isFavorite {
-                            recipeViewModel.removeFavorite(recipe: recipeViewModel.recipe)
+                            recipeViewModel.removeFavorite()
                             if recipeViewModel.isComingFromFavoriteList {
                                 dismiss()
                             }
-                            
                         } else{
                             recipeViewModel.addFavorite(recipe: recipeViewModel.recipe as! Recipe)
                             

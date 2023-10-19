@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Alamofire
 
 class RecipiesListViewModel: ObservableObject {
     @Published var isLoading = Bool()
     @Published var recipesViewModel = [RecipeViewModel]()
 
     private var ingredients: [String]?
-    private let service = Service()
+    private let service = Service(manager: Session.default)
     private var dataController: DataController?
     
     init(_ ingredients: [String]) {

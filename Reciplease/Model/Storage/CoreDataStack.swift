@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
-        static let shared = CoreDataStack()
+    static let shared = CoreDataStack()
     
     let persistentContainer: NSPersistentContainer
     let mainContext: NSManagedObjectContext

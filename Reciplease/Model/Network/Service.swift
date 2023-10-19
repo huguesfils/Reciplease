@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class Service {
-    
+    private let manager: Session
     var recipes = [Recipe]()
     
     enum Cases {
@@ -20,13 +20,12 @@ class Service {
         case Success
     }
     
+    init(manager: Session) {
+        self.manager = manager
+    }
+    
     func loadData(ingredients: [String], callback: @escaping ([Recipe]?, Next?, Cases) -> Void) {
-        guard let url = URL(string: "https://api.edamam.com/api/recipes/v2")
-        else {
-            print("Invalid URL")
-            callback(nil, nil, .BadUrlForRequest)
-            return
-        }
+        let url = "https://api.edamam.com/api/recipes/v2"
         
         let parameters: Parameters = [
             "app_key": ApiData.api_key,
@@ -37,7 +36,8 @@ class Service {
             "field": ["label", "image", "ingredientLines", "ingredients", "totalTime", "url"]
             
         ]
-        AF.request(url, method: .get, parameters: parameters).responseDecodable(of: ApiResponse.self) { [weak self] response in
+        
+        manager.request(url, method: .get, parameters: parameters).responseDecodable(of: ApiResponse.self) { [weak self] response in
             guard response.error == nil else {
                 callback(nil, nil, .WrongDataReceived)
                 return
