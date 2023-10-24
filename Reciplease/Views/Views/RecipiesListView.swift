@@ -13,20 +13,30 @@ struct RecipiesListView: View {
     var body: some View {
         ZStack {
             Color("CustomBackgroundColor").ignoresSafeArea()
-            ScrollView{
-                VStack(spacing: 15) {
-                    ForEach(recipiesListViewModel.recipesViewModel, id: \.url) { item in
-                        NavigationLink(destination:
-                                        RecipeDetailsView(item)
-                            .onDisappear {
-                                recipiesListViewModel.refreshData()
-                            }) {
-                                RecipeCardView(item)
-                            }
+            
+                if recipiesListViewModel.recipesViewModel.isEmpty {
+                    Text("Sorry, no recipe found")
+                        .font(.headline)
+                        .fontWeight(.medium)
+                        .opacity(0.7)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }else {
+                    ScrollView{
+                    VStack(spacing: 15) {
+                        ForEach(recipiesListViewModel.recipesViewModel, id: \.url) { item in
+                            NavigationLink(destination:
+                                            RecipeDetailsView(item)
+                                .onDisappear {
+                                    recipiesListViewModel.refreshData()
+                                }) {
+                                    RecipeCardView(item)
+                                }
+                        }
+                        .padding(.top)
                     }
-                    .padding(.top)
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
         .navigationTitle("Recipes")
