@@ -9,7 +9,6 @@ import Foundation
 
 class FavoriteViewModel: ObservableObject {
     @Published var recipesViewModel = [RecipeViewModel]()
-    @Published var noFavorites = false
     
     var favorites = [FavRecipe]()
     

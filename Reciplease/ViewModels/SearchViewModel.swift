@@ -8,7 +8,6 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    
     @Published var ingredients = [String]()
     @Published var searchInput = ""
     
