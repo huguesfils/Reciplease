@@ -13,7 +13,6 @@ struct RecipiesListView: View {
     var body: some View {
         ZStack {
             Color("CustomBackgroundColor").ignoresSafeArea()
-            
                 if recipiesListViewModel.recipesViewModel.isEmpty {
                     Text("Sorry, no recipe found")
                         .font(.headline)
