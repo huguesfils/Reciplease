@@ -9,49 +9,48 @@ import Foundation
 import Alamofire
 
 class RecipiesListViewModel: ObservableObject {
-    @Published var isLoading = Bool()
+    @Published var isLoading = false
     @Published var recipesViewModel = [RecipeViewModel]()
 
     private var ingredients: [String]?
     private let service = Service(manager: Session.default)
     private var dataController: DataController?
-    
+
     init(_ ingredients: [String]) {
         self.ingredients = ingredients
-        service.loadData(ingredients: ingredients) { recipes, nextPage, cases in
-            switch cases {
-            case .Success:
-                guard let recipes = recipes else { return }
-                self.isLoading = false
-                self.recipesViewModel = recipes.map { RecipeViewModel(recipe: $0) }
-            case .WrongDataReceived:
-                print("WrongDataReceived")
-                return
-            case .BadUrlForRequest:
-                print("BadUrlForRequest")
-                return
-            case .HttpStatusCodeError:
-                print("HttpStatusCodeError")
-                return
-            case .Empty:
-                print("Empty")
-                return
-            }
-        }
+        loadData()
     }
-    
+
     init(_ dataControler: DataController) {
         self.dataController = dataControler
         refreshData()
     }
-    
+
+    func loadData() {
+        isLoading = true // Indicate loading starts
+        service.loadData(ingredients: ingredients!) { recipes, nextPage, cases in
+            DispatchQueue.main.async {
+                self.isLoading = false // Indicate loading ends
+                switch cases {
+                case .Success:
+                    guard let recipes = recipes else { return }
+                    self.recipesViewModel = recipes.map { RecipeViewModel(recipe: $0) }
+                case .WrongDataReceived, .BadUrlForRequest, .HttpStatusCodeError, .Empty:
+                    print("Error loading recipes: \(cases)")
+                }
+            }
+        }
+    }
+
     func refreshData() {
         guard let dataController = self.dataController else {
             return
         }
 
         dataController.fetchFavorites { favorites in
-            self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
-        } 
+            DispatchQueue.main.async {
+                self.recipesViewModel = favorites.map { RecipeViewModel(recipe: $0) }
+            }
+        }
     }
 }

@@ -8,21 +8,33 @@
 import Foundation
 
 class SearchViewModel: ObservableObject {
-    @Published var ingredients = [String]()
+    @Published var ingredients: [Ingredient] = []
+
     @Published var searchInput = ""
-    
+
+    struct Ingredient: Identifiable {
+        let id: UUID = UUID()
+        let name: String
+    }
+
     func addIngredient() {
-        let newIngredient = searchInput.lowercased()
-        if (searchInput != "" && !ingredients.contains(newIngredient)) {
-            ingredients.insert(newIngredient, at: 0)
+        let newIngredient = searchInput.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if (searchInput != "" && !ingredients.contains(where: {$0.name == newIngredient})) {
+            let ingredient = Ingredient(name: newIngredient)
+            ingredients.insert(ingredient, at: 0)
         }
     }
-    
+
+    func removeIngredient(id: UUID) {
+        ingredients.removeAll { $0.id == id }
+    }
+
     func clearIngredients() {
         ingredients.removeAll()
     }
-    
+
     func toRecipeListViewModel() -> RecipiesListViewModel {
-        return RecipiesListViewModel(ingredients)
+        let ingredientNames = ingredients.map { $0.name }
+        return RecipiesListViewModel(ingredientNames)
     }
 }

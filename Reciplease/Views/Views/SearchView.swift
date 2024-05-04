@@ -15,7 +15,7 @@ struct SearchView: View {
         NavigationStack(path: $navPath) {
             List {
                 VStack(alignment: .leading) {
-                    Text("What's in your fridge ?")
+                    Text("What's in your fridge?")
                         .font(.title)
                         .bold()
                     HStack {
@@ -25,9 +25,8 @@ struct SearchView: View {
                                 UITextField.appearance().clearButtonMode = .whileEditing
                             }
                             .onSubmit(addIngredient)
-                        Button(action: addIngredient){
+                        Button(action: addIngredient) {
                             Text("Add")
-                                .frame(width: 40)
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(Color("CustomButtonColor"))
@@ -41,26 +40,27 @@ struct SearchView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         if !searchViewModel.ingredients.isEmpty {
-                            Button(action: clearIngredient){
+                            Button(action: clearIngredient) {
                                 Text("Clear")
-                                    .frame(width: 40)
                             }
                             .buttonStyle(.bordered)
                             .tint(.gray)
                         }
                     }
                     if !searchViewModel.ingredients.isEmpty {
-                        VStack(alignment: .leading, spacing: 10){
-                            ForEach(searchViewModel.ingredients, id: \.self) { ingredient in
-                                HStack{
-                                    Image(systemName: "checkmark").foregroundColor(Color("CustomButtonColor"))
-                                    Text("\(ingredient)")
-                                    
+                        ForEach(searchViewModel.ingredients) { ingredient in
+                            HStack {
+                                Image(systemName: "checkmark").foregroundColor(Color("CustomButtonColor"))
+                                Text("\(ingredient.name)")
+                                Spacer()
+                                Button(action: {
+                                    removeIngredient(ingredient.id)
+                                }) {
+                                    Image(systemName: "minus.circle.fill").foregroundColor(.red)
                                 }
-                                .accessibilityElement(children: .combine)
-                                .accessibilityLabel(ingredient)
-                                
                             }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(ingredient.name)
                         }
                     }
                 }
@@ -97,7 +97,14 @@ struct SearchView: View {
             searchViewModel.clearIngredients()
         }
     }
+    
+    private func removeIngredient(_ id: UUID) {
+        withAnimation {
+            searchViewModel.removeIngredient(id: id)
+        }
+    }
 }
+
 
 #Preview {
     SearchView()
