@@ -13,7 +13,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchInput = ""
 
     struct Ingredient: Identifiable {
-        let id: UUID = UUID()
+        let id = UUID()
         let name: String
     }
 

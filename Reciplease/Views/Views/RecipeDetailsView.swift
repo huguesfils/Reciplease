@@ -99,6 +99,7 @@ struct RecipeDetailsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .automatic){
+                    
                     Button(action: {
                         if recipeViewModel.isFavorite {
                             recipeViewModel.removeFavorite()
